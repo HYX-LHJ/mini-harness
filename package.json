@@ -35,7 +35,8 @@
     "agent-harness/",
     "docs/",
     "LICENSE",
-    "README.md"
+    "README.md",
+    "README.zh-CN.md"
   ],
   "skills": {
     "agent-harness": {

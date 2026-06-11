@@ -1,8 +1,6 @@
 # agent-harness
 
-Portable Agent Skill for [round-harness](../README.md).
-
-**Languages:** [English](#english) · [中文](#中文)
+Portable Agent Skill for [round-harness](../README.md) · [中文 README](../README.zh-CN.md)
 
 ---
 

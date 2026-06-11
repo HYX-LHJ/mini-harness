@@ -65,6 +65,7 @@ python agent-harness/scripts/init_harness.py --root /tmp/harness-test --dry-run
 | `agent-harness/templates/` | Placeholders: `{{PROJECT_NAME}}`, etc. |
 | `agent-harness/scripts/init_harness.py` | Update `REQUIRED_PATHS` when templates change |
 | `docs/installation.md` | Canonical multi-tool install guide |
+| `README.md` / `README.zh-CN.md` | English and Chinese READMEs (keep in sync) |
 | `docs/*.md` | Bilingual: English + 中文 sections |
 
 ### Reporting issues
@@ -141,6 +142,7 @@ python agent-harness/scripts/init_harness.py --root /tmp/harness-test --dry-run
 | `agent-harness/templates/` | 占位符 `{{PROJECT_NAME}}` 等 |
 | `agent-harness/scripts/init_harness.py` | 模板变更时同步 `REQUIRED_PATHS` |
 | `docs/installation.md` | 多工具安装 canonical 文档 |
+| `README.md` / `README.zh-CN.md` | 中英文 README（保持同步） |
 | `docs/*.md` | 中英双语：English + 中文 分区 |
 
 ### Issue 报告
