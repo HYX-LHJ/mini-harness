@@ -1,18 +1,18 @@
-# Installation
+﻿# Installation
 
 ### Supported tools
 
-`agent-harness-en` is a **portable Agent Skill** — not tied to a single IDE. It works anywhere that loads a `SKILL.md` directory:
+`mini-harness-en` is a **portable Agent Skill** — not tied to a single IDE. It works anywhere that loads a `SKILL.md` directory:
 
 | Tool | Personal (global) | Project (repo-shared) | Notes |
 |------|-------------------|----------------------|-------|
-| **[Cursor](https://cursor.com/)** | `~/.cursor/skills/agent-harness-en/` | `<repo>/.cursor/skills/agent-harness-en/` | Do **not** use `~/.cursor/skills-cursor/` (built-in skills) |
-| **[Codex](https://github.com/openai/codex)** | `$CODEX_HOME/skills/agent-harness-en/` | — | Default `$CODEX_HOME` is `~/.codex`; **restart Codex** after install |
-| **[Claude Code](https://docs.anthropic.com/en/docs/claude-code)** | `~/.claude/skills/agent-harness-en/` | `<repo>/.claude/skills/agent-harness-en/` | Claude Code resolves `.claude/skills/` at the **git repo root** |
-| **Universal / cross-agent** | `~/.agents/skills/agent-harness-en/` | `<repo>/.agents/skills/agent-harness-en/` | Shared convention across multiple agent tools |
+| **[Cursor](https://cursor.com/)** | `~/.cursor/skills/mini-harness-en/` | `<repo>/.cursor/skills/mini-harness-en/` | Do **not** use `~/.cursor/skills-cursor/` (built-in skills) |
+| **[Codex](https://github.com/openai/codex)** | `$CODEX_HOME/skills/mini-harness-en/` | — | Default `$CODEX_HOME` is `~/.codex`; **restart Codex** after install |
+| **[Claude Code](https://docs.anthropic.com/en/docs/claude-code)** | `~/.claude/skills/mini-harness-en/` | `<repo>/.claude/skills/mini-harness-en/` | Claude Code resolves `.claude/skills/` at the **git repo root** |
+| **Universal / cross-agent** | `~/.agents/skills/mini-harness-en/` | `<repo>/.agents/skills/mini-harness-en/` | Shared convention across multiple agent tools |
 | **Skills CLI** | see below | see below | Open ecosystem installer — [skills.sh](https://skills.sh/) |
 
-> **Generic rule:** copy the entire `agent-harness-en/` folder (must include `SKILL.md`) into your tool's skill directory. If your tool has no standard path, point it at this folder or add `SKILL.md` to your agent's context manually.
+> **Generic rule:** copy the entire `mini-harness-en/` folder (must include `SKILL.md`) into your tool's skill directory. If your tool has no standard path, point it at this folder or add `SKILL.md` to your agent's context manually.
 
 ### Method 1 — Skills CLI (recommended for universal install)
 
@@ -23,13 +23,13 @@ Requires [Node.js](https://nodejs.org/) (`npx`):
 npx skills add HYX-LHJ/mini-harness --list
 
 # Global (user-level)
-npx skills add HYX-LHJ/mini-harness --skill agent-harness-en -g -y
+npx skills add HYX-LHJ/mini-harness --skill mini-harness-en -g -y
 
 # Project-level (committed with the repo)
-npx skills add HYX-LHJ/mini-harness --skill agent-harness-en -y
+npx skills add HYX-LHJ/mini-harness --skill mini-harness-en -y
 
 # Target Cursor + Claude Code + Codex
-npx skills add HYX-LHJ/mini-harness --skill agent-harness-en -a cursor -a claude-code -a codex -g -y
+npx skills add HYX-LHJ/mini-harness --skill mini-harness-en -a cursor -a claude-code -a codex -g -y
 ```
 
 Browse skills at [skills.sh](https://skills.sh/). Full guide: [skills-cli.md](skills-cli.md).
@@ -40,31 +40,31 @@ Browse skills at [skills.sh](https://skills.sh/). Full guide: [skills-cli.md](sk
 git clone https://github.com/HYX-LHJ/mini-harness.git
 ```
 
-Then copy `mini-harness/agent-harness-en/` to the path for your tool (see table above).
+Then copy `mini-harness/mini-harness-en/` to the path for your tool (see table above).
 
 **Windows (PowerShell) — Cursor personal:**
 
 ```powershell
-Copy-Item -Recurse mini-harness\agent-harness-en $env:USERPROFILE\.cursor\skills\agent-harness-en
+Copy-Item -Recurse mini-harness\mini-harness-en $env:USERPROFILE\.cursor\skills\mini-harness-en
 ```
 
 **macOS / Linux — Claude Code personal:**
 
 ```bash
-cp -r mini-harness/agent-harness-en ~/.claude/skills/agent-harness-en
+cp -r mini-harness/mini-harness-en ~/.claude/skills/mini-harness-en
 ```
 
 **macOS / Linux — Codex:**
 
 ```bash
-cp -r mini-harness/agent-harness-en "${CODEX_HOME:-$HOME/.codex}/skills/agent-harness-en"
+cp -r mini-harness/mini-harness-en "${CODEX_HOME:-$HOME/.codex}/skills/mini-harness-en"
 ```
 
 ### Method 3 — Symlink (developers)
 
 ```bash
 # Example: universal cross-agent path
-ln -s "$(pwd)/mini-harness/agent-harness-en" ~/.agents/skills/agent-harness-en
+ln -s "$(pwd)/mini-harness/mini-harness-en" ~/.agents/skills/mini-harness-en
 ```
 
 ### Method 4 — Vendor into your repo
@@ -73,9 +73,9 @@ Commit the skill inside your project so the whole team shares it:
 
 ```text
 your-repo/
-├── .cursor/skills/agent-harness-en/    # Cursor
-├── .claude/skills/agent-harness-en/    # Claude Code
-└── .agents/skills/agent-harness-en/    # Universal
+├── .cursor/skills/mini-harness-en/    # Cursor
+├── .claude/skills/mini-harness-en/    # Claude Code
+└── .agents/skills/mini-harness-en/    # Universal
 ```
 
 You only need **one** of these paths depending on which tools your team uses.
@@ -83,8 +83,8 @@ You only need **one** of these paths depending on which tools your team uses.
 ### Verify installation
 
 1. Restart your agent tool (or reload skills).
-2. Ask the agent: *"List available skills"* or *"Do you have agent-harness-en?"*
-3. In a target repo, say: **"Use agent-harness-en to create harness in this repository"**
+2. Ask the agent: *"List available skills"* or *"Do you have mini-harness-en?"*
+3. In a target repo, say: **"Use mini-harness-en to create harness in this repository"**
 
 ### Tool-specific notes
 
@@ -126,4 +126,4 @@ A cross-tool convention: many agents that support the open skill format will sca
 | `code-review-expert` | Subagent code review |
 | `code-simplifier` | Pre-commit simplification |
 
-Install companion skills to the **same tool-specific path** as `agent-harness-en`.
+Install companion skills to the **same tool-specific path** as `mini-harness-en`.

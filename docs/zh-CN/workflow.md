@@ -37,7 +37,7 @@
 
 仅 harness/文档变更可跳过精炼与二次审查。
 
-清单：[agent-harness-zh/references/commit-workflow.md](../../agent-harness-zh/references/commit-workflow.md)
+清单：[mini-harness-zh/references/commit-workflow.md](../../mini-harness-zh/references/commit-workflow.md)
 
 ### Skill 触发
 
@@ -58,7 +58,7 @@
 - 用户要求先讨论方案
 - 预估 > 1 个工作日
 
-细则：[agent-harness-zh/references/plan-mode.md](../../agent-harness-zh/references/plan-mode.md)
+细则：[mini-harness-zh/references/plan-mode.md](../../mini-harness-zh/references/plan-mode.md)
 
 ### 流程图
 

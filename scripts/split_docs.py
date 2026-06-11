@@ -1,4 +1,4 @@
-"""Split bilingual docs/*.md into docs/en/ and docs/zh-CN/."""
+﻿"""Split bilingual docs/*.md into docs/en/ and docs/zh-CN/."""
 from __future__ import annotations
 
 import re
@@ -16,20 +16,20 @@ TITLE_MAP = {
 }
 
 EN_REPL = [
-    ("agent-harness/", "agent-harness-en/"),
-    ("--skill agent-harness", "--skill agent-harness-en"),
-    ("../agent-harness/", "../agent-harness-en/"),
-    ("skills/agent-harness/", "skills/agent-harness-en/"),
-    ("agent-harness@", "agent-harness-en@"),
-    ("agent-harness?", "agent-harness-en?"),
+    ("agent-harness/", "mini-harness-en/"),
+    ("--skill agent-harness", "--skill mini-harness-en"),
+    ("../agent-harness/", "../mini-harness-en/"),
+    ("skills/agent-harness/", "skills/mini-harness-en/"),
+    ("agent-harness@", "mini-harness-en@"),
+    ("agent-harness?", "mini-harness-en?"),
 ]
 
 ZH_REPL = [
-    ("agent-harness/", "agent-harness-zh/"),
-    ("--skill agent-harness", "--skill agent-harness-zh"),
-    ("../agent-harness/", "../agent-harness-zh/"),
-    ("skills/agent-harness/", "skills/agent-harness-zh/"),
-    ("agent-harness@", "agent-harness-zh@"),
+    ("agent-harness/", "mini-harness-zh/"),
+    ("--skill agent-harness", "--skill mini-harness-zh"),
+    ("../agent-harness/", "../mini-harness-zh/"),
+    ("skills/agent-harness/", "skills/mini-harness-zh/"),
+    ("agent-harness@", "mini-harness-zh@"),
 ]
 
 

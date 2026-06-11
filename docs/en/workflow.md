@@ -37,7 +37,7 @@ Triggered by "commit", "push", etc. After regular wrap-up:
 
 Skip simplify + 2nd review if only harness/docs changed.
 
-Checklist: [agent-harness-en/references/commit-workflow.md](../../agent-harness-en/references/commit-workflow.md)
+Checklist: [mini-harness-en/references/commit-workflow.md](../../mini-harness-en/references/commit-workflow.md)
 
 ### Skill triggers
 
@@ -58,7 +58,7 @@ Enter Plan when **any** applies:
 - User asks to discuss plan first
 - Estimated > 1 day of work
 
-Details: [agent-harness-en/references/plan-mode.md](../../agent-harness-en/references/plan-mode.md)
+Details: [mini-harness-en/references/plan-mode.md](../../mini-harness-en/references/plan-mode.md)
 
 ### Flow diagram
 

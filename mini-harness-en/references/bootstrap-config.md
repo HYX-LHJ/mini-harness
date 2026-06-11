@@ -1,4 +1,4 @@
-# Post-bootstrap configuration
+﻿# Post-bootstrap configuration
 
 Agent steps for creating harness: [create-harness.md](create-harness.md).
 
@@ -55,19 +55,19 @@ Workflow: commit/push on `dev` → merge to `test` → push → return to `dev`.
 
 ## Install this Skill (multi-tool)
 
-Copy entire `agent-harness-en/` (including `SKILL.md`) to the matching path, or use Skills CLI:
+Copy entire `mini-harness-en/` (including `SKILL.md`) to the matching path, or use Skills CLI:
 
 ```bash
-npx skills add HYX-LHJ/mini-harness@agent-harness-en -g -y
+npx skills add HYX-LHJ/mini-harness@mini-harness-en -g -y
 ```
 
 | Tool | Personal path | Project path |
 |------|---------------|--------------|
-| **Cursor** | `~/.cursor/skills/agent-harness-en/` | `<repo>/.cursor/skills/agent-harness-en/` |
-| **Codex** | `$CODEX_HOME/skills/agent-harness-en/` | — |
-| **Claude Code** | `~/.claude/skills/agent-harness-en/` | `<repo>/.claude/skills/agent-harness-en/` |
-| **Universal** | `~/.agents/skills/agent-harness-en/` | `<repo>/.agents/skills/agent-harness-en/` |
+| **Cursor** | `~/.cursor/skills/mini-harness-en/` | `<repo>/.cursor/skills/mini-harness-en/` |
+| **Codex** | `$CODEX_HOME/skills/mini-harness-en/` | — |
+| **Claude Code** | `~/.claude/skills/mini-harness-en/` | `<repo>/.claude/skills/mini-harness-en/` |
+| **Universal** | `~/.agents/skills/mini-harness-en/` | `<repo>/.agents/skills/mini-harness-en/` |
 
 - Cursor: **do not** put in `~/.cursor/skills-cursor/`
 - Codex: **restart** after install
-- Full docs: [installation.md](installation.md) · [docs/installation.md](../../../docs/installation.md)
+- Full docs: [installation.md](installation.md) · [docs/en/installation.md](../../../docs/en/installation.md)

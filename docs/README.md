@@ -1,4 +1,4 @@
-# Documentation / 文档
+﻿# Documentation / 文档
 
 | English | 中文 |
 |---------|------|
@@ -12,5 +12,5 @@
 
 | Language | Package | Install |
 |----------|---------|---------|
-| English | [`agent-harness-en/`](../agent-harness-en/) | `npx skills add HYX-LHJ/mini-harness --skill agent-harness-en -g -y` |
-| 中文 | [`agent-harness-zh/`](../agent-harness-zh/) | `npx skills add HYX-LHJ/mini-harness --skill agent-harness-zh -g -y` |
+| English | [`mini-harness-en/`](../mini-harness-en/) | `npx skills add HYX-LHJ/mini-harness --skill mini-harness-en -g -y` |
+| 中文 | [`mini-harness-zh/`](../mini-harness-zh/) | `npx skills add HYX-LHJ/mini-harness --skill mini-harness-zh -g -y` |

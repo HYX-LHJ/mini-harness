@@ -1,4 +1,4 @@
-# Bootstrap 后可配置项
+﻿# Bootstrap 后可配置项
 
 创建 harness 的 Agent 步骤见 [create-harness.md](create-harness.md)。
 
@@ -55,19 +55,19 @@ pytest
 
 ## 安装本 Skill（多工具）
 
-复制整个 `agent-harness-zh/`（含 `SKILL.md`）到对应路径，或使用 Skills CLI：
+复制整个 `mini-harness-zh/`（含 `SKILL.md`）到对应路径，或使用 Skills CLI：
 
 ```bash
-npx skills add HYX-LHJ/mini-harness --skill agent-harness-zh -g -y
+npx skills add HYX-LHJ/mini-harness --skill mini-harness-zh -g -y
 ```
 
 | 工具 | 个人路径 | 项目路径 |
 |------|----------|----------|
-| **Cursor** | `~/.cursor/skills/agent-harness-zh/` | `<repo>/.cursor/skills/agent-harness-zh/` |
-| **Codex** | `$CODEX_HOME/skills/agent-harness-zh/` | — |
-| **Claude Code** | `~/.claude/skills/agent-harness-zh/` | `<repo>/.claude/skills/agent-harness-zh/` |
-| **通用** | `~/.agents/skills/agent-harness-zh/` | `<repo>/.agents/skills/agent-harness-zh/` |
+| **Cursor** | `~/.cursor/skills/mini-harness-zh/` | `<repo>/.cursor/skills/mini-harness-zh/` |
+| **Codex** | `$CODEX_HOME/skills/mini-harness-zh/` | — |
+| **Claude Code** | `~/.claude/skills/mini-harness-zh/` | `<repo>/.claude/skills/mini-harness-zh/` |
+| **通用** | `~/.agents/skills/mini-harness-zh/` | `<repo>/.agents/skills/mini-harness-zh/` |
 
 - Cursor：**勿**放入 `~/.cursor/skills-cursor/`
 - Codex：安装后**重启**
-- 完整说明：[installation.md](installation.md) · [docs/installation.md](../../../docs/installation.md)
+- 完整说明：[installation.md](installation.md) · [docs/zh-CN/installation.md](../../../docs/zh-CN/installation.md)

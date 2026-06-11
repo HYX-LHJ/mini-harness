@@ -1,4 +1,4 @@
-"""在目标仓库生成标准 agent-harness 工程。
+"""在目标仓库生成标准 mini-harness 工程。
 
 从 skill 包 ``templates/`` 与 ``bundled/scripts/`` 落盘完整目录树、门禁脚本、
 ``AGENTS.md``、``pytest.ini``。已存在文件默认跳过（``--force`` 覆盖）。

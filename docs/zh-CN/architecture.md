@@ -1,4 +1,4 @@
-# 架构说明
+﻿# 架构说明
 
 mini-harness 采用「**Skill 包 + 目标仓库 harness 工程**」两层架构：Skill 负责**一次性脚手架**，harness 目录负责**持续协作状态**。
 
@@ -7,7 +7,7 @@ mini-harness 采用「**Skill 包 + 目标仓库 harness 工程**」两层架构
 ```text
 mini-harness 仓库                     你的项目仓库
 ┌─────────────────────┐              ┌─────────────────────┐
-│ agent-harness-zh/      │  init 脚本   │ AGENTS.md           │
+│ mini-harness-zh/      │  init 脚本   │ AGENTS.md           │
 │  SKILL.md           │ ──────────►  │ pytest.ini          │
 │  templates/         │              │ harness/            │
 │  bundled/scripts/   │              │  todo、PROGRESS…    │
@@ -38,7 +38,7 @@ harness/
 └── sql/                  # 可选 DDL 文档
 ```
 
-细则：[agent-harness-zh/references/directory-layout.md](../../agent-harness-zh/references/directory-layout.md)
+细则：[mini-harness-zh/references/directory-layout.md](../../mini-harness-zh/references/directory-layout.md)
 
 ### 单一真相源
 

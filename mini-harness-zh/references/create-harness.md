@@ -1,26 +1,26 @@
-# 创建 harness — Agent 执行清单
+﻿# 创建 harness — Agent 执行清单
 
-他人安装 **agent-harness-zh** Skill 后，用**同一套 Agent 对话**即可在任意仓库生成标准 harness。本文是 Agent 逐步清单。
+他人安装 **mini-harness-zh** Skill 后，用**同一套 Agent 对话**即可在任意仓库生成标准 harness。本文是 Agent 逐步清单。
 
 ## 用户怎么说会触发
 
 - 「创建 harness」「初始化 harness」「搭建 agent 工程」
-- 「帮我装 agent-harness」「搭建协作目录」
+- 「帮我装 mini-harness」「搭建协作目录」
 
 ## Agent 必做步骤（按序，不得跳步）
 
 ### 1. 定位 skill 目录
 
-`SKILL_ROOT` = 本 Skill 安装路径（`agent-harness-zh/` 目录），因工具而异：
+`SKILL_ROOT` = 本 Skill 安装路径（`mini-harness-zh/` 目录），因工具而异：
 
 | 工具 | 个人路径 | 项目路径 |
 |------|----------|----------|
-| Cursor | `~/.cursor/skills/agent-harness-zh/` | `<repo>/.cursor/skills/agent-harness-zh/` |
-| Codex | `$CODEX_HOME/skills/agent-harness-zh/` | — |
-| Claude Code | `~/.claude/skills/agent-harness-zh/` | `<repo>/.claude/skills/agent-harness-zh/` |
-| 通用 | `~/.agents/skills/agent-harness-zh/` | `<repo>/.agents/skills/agent-harness-zh/` |
+| Cursor | `~/.cursor/skills/mini-harness-zh/` | `<repo>/.cursor/skills/mini-harness-zh/` |
+| Codex | `$CODEX_HOME/skills/mini-harness-zh/` | — |
+| Claude Code | `~/.claude/skills/mini-harness-zh/` | `<repo>/.claude/skills/mini-harness-zh/` |
+| 通用 | `~/.agents/skills/mini-harness-zh/` | `<repo>/.agents/skills/mini-harness-zh/` |
 
-或通过 Skills CLI：`npx skills add HYX-LHJ/mini-harness --skill agent-harness-zh`
+或通过 Skills CLI：`npx skills add HYX-LHJ/mini-harness --skill mini-harness-zh`
 
 脚本路径：`<SKILL_ROOT>/scripts/init_harness.py`
 

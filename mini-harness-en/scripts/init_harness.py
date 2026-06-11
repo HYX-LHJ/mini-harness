@@ -1,4 +1,4 @@
-"""Scaffold a standard agent-harness workspace in a target repository.
+"""Scaffold a standard mini-harness workspace in a target repository.
 
 Materializes the full directory tree, gate scripts, ``AGENTS.md``, and ``pytest.ini``
 from the skill package ``templates/`` and ``bundled/scripts/``. Existing files are

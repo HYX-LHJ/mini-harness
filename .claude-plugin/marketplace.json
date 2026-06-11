@@ -1,4 +1,4 @@
-{
+﻿{
   "metadata": {
     "pluginRoot": "."
   },
@@ -7,7 +7,7 @@
       "name": "mini-harness",
       "description": "Lightweight Agent Skills to scaffold mini collaboration harness (harness/, AGENTS.md) — Chinese and English packages.",
       "source": ".",
-      "skills": ["./agent-harness-zh", "./agent-harness-en"]
+      "skills": ["./mini-harness-zh", "./mini-harness-en"]
     }
   ]
 }

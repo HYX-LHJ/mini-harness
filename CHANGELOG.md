@@ -1,4 +1,4 @@
-# Changelog
+﻿# Changelog
 
 All notable changes to this project will be documented in this file.
 
@@ -10,9 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Renamed project from `round-harness` to `mini-harness` to emphasize lightweight harness scaffolding
-- Split into two Skill packages: `agent-harness-zh/` (Chinese) and `agent-harness-en/` (English)
+- Split into two Skill packages: `mini-harness-zh/` (Chinese) and `mini-harness-en/` (English)
 - Documentation split into `docs/zh-CN/` and `docs/en/`
-- Removed legacy `agent-harness/` path; use `--skill agent-harness-zh` or `agent-harness-en`
+- Renamed Skill packages from `agent-harness-*` to `mini-harness-en/` and `mini-harness-zh/`
 
 ## [1.0.0] - 2026-06-11
 
@@ -26,4 +26,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [`package.json`](package.json) repository metadata
 - GitHub Issue / PR templates and CI scaffold validation workflow
 
+[1.1.0]: https://github.com/HYX-LHJ/mini-harness/releases/tag/v1.1.0
 [1.0.0]: https://github.com/HYX-LHJ/mini-harness/releases/tag/v1.0.0

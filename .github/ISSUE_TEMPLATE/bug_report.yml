@@ -1,4 +1,4 @@
-name: Bug Report / Bug 反馈
+﻿name: Bug Report / Bug 反馈
 description: Something is broken in the skill, scaffold script, or docs / Skill、脚手架或文档有问题
 title: "[bug]: "
 labels: ["bug"]
@@ -59,8 +59,8 @@ body:
       label: Steps to reproduce / 复现步骤
       description: Commands run, agent prompts used, install path / 执行的命令、对 Agent 说的话、Skill 安装路径
       placeholder: |
-        1. npx skills add <org>/mini-harness --skill agent-harness-zh -g -y
-        2. python agent-harness-zh/scripts/init_harness.py --root .
+        1. npx skills add <org>/mini-harness --skill mini-harness-zh -g -y
+        2. python mini-harness-zh/scripts/init_harness.py --root .
         3. ...
     validations:
       required: true

@@ -1,26 +1,26 @@
-# Create harness — Agent execution checklist
+﻿# Create harness — Agent execution checklist
 
-After others install the **agent-harness-en** Skill, the **same Agent conversation** can generate a standard harness in any repo. This document is the Agent step-by-step checklist.
+After others install the **mini-harness-en** Skill, the **same Agent conversation** can generate a standard harness in any repo. This document is the Agent step-by-step checklist.
 
 ## User phrases that trigger this
 
 - "Create harness", "Initialize harness", "Set up agent workspace"
-- "Install agent-harness for me", "Set up collaboration directories"
+- "Install mini-harness-en for me", "Set up collaboration directories"
 
 ## Agent required steps (in order; do not skip)
 
 ### 1. Locate the skill directory
 
-`SKILL_ROOT` = this Skill's install path (`agent-harness-en/` directory), varies by tool:
+`SKILL_ROOT` = this Skill's install path (`mini-harness-en/` directory), varies by tool:
 
 | Tool | Personal path | Project path |
 |------|---------------|--------------|
-| Cursor | `~/.cursor/skills/agent-harness-en/` | `<repo>/.cursor/skills/agent-harness-en/` |
-| Codex | `$CODEX_HOME/skills/agent-harness-en/` | — |
-| Claude Code | `~/.claude/skills/agent-harness-en/` | `<repo>/.claude/skills/agent-harness-en/` |
-| Universal | `~/.agents/skills/agent-harness-en/` | `<repo>/.agents/skills/agent-harness-en/` |
+| Cursor | `~/.cursor/skills/mini-harness-en/` | `<repo>/.cursor/skills/mini-harness-en/` |
+| Codex | `$CODEX_HOME/skills/mini-harness-en/` | — |
+| Claude Code | `~/.claude/skills/mini-harness-en/` | `<repo>/.claude/skills/mini-harness-en/` |
+| Universal | `~/.agents/skills/mini-harness-en/` | `<repo>/.agents/skills/mini-harness-en/` |
 
-Or via Skills CLI: `npx skills add HYX-LHJ/mini-harness@agent-harness-en`
+Or via Skills CLI: `npx skills add HYX-LHJ/mini-harness@mini-harness-en`
 
 Script path: `<SKILL_ROOT>/scripts/init_harness.py`
 

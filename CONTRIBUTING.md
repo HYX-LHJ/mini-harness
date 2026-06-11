@@ -1,4 +1,4 @@
-# Contributing / 参与贡献
+﻿# Contributing / 参与贡献
 
 **Languages:** [English](#english) · [中文](#中文)
 
@@ -8,12 +8,12 @@
 
 ## English
 
-Thank you for contributing to mini-harness! This repo contains `agent-harness-zh/` and `agent-harness-en/` Skill packages for **Cursor, Codex, Claude Code**, and universal skill loaders.
+Thank you for contributing to mini-harness! This repo contains `mini-harness-zh/` and `mini-harness-en/` Skill packages for **Cursor, Codex, Claude Code**, and universal skill loaders.
 
 ### What to contribute
 
 - **Bug fixes** — scaffold script, templates, docs
-- **Template improvements** — `agent-harness-zh/templates/`, `agent-harness-en/templates/`
+- **Template improvements** — `mini-harness-zh/templates/`, `mini-harness-en/templates/`
 - **Documentation** — `docs/en/`, `docs/zh-CN/`, skill `references/`
 - **Multi-tool support** — install paths, compatibility notes
 
@@ -37,13 +37,13 @@ No third-party Python dependencies; `init_harness.py` uses the stdlib only.
 ```bash
 mkdir /tmp/harness-test && cd /tmp/harness-test
 git init
-python /path/to/mini-harness/agent-harness-zh/scripts/init_harness.py --root .
+python /path/to/mini-harness/mini-harness-zh/scripts/init_harness.py --root .
 ```
 
 Dry run:
 
 ```bash
-python agent-harness-zh/scripts/init_harness.py --root /tmp/harness-test --dry-run
+python mini-harness-zh/scripts/init_harness.py --root /tmp/harness-test --dry-run
 ```
 
 ### Commit messages
@@ -61,12 +61,12 @@ python agent-harness-zh/scripts/init_harness.py --root /tmp/harness-test --dry-r
 
 | Path | Notes |
 |------|-------|
-| `agent-harness-zh/` | Chinese Skill — `SKILL.md`, `references/`, `templates/` |
-| `agent-harness-en/` | English Skill — keep in sync with `-zh` (logic & structure) |
+| `mini-harness-zh/` | Chinese Skill — `SKILL.md`, `references/`, `templates/` |
+| `mini-harness-en/` | English Skill — keep in sync with `-zh` (logic & structure) |
 | `README.md` / `README.zh-CN.md` | External repo overview |
 | `docs/en/` / `docs/zh-CN/` | External documentation |
-| `agent-harness-zh/templates/` / `agent-harness-en/templates/` | Placeholders: `{{PROJECT_NAME}}`, etc. |
-| `agent-harness-zh/scripts/init_harness.py` | Update `REQUIRED_PATHS` when templates change (sync `-en`) |
+| `mini-harness-zh/templates/` / `mini-harness-en/templates/` | Placeholders: `{{PROJECT_NAME}}`, etc. |
+| `mini-harness-zh/scripts/init_harness.py` | Update `REQUIRED_PATHS` when templates change (sync `-en`) |
 
 ### Reporting issues
 
@@ -85,12 +85,12 @@ Security issues: see [SECURITY.md](SECURITY.md) — do not file public issues.
 
 ## 中文
 
-感谢关注 mini-harness！本仓库包含 `agent-harness-zh/` 与 `agent-harness-en/` Skill 包及面向 **Cursor、Codex、Claude Code** 与通用 Skill 加载器的文档。
+感谢关注 mini-harness！本仓库包含 `mini-harness-zh/` 与 `mini-harness-en/` Skill 包及面向 **Cursor、Codex、Claude Code** 与通用 Skill 加载器的文档。
 
 ### 可贡献内容
 
 - **Bug 修复** — 脚手架脚本、模板、文档
-- **模板改进** — `agent-harness-zh/templates/`、`agent-harness-en/templates/`
+- **模板改进** — `mini-harness-zh/templates/`、`mini-harness-en/templates/`
 - **文档** — `docs/zh-CN/`、`docs/en/`
 - **多工具支持** — 安装路径、兼容性说明
 
@@ -114,13 +114,13 @@ cd mini-harness
 ```bash
 mkdir /tmp/harness-test && cd /tmp/harness-test
 git init
-python /path/to/mini-harness/agent-harness-zh/scripts/init_harness.py --root .
+python /path/to/mini-harness/mini-harness-zh/scripts/init_harness.py --root .
 ```
 
 干跑：
 
 ```bash
-python agent-harness-zh/scripts/init_harness.py --root /tmp/harness-test --dry-run
+python mini-harness-zh/scripts/init_harness.py --root /tmp/harness-test --dry-run
 ```
 
 ### Commit message
@@ -138,11 +138,11 @@ python agent-harness-zh/scripts/init_harness.py --root /tmp/harness-test --dry-r
 
 | 路径 | 注意 |
 |------|------|
-| `agent-harness-zh/` | 中文 Skill — `SKILL.md`、`references/`、`templates/` |
-| `agent-harness-en/` | 英文 Skill — 与 `-zh` 保持结构与逻辑同步 |
+| `mini-harness-zh/` | 中文 Skill — `SKILL.md`、`references/`、`templates/` |
+| `mini-harness-en/` | 英文 Skill — 与 `-zh` 保持结构与逻辑同步 |
 | `README.md` / `README.zh-CN.md` | 对外仓库说明 |
 | `docs/en/` / `docs/zh-CN/` | 对外文档 |
-| `agent-harness-zh/scripts/init_harness.py` | 模板变更时同步 `REQUIRED_PATHS`（`-en` 同步） |
+| `mini-harness-zh/scripts/init_harness.py` | 模板变更时同步 `REQUIRED_PATHS`（`-en` 同步） |
 
 ### Issue 报告
 

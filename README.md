@@ -1,4 +1,4 @@
-# mini-harness
+﻿# mini-harness
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![CI](https://github.com/HYX-LHJ/mini-harness/actions/workflows/validate-scaffold.yml/badge.svg)](https://github.com/HYX-LHJ/mini-harness/actions/workflows/validate-scaffold.yml)
@@ -17,15 +17,15 @@
 
 | Language | Package | Install |
 |----------|---------|---------|
-| **English** | [`agent-harness-en/`](agent-harness-en/) | `npx skills add HYX-LHJ/mini-harness --skill agent-harness-en -g -y` |
-| **中文** | [`agent-harness-zh/`](agent-harness-zh/) | `npx skills add HYX-LHJ/mini-harness --skill agent-harness-zh -g -y` |
+| **English** | [`mini-harness-en/`](mini-harness-en/) | `npx skills add HYX-LHJ/mini-harness --skill mini-harness-en -g -y` |
+| **中文** | [`mini-harness-zh/`](mini-harness-zh/) | `npx skills add HYX-LHJ/mini-harness --skill mini-harness-zh -g -y` |
 
 Both packages share the same workflow; **templates and generated `AGENTS.md` match the package language**.
 
 **Initialize in your project:**
 
-> Use agent-harness to create harness in this repository  
-> (install `agent-harness-en` for English templates, or `agent-harness-zh` for 中文)
+> Use mini-harness-en to create harness in this repository  
+> (install `mini-harness-en` for English templates, or `mini-harness-zh` for 中文)
 
 ---
 

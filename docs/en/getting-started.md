@@ -1,4 +1,4 @@
-# Getting Started
+﻿# Getting Started
 
 This guide walks you through installing mini-harness and enabling agent collaboration in your project.
 
@@ -24,19 +24,19 @@ See **[installation.md](installation.md)** for all tools. Quick options:
 
 ```bash
 # Skills CLI (universal)
-npx skills add HYX-LHJ/mini-harness@agent-harness-en -g -y
+npx skills add HYX-LHJ/mini-harness@mini-harness-en -g -y
 
 # Or clone
 git clone https://github.com/HYX-LHJ/mini-harness.git
-# Then copy agent-harness-en/ to ~/.cursor/skills/, ~/.claude/skills/, ~/.codex/skills/, or ~/.agents/skills/
+# Then copy mini-harness-en/ to ~/.cursor/skills/, ~/.claude/skills/, ~/.codex/skills/, or ~/.agents/skills/
 ```
 
 | Tool | Personal path |
 |------|---------------|
-| Cursor | `~/.cursor/skills/agent-harness-en/` |
-| Codex | `~/.codex/skills/agent-harness-en/` |
-| Claude Code | `~/.claude/skills/agent-harness-en/` |
-| Universal | `~/.agents/skills/agent-harness-en/` |
+| Cursor | `~/.cursor/skills/mini-harness-en/` |
+| Codex | `~/.codex/skills/mini-harness-en/` |
+| Claude Code | `~/.claude/skills/mini-harness-en/` |
+| Universal | `~/.agents/skills/mini-harness-en/` |
 
 Restart your agent tool after install (required for Codex).
 
@@ -44,15 +44,15 @@ Restart your agent tool after install (required for Codex).
 
 **Via agent (recommended):**
 
-> Use agent-harness-en to create harness in this repository
+> Use mini-harness-en to create harness in this repository
 
 **Manually:**
 
 ```bash
-python /path/to/agent-harness-en/scripts/init_harness.py --root . --project-name my_api
+python /path/to/mini-harness-en/scripts/init_harness.py --root . --project-name my_api
 
 # Linux / macOS
-python /path/to/agent-harness-en/scripts/init_harness.py \
+python /path/to/mini-harness-en/scripts/init_harness.py \
   --root . --project-name my_api \
   --lint-cmd '.venv/bin/python harness/scripts/lint_src.py' \
   --pytest-cmd '.venv/bin/python -m pytest'
@@ -74,7 +74,7 @@ python /path/to/agent-harness-en/scripts/init_harness.py \
 | `code-review-expert` | After `src/` changes |
 | `code-simplifier` | Before commit with `src/` changes |
 
-Install to the **same skill path** as `agent-harness-en`.
+Install to the **same skill path** as `mini-harness-en`.
 
 ### Step 4 — Customize
 

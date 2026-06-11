@@ -1,4 +1,4 @@
-# GitHub Repository About / 仓库 About 设置
+﻿# GitHub Repository About / 仓库 About 设置
 
 **Languages:** [English](#english) · [中文](#中文)
 
@@ -9,7 +9,7 @@
 ## English — Description
 
 ```text
-Lightweight Agent Skills (EN+ZH): one-command mini harness scaffold for Cursor, Codex & Claude Code. npx skills add HYX-LHJ/mini-harness --skill agent-harness-en
+Lightweight Agent Skills (EN+ZH): one-command mini harness scaffold for Cursor, Codex & Claude Code. npx skills add HYX-LHJ/mini-harness --skill mini-harness-en
 ```
 
 ## Topics
@@ -25,7 +25,7 @@ agent-skills, cursor, claude-code, codex, ai-coding, agents-md, developer-tools,
 ## 中文 — Description
 
 ```text
-轻量级 Agent Skill（中英两包）：一键生成 harness/、AGENTS.md mini 协作工程。npx skills add HYX-LHJ/mini-harness --skill agent-harness-zh
+轻量级 Agent Skill（中英两包）：一键生成 harness/、AGENTS.md mini 协作工程。npx skills add HYX-LHJ/mini-harness --skill mini-harness-zh
 ```
 
 ## Topics
@@ -38,7 +38,7 @@ agent-skills, cursor, claude-code, codex, ai-coding, agents-md, developer-tools,
 
 ```bash
 gh repo edit HYX-LHJ/mini-harness \
-  --description "Lightweight Agent Skills (EN+ZH): mini harness scaffold for Cursor, Codex & Claude Code. npx skills add HYX-LHJ/mini-harness --skill agent-harness-en"
+  --description "Lightweight Agent Skills (EN+ZH): mini harness scaffold for Cursor, Codex & Claude Code. npx skills add HYX-LHJ/mini-harness --skill mini-harness-en"
 
 gh repo edit HYX-LHJ/mini-harness \
   --add-topic agent-skills,cursor,claude-code,codex,ai-coding,agents-md,developer-tools,python,workflow,skills-cli,llm,tdd

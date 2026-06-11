@@ -1,4 +1,4 @@
-# Architecture
+﻿# Architecture
 
 mini-harness uses a **two-layer architecture**: the Skill package scaffolds once; the harness directory holds ongoing collaboration state.
 
@@ -7,7 +7,7 @@ mini-harness uses a **two-layer architecture**: the Skill package scaffolds once
 ```text
 mini-harness repo                    your project repo
 ┌─────────────────────┐              ┌─────────────────────┐
-│ agent-harness-en/      │  init script │ AGENTS.md           │
+│ mini-harness-en/      │  init script │ AGENTS.md           │
 │  SKILL.md           │ ──────────►  │ pytest.ini          │
 │  templates/         │              │ harness/            │
 │  bundled/scripts/   │              │  todo, PROGRESS, …  │
@@ -38,7 +38,7 @@ harness/
 └── sql/                  # Optional DDL docs
 ```
 
-Details: [agent-harness-en/references/directory-layout.md](../../agent-harness-en/references/directory-layout.md)
+Details: [mini-harness-en/references/directory-layout.md](../../mini-harness-en/references/directory-layout.md)
 
 ### Single source of truth
 

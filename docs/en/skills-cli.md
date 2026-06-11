@@ -1,4 +1,4 @@
-# Skills CLI
+﻿# Skills CLI
 
 ### Prerequisites
 
@@ -11,19 +11,19 @@
 npx skills add HYX-LHJ/mini-harness --list
 ```
 
-Expected output includes **`agent-harness-en`** (declared in [`.claude-plugin/marketplace.json`](../.claude-plugin/marketplace.json)).
+Expected output includes **`mini-harness-en`** (declared in [`.claude-plugin/marketplace.json`](../.claude-plugin/marketplace.json)).
 
 ### Install
 
 ```bash
 # Global — all projects on this machine
-npx skills add HYX-LHJ/mini-harness --skill agent-harness-en -g -y
+npx skills add HYX-LHJ/mini-harness --skill mini-harness-en -g -y
 
 # Project — committed with your team repo
-npx skills add HYX-LHJ/mini-harness --skill agent-harness-en -y
+npx skills add HYX-LHJ/mini-harness --skill mini-harness-en -y
 
-# Shorthand (same as --skill agent-harness-en)
-npx skills add HYX-LHJ/mini-harness@agent-harness-en -g -y
+# Shorthand (same as --skill mini-harness-en)
+npx skills add HYX-LHJ/mini-harness@mini-harness-en -g -y
 ```
 
 ### Target specific agents
@@ -31,32 +31,32 @@ npx skills add HYX-LHJ/mini-harness@agent-harness-en -g -y
 ```bash
 # Cursor + Claude Code + Codex only
 npx skills add HYX-LHJ/mini-harness \
-  --skill agent-harness-en \
+  --skill mini-harness-en \
   -a cursor -a claude-code -a codex \
   -g -y
 ```
 
 | Agent | `--agent` flag | Global install path |
 |-------|----------------|---------------------|
-| Cursor | `cursor` | `~/.cursor/skills/agent-harness-en/` |
-| Claude Code | `claude-code` | `~/.claude/skills/agent-harness-en/` |
-| Codex | `codex` | `~/.codex/skills/agent-harness-en/` |
-| Universal | `amp`, `opencode`, … | `~/.agents/skills/agent-harness-en/` |
+| Cursor | `cursor` | `~/.cursor/skills/mini-harness-en/` |
+| Claude Code | `claude-code` | `~/.claude/skills/mini-harness-en/` |
+| Codex | `codex` | `~/.codex/skills/mini-harness-en/` |
+| Universal | `amp`, `opencode`, … | `~/.agents/skills/mini-harness-en/` |
 
 Full agent list: [vercel-labs/skills README](https://github.com/vercel-labs/skills#supported-agents).
 
 ### Try without installing
 
 ```bash
-npx skills use HYX-LHJ/mini-harness@agent-harness-en --agent claude-code
+npx skills use HYX-LHJ/mini-harness@mini-harness-en --agent claude-code
 ```
 
 ### Manage installed skills
 
 ```bash
 npx skills list              # what's installed
-npx skills update agent-harness-en -y
-npx skills remove agent-harness-en -y
+npx skills update mini-harness-en -y
+npx skills remove mini-harness-en -y
 npx skills find harness      # search skills.sh ecosystem
 ```
 
@@ -68,9 +68,9 @@ Copy [`.skills.json.example`](../.skills.json.example) to your project as `.skil
 {
   "skills": [
     {
-      "name": "agent-harness-en",
+      "name": "mini-harness-en",
       "remote": "HYX-LHJ/mini-harness",
-      "skill": "agent-harness-en"
+      "skill": "mini-harness-en"
     }
   ]
 }
@@ -80,11 +80,11 @@ Copy [`.skills.json.example`](../.skills.json.example) to your project as `.skil
 
 ```bash
 npx skills add HYX-LHJ/mini-harness \
-  --skill agent-harness-en \
+  --skill mini-harness-en \
   -g -a cursor -y
 ```
 
 ### After install
 
 1. Restart agent tool if needed (Codex requires restart)
-2. In target repo: *"Use agent-harness-en to create harness in this repository"*
+2. In target repo: *"Use mini-harness-en to create harness in this repository"*

@@ -1,15 +1,15 @@
-{
+﻿{
   "$schema": "https://skills.sh/schemas/skills.json",
   "skills": [
     {
-      "name": "agent-harness-en",
+      "name": "mini-harness-en",
       "remote": "HYX-LHJ/mini-harness",
-      "skill": "agent-harness-en"
+      "skill": "mini-harness-en"
     },
     {
-      "name": "agent-harness-zh",
+      "name": "mini-harness-zh",
       "remote": "HYX-LHJ/mini-harness",
-      "skill": "agent-harness-zh"
+      "skill": "mini-harness-zh"
     }
   ]
 }

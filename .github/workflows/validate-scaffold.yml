@@ -1,4 +1,4 @@
-name: Validate scaffold
+﻿name: Validate scaffold
 
 on:
   push:
@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        skill: [agent-harness-zh, agent-harness-en]
+        skill: [mini-harness-zh, mini-harness-en]
         python-version: ["3.12"]
     steps:
       - uses: actions/checkout@v4

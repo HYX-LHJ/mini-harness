@@ -1,5 +1,5 @@
----
-name: agent-harness-en
+﻿---
+name: mini-harness-en
 description: >-
   Scaffold a standard Agent harness in any repo: run init_harness.py to generate
   harness/, AGENTS.md, pytest.ini, gate scripts, and the full todo/PROGRESS/DECISIONS/plans/code_review
@@ -9,7 +9,7 @@ metadata:
   version: "1.0.0"
   repository: mini-harness
   locale: en
-  install-cli: "npx skills add HYX-LHJ/mini-harness --skill agent-harness-en -g -y"
+  install-cli: "npx skills add HYX-LHJ/mini-harness --skill mini-harness-en -g -y"
 ---
 
 # Agent Harness
@@ -18,7 +18,7 @@ metadata:
 
 For day-to-day development, follow the generated `AGENTS.md` for regular and commit rounds. Recommended companion Skills: `tdd`, `code-review-expert`, `code-simplifier`.
 
-Install paths: [references/installation.md](references/installation.md) · Chinese Skill: [../agent-harness-zh](../agent-harness-zh/) · Docs: [../docs/en/](../docs/en/)
+Install paths: [references/installation.md](references/installation.md) · Chinese Skill: [../mini-harness-zh](../mini-harness-zh/) · Docs: [../docs/en/](../docs/en/)
 
 ---
 
@@ -73,16 +73,16 @@ Step-by-step checklist: [references/create-harness.md](references/create-harness
 
 ## Install this Skill
 
-Copy the entire `agent-harness-en/` directory to:
+Copy the entire `mini-harness-en/` directory to:
 
 | Tool | Personal | Project (repo) |
 |------|----------|----------------|
-| **Cursor** | `~/.cursor/skills/agent-harness-en/` | `<repo>/.cursor/skills/agent-harness-en/` |
-| **Codex** | `$CODEX_HOME/skills/agent-harness-en/` | — |
-| **Claude Code** | `~/.claude/skills/agent-harness-en/` | `<repo>/.claude/skills/agent-harness-en/` |
-| **Universal** | `~/.agents/skills/agent-harness-en/` | `<repo>/.agents/skills/agent-harness-en/` |
+| **Cursor** | `~/.cursor/skills/mini-harness-en/` | `<repo>/.cursor/skills/mini-harness-en/` |
+| **Codex** | `$CODEX_HOME/skills/mini-harness-en/` | — |
+| **Claude Code** | `~/.claude/skills/mini-harness-en/` | `<repo>/.claude/skills/mini-harness-en/` |
+| **Universal** | `~/.agents/skills/mini-harness-en/` | `<repo>/.agents/skills/mini-harness-en/` |
 
-**Skills CLI:** `npx skills add HYX-LHJ/mini-harness --skill agent-harness-en -g -y`
+**Skills CLI:** `npx skills add HYX-LHJ/mini-harness --skill mini-harness-en -g -y`
 
 - **Do not** put it in `~/.cursor/skills-cursor/` (Cursor built-in)
 - **Codex**: after install, prompt the user to **restart**
@@ -90,7 +90,7 @@ Copy the entire `agent-harness-en/` directory to:
 
 See [references/installation.md](references/installation.md) for details.
 
-After install, tell the Agent: **"Use agent-harness-en to create harness in this repository"**
+After install, tell the Agent: **"Use mini-harness-en to create harness in this repository"**
 
 ---
 
@@ -139,4 +139,4 @@ Wrap-up: `python harness/scripts/sync_progress.py` (`--skip-gates` see [referenc
 | [README.md](README.md) | Skill package overview (English) |
 | [../README.md](../README.md) | Repository overview (English) |
 | [../README.zh-CN.md](../README.zh-CN.md) | Repository overview (Chinese) |
-| [../agent-harness-zh](../agent-harness-zh) | Chinese Skill package |
+| [../mini-harness-zh](../mini-harness-zh) | Chinese Skill package |

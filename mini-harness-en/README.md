@@ -1,8 +1,8 @@
-# agent-harness-en
+﻿# mini-harness-en
 
 **Agent Skill package** for Cursor, Codex, Claude Code, and similar tools — part of [mini-harness](../README.md). Package docs are **English** by default.
 
-Public repository overview: [README.md (English)](../README.md) · [README.zh-CN.md (Chinese)](../README.zh-CN.md) · [agent-harness-zh (Chinese Skill)](../agent-harness-zh)
+Public repository overview: [README.md (English)](../README.md) · [README.zh-CN.md (Chinese)](../README.zh-CN.md) · [mini-harness-zh (Chinese Skill)](../mini-harness-zh)
 
 ## Purpose
 
@@ -10,30 +10,30 @@ After installing this Skill, tell your Agent one sentence to generate a standard
 
 ## Install
 
-Full instructions: [docs/installation.md](../docs/installation.md)
+Full instructions: [docs/en/installation.md](../docs/en/installation.md)
 
 ```bash
-npx skills add HYX-LHJ/mini-harness --skill agent-harness-en -g -y
+npx skills add HYX-LHJ/mini-harness --skill mini-harness-en -g -y
 ```
 
-Or copy `agent-harness-en/` to `~/.cursor/skills/`, `~/.claude/skills/`, `~/.codex/skills/`, `~/.agents/skills/`, etc.
+Or copy `mini-harness-en/` to `~/.cursor/skills/`, `~/.claude/skills/`, `~/.codex/skills/`, `~/.agents/skills/`, etc.
 
 ## Usage
 
 Tell the Agent:
 
-> Use agent-harness-en to create harness in this repository
+> Use mini-harness-en to create harness in this repository
 
 Or run directly:
 
 ```bash
-python path/to/agent-harness-en/scripts/init_harness.py --root /path/to/repo --project-name my_api
+python path/to/mini-harness-en/scripts/init_harness.py --root /path/to/repo --project-name my_api
 ```
 
 ## Package layout
 
 ```text
-agent-harness-en/
+mini-harness-en/
 ├── SKILL.md              # Agent main instructions (English)
 ├── references/           # Agent reference docs (English)
 ├── templates/            # Scaffold templates (English; written to user repo)
@@ -45,8 +45,8 @@ agent-harness-en/
 
 | Scope | Language |
 |-------|----------|
-| `agent-harness-en/` (SKILL, references, templates) | **English** |
-| `agent-harness-zh/` | **Chinese** — see [agent-harness-zh](../agent-harness-zh) |
+| `mini-harness-en/` (SKILL, references, templates) | **English** |
+| `mini-harness-zh/` | **Chinese** — see [mini-harness-zh](../mini-harness-zh) |
 | Repository root `README.md` / `README.zh-CN.md`, `docs/` | **Separate EN/ZH docs** |
 | User-repo scaffold output (`AGENTS.md`, `harness/`) | **English** (default templates) |
 

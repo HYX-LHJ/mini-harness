@@ -1,4 +1,4 @@
-# 快速入门
+﻿# 快速入门
 
 本文介绍如何安装 mini-harness，并在你的项目中启用 Agent 协作工程。
 
@@ -24,19 +24,19 @@ python -m venv .venv
 
 ```bash
 # Skills CLI（通用）
-npx skills add HYX-LHJ/mini-harness@agent-harness-zh -g -y
+npx skills add HYX-LHJ/mini-harness@mini-harness-zh -g -y
 
 # 或克隆
 git clone https://github.com/HYX-LHJ/mini-harness.git
-# 将 agent-harness-zh/ 复制到 ~/.cursor/skills/、~/.claude/skills/、~/.codex/skills/ 或 ~/.agents/skills/
+# 将 mini-harness-zh/ 复制到 ~/.cursor/skills/、~/.claude/skills/、~/.codex/skills/ 或 ~/.agents/skills/
 ```
 
 | 工具 | 个人路径 |
 |------|----------|
-| Cursor | `~/.cursor/skills/agent-harness-zh/` |
-| Codex | `~/.codex/skills/agent-harness-zh/` |
-| Claude Code | `~/.claude/skills/agent-harness-zh/` |
-| 通用 | `~/.agents/skills/agent-harness-zh/` |
+| Cursor | `~/.cursor/skills/mini-harness-zh/` |
+| Codex | `~/.codex/skills/mini-harness-zh/` |
+| Claude Code | `~/.claude/skills/mini-harness-zh/` |
+| 通用 | `~/.agents/skills/mini-harness-zh/` |
 
 安装后重启 Agent 工具（Codex 必须重启）。
 
@@ -44,15 +44,15 @@ git clone https://github.com/HYX-LHJ/mini-harness.git
 
 **通过 Agent（推荐）：**
 
-> 用 agent-harness-zh 在当前仓库创建 harness
+> 用 mini-harness-zh 在当前仓库创建 harness
 
 **手动执行：**
 
 ```bash
-python /path/to/agent-harness-zh/scripts/init_harness.py --root . --project-name my_api
+python /path/to/mini-harness-zh/scripts/init_harness.py --root . --project-name my_api
 
 # Linux / macOS
-python /path/to/agent-harness-zh/scripts/init_harness.py \
+python /path/to/mini-harness-zh/scripts/init_harness.py \
   --root . --project-name my_api \
   --lint-cmd '.venv/bin/python harness/scripts/lint_src.py' \
   --pytest-cmd '.venv/bin/python -m pytest'
@@ -74,7 +74,7 @@ python /path/to/agent-harness-zh/scripts/init_harness.py \
 | `code-review-expert` | 改过 `src/` 后 |
 | `code-simplifier` | 提交前（含 `src/` 变更） |
 
-安装到与 `agent-harness-zh` **相同的路径**。
+安装到与 `mini-harness-zh` **相同的路径**。
 
 ### 第四步 — 定制
 

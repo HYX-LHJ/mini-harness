@@ -1,4 +1,4 @@
-# mini-harness
+﻿# mini-harness
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![CI](https://github.com/HYX-LHJ/mini-harness/actions/workflows/validate-scaffold.yml/badge.svg)](https://github.com/HYX-LHJ/mini-harness/actions/workflows/validate-scaffold.yml)
@@ -17,15 +17,15 @@
 
 | 语言 | 包路径 | 安装 |
 |------|--------|------|
-| **中文** | [`agent-harness-zh/`](agent-harness-zh/) | `npx skills add HYX-LHJ/mini-harness --skill agent-harness-zh -g -y` |
-| **English** | [`agent-harness-en/`](agent-harness-en/) | `npx skills add HYX-LHJ/mini-harness --skill agent-harness-en -g -y` |
+| **中文** | [`mini-harness-zh/`](mini-harness-zh/) | `npx skills add HYX-LHJ/mini-harness --skill mini-harness-zh -g -y` |
+| **English** | [`mini-harness-en/`](mini-harness-en/) | `npx skills add HYX-LHJ/mini-harness --skill mini-harness-en -g -y` |
 
 两个包流程相同；**模板与生成的 `AGENTS.md` 语言与所选包一致**。
 
 **在目标项目中初始化：**
 
-> 用 agent-harness 在当前仓库创建 harness  
-> （安装 `agent-harness-zh` 生成中文模板，或 `agent-harness-en` 生成英文模板）
+> 用 mini-harness-zh 在当前仓库创建 harness  
+> （安装 `mini-harness-zh` 生成中文模板，或 `mini-harness-en` 生成英文模板）
 
 ---
 
