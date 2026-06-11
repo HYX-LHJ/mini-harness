@@ -5,7 +5,7 @@ description: >-
   pytest.ini、门禁脚本及 todo/PROGRESS/DECISIONS 全流程；每周一 Agent 周回顾（weekly harness review on Mondays）。
   适用于 Cursor、Codex、Claude Code、Skills CLI。用户说创建/初始化 harness、搭建协作目录时务必启用。English: mini-harness-en.
 metadata:
-  version: "1.0.0"
+  version: "1.2.0"
   repository: mini-harness
   locale: zh-CN
   install-cli: "npx skills add HYX-LHJ/mini-harness --skill mini-harness-zh -g -y"

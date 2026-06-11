@@ -1,6 +1,6 @@
 ﻿{
   "name": "mini-harness",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Lightweight Agent Skills (ZH + EN): one-command mini harness scaffold for Cursor, Codex & Claude Code.",
   "keywords": [
     "mini-harness",

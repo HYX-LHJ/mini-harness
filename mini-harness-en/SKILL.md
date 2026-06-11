@@ -6,7 +6,7 @@ description: >-
   workflow; weekly harness review on Mondays. Works with Cursor, Codex, Claude Code, and Skills CLI.
   Always enable when the user asks to create, initialize, or install a harness.
 metadata:
-  version: "1.0.0"
+  version: "1.2.0"
   repository: mini-harness
   locale: en
   install-cli: "npx skills add HYX-LHJ/mini-harness --skill mini-harness-en -g -y"

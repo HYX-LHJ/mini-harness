@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2026-06-11
+
+### Added
+
+- **Monday Agent weekly review**: `harness/docs/weekly-review.md` scaffolded by `init_harness.py` (zh + en templates)
+- Weekly review round in `AGENTS.md`: first session each Monday archives inactive harness content before other tasks
+- CI validates `harness/docs/weekly-review.md` after scaffold
+
 ## [1.1.0] - 2026-06-11
 
 ### Changed
@@ -26,5 +34,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [`package.json`](package.json) repository metadata
 - GitHub Issue / PR templates and CI scaffold validation workflow
 
+[1.2.0]: https://github.com/HYX-LHJ/mini-harness/releases/tag/v1.2.0
 [1.1.0]: https://github.com/HYX-LHJ/mini-harness/releases/tag/v1.1.0
 [1.0.0]: https://github.com/HYX-LHJ/mini-harness/releases/tag/v1.0.0
