@@ -1,7 +1,5 @@
 # round-harness
 
-> **Agent Skill** — scaffold `harness/` + `AGENTS.md` workflow in any repo · Cursor · Codex · Claude Code · [`npx skills`](https://skills.sh/)
-
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![CI](https://github.com/HYX-LHJ/round-harness/actions/workflows/validate-scaffold.yml/badge.svg)](https://github.com/HYX-LHJ/round-harness/actions/workflows/validate-scaffold.yml)
 
@@ -9,73 +7,107 @@
 
 ---
 
-<a id="english"></a>
+## 一句话 · In one sentence
 
-## English
+**中文：** 这是一个 **Agent Skill** —— 对 Agent 说一句话，在**任意仓库**自动生成标准协作工程（`harness/`、`AGENTS.md`、门禁脚本），让 AI 编程从「聊天」变成「有纪律的工程回合」。
 
-**One command to scaffold a standard AI agent collaboration harness — works with Cursor, Codex, Claude Code, and 60+ agents via Skills CLI.**
+**English:** A portable **Agent Skill** — tell your agent one sentence, get a full collaboration harness (`harness/`, `AGENTS.md`, gate scripts) in **any repo**, turning AI coding from chat into structured engineering rounds.
 
 ```bash
 npx skills add HYX-LHJ/round-harness --skill agent-harness -g -y
 ```
 
-[`agent-harness`](agent-harness/) generates the full `harness/` tree, `AGENTS.md` playbook, gate scripts, and todo / PROGRESS / code-review workflow. Tell your agent: *"Use agent-harness to create harness in this repository."*
+支持 **Cursor · Codex · Claude Code · [Skills CLI](https://skills.sh/)（60+ agents）**
 
-### Why
+---
 
-AI-assisted development often fails on **structure**, not model capability:
+## 为什么需要它 · Why you need this
 
-- Context resets every conversation
-- Code ships without tests or review gates
-- Plans and reviews live only in chat, not in version control
+模型越来越强，但很多人用 Agent 写代码时，**瓶颈不在模型，而在缺少协作结构**：
 
-round-harness turns these into **reusable engineering conventions**: directories as protocol, files as state, scripts as gates.
+| 没有 harness 时 | 有 harness 之后 |
+|----------------|----------------|
+| 每开新对话，Agent 从零读代码，上下文断裂 | `PROGRESS.md` + `todo.md` 让新会话**无缝接手** |
+| 改完就提交，没有测试 / 审查门禁 | **lint + pytest 门禁**，失败只修门禁 |
+| Plan、Code Review 只留在聊天里，无法追溯 | 方案、审查报告**落盘到 git**，可版本化 |
+| 每人一套 Prompt，团队无法对齐 | `AGENTS.md` 是**统一的 Playbook**，可提交共享 |
 
-### Quick start
+**round-harness 做的事：** 把上述约定变成**可复制、可版本化、一键生成**的工程模板 —— 你不需要从零设计目录、手抄 `AGENTS.md`、写门禁脚本。
 
-1. **Get the skill** — see [docs/installation.md](docs/installation.md)
+| Without harness | With harness |
+|-----------------|--------------|
+| Every new chat starts from zero — context is lost | `PROGRESS.md` + `todo.md` let the next session **pick up where you left off** |
+| Code ships without tests or review gates | **lint + pytest gates** — on failure, fix gates first |
+| Plans and reviews live only in chat | Plans and reviews are **committed to git** |
+| Everyone uses a different prompt | `AGENTS.md` is a **shared playbook** for the whole team |
 
-   ```bash
-   # Universal (Skills CLI) — installs to Cursor, Codex, Claude Code, etc.
-   npx skills add HYX-LHJ/round-harness --skill agent-harness -g -y
+**What round-harness does:** turn these conventions into a **copy-paste, version-controlled, one-command** scaffold — no hand-written `AGENTS.md`, no ad-hoc folder design.
 
-   # Or clone and copy agent-harness/ to your tool's skill directory
-   git clone https://github.com/HYX-LHJ/round-harness.git
-   ```
+---
 
-   Full CLI guide: [docs/skills-cli.md](docs/skills-cli.md)
+## 核心能力 · What this Skill delivers
 
-2. **Initialize harness** in a target repo — tell your agent:
+安装 [`agent-harness`](agent-harness/) 后，在目标仓库执行初始化，你会得到：
 
-   > Use agent-harness to create harness in this repository
+| 产物 | 作用 |
+|------|------|
+| **`AGENTS.md`** | Agent 每回合的 Playbook：何时 Plan、何时 TDD、何时 Code Review、如何提交 |
+| **`harness/todo.md`** | 当前周任务板 — 有变更必先登记，可勾选、可验收 |
+| **`harness/PROGRESS.md`** | 进度快照：分支、门禁、进行中 task — **新会话接手入口** |
+| **`harness/DECISIONS.md`** | 架构边界与「不得提交」约束 |
+| **`harness/plans/`** | 重大任务先写方案、等用户确认，再写代码 |
+| **`harness/code_review/`** | 审查报告落盘 + 未关闭问题追踪 |
+| **`harness/scripts/`** | `lint_src` · `sync_progress` · `archive_harness_todo` |
+| **`pytest.ini`** | 测试配置（`harness/tests`） |
 
-   Or run manually:
+**一条 Agent 指令即可初始化：**
 
-   ```bash
-   python path/to/agent-harness/scripts/init_harness.py --root /path/to/repo --project-name my_api
-   ```
+> 用 agent-harness 在当前仓库创建 harness  
+> *Use agent-harness to create harness in this repository*
 
-3. **Start collaborating** — agents read `AGENTS.md` + `harness/todo.md` / `PROGRESS.md` each round.
-
-### Supported agent tools
-
-| Tool | Install doc |
-|------|-------------|
-| Cursor | [installation.md](docs/installation.md#cursor) |
-| Codex | [installation.md](docs/installation.md#codex) |
-| Claude Code | [installation.md](docs/installation.md#claude-code) |
-| Universal / Skills CLI | [installation.md](docs/installation.md#universal--cross-agent) |
-
-### What gets generated
+<details>
+<summary>生成后的目录结构 / Generated layout</summary>
 
 ```text
 your-repo/
-├── AGENTS.md          # Agent playbook
+├── AGENTS.md                 # Playbook（优先级最高）
 ├── pytest.ini
-└── harness/           # todo, PROGRESS, plans, code_review, scripts, …
+└── harness/
+    ├── index.md              # 总索引
+    ├── todo.md               # 周任务板
+    ├── PROGRESS.md           # 进度快照
+    ├── DECISIONS.md          # 活跃决策
+    ├── plans/                # 方案（Plan 模式）
+    ├── code_review/          # 审查报告
+    ├── code_simplifier/      # 精炼报告
+    ├── tests/                # 单元测试
+    ├── scripts/              # 门禁与维护脚本
+    └── backlog/              # 历史归档
 ```
 
-See [docs/architecture.md](docs/architecture.md).
+</details>
+
+---
+
+## 30 秒上手 · Get started in 30 seconds
+
+```bash
+# 1. 安装 Skill（全局，适用 Cursor / Codex / Claude Code 等）
+npx skills add HYX-LHJ/round-harness --skill agent-harness -g -y
+
+# 2. 打开你的项目，对 Agent 说：
+#    「用 agent-harness 在当前仓库创建 harness」
+
+# 3. 之后每轮开发，Agent 自动读 AGENTS.md + harness/todo.md + PROGRESS.md
+```
+
+手动安装或其它工具路径 → [docs/installation.md](docs/installation.md) · CLI 详解 → [docs/skills-cli.md](docs/skills-cli.md)
+
+---
+
+<a id="english"></a>
+
+## English
 
 ### Workflow overview
 
@@ -99,26 +131,32 @@ flowchart LR
     M --> N
 ```
 
+Each user message = one **round**: gates → read context → [Plan] → todo → [tdd] → implement → [code-review] → gates → PROGRESS. On commit: simplify → second review → Git.
+
 Details: [docs/workflow.md](docs/workflow.md)
+
+### Supported tools
+
+| Tool | Install |
+|------|---------|
+| Cursor | [installation.md](docs/installation.md#cursor) |
+| Codex | [installation.md](docs/installation.md#codex) |
+| Claude Code | [installation.md](docs/installation.md#claude-code) |
+| Skills CLI | [skills-cli.md](docs/skills-cli.md) |
 
 ### Documentation
 
-| Doc | Audience | Content |
-|-----|----------|---------|
-| [docs/installation.md](docs/installation.md) | Humans | Multi-tool install (Cursor, Codex, Claude Code, CLI) |
-| [docs/skills-cli.md](docs/skills-cli.md) | Humans | `npx skills` commands & agent flags |
-| [docs/getting-started.md](docs/getting-started.md) | Humans | First-time setup |
-| [docs/architecture.md](docs/architecture.md) | Humans | Directory layout |
-| [docs/workflow.md](docs/workflow.md) | Humans | Rounds, commits, Plan mode |
-| [agent-harness/SKILL.md](agent-harness/SKILL.md) | Agents | Skill instructions |
+| Doc | Content |
+|-----|---------|
+| [getting-started.md](docs/getting-started.md) | First-time setup |
+| [installation.md](docs/installation.md) | Multi-tool install |
+| [architecture.md](docs/architecture.md) | Directory layout |
+| [workflow.md](docs/workflow.md) | Rounds, commits, Plan mode |
+| [SKILL.md](agent-harness/SKILL.md) | Agent instructions |
 
 ### Requirements
 
-- **Python 3.10+** (scaffold & maintenance scripts)
-- **An agent tool** that loads `SKILL.md` skills (Cursor, Codex, Claude Code, …)
-- For gates in target repos: `.venv`, `ruff`, `pyright`, `pytest`
-
-### Contributing & license
+Python 3.10+ · Agent tool with `SKILL.md` support · Optional: `.venv`, `ruff`, `pyright`, `pytest` for gates
 
 [CONTRIBUTING.md](CONTRIBUTING.md) · [SECURITY.md](SECURITY.md) · [CHANGELOG.md](CHANGELOG.md) · [MIT License](LICENSE)
 
@@ -127,70 +165,6 @@ Details: [docs/workflow.md](docs/workflow.md)
 <a id="chinese"></a>
 
 ## 中文
-
-**一条命令，在任意仓库搭建标准化 AI Agent 协作工程 — 支持 Cursor、Codex、Claude Code 及 Skills CLI 安装的 60+ Agent。**
-
-```bash
-npx skills add HYX-LHJ/round-harness --skill agent-harness -g -y
-```
-
-可移植 Agent Skill [`agent-harness`](agent-harness/) 可生成完整 `harness/` 目录树、`AGENTS.md` Playbook、门禁脚本与 todo / PROGRESS / code-review 流程。对 Agent 说：「用 agent-harness 在当前仓库创建 harness」。
-
-### 为什么需要它
-
-AI 辅助开发的瓶颈常在**协作结构**，而非模型能力：
-
-- 每轮对话上下文断裂
-- 改完就提交，缺少测试与审查门禁
-- Plan、审查、进度只留在聊天里，无法追溯
-
-round-harness 将这些变成**可复用的工程约定**：目录即协议、文件即状态机、脚本即门禁。
-
-### 快速开始
-
-1. **安装 Skill** — 见 [docs/installation.md](docs/installation.md)
-
-   ```bash
-   # 通用方式（Skills CLI）— 可安装到 Cursor、Codex、Claude Code 等
-   npx skills add HYX-LHJ/round-harness --skill agent-harness -g -y
-
-   # 或克隆后复制 agent-harness/ 到对应工具的 Skill 目录
-   git clone https://github.com/HYX-LHJ/round-harness.git
-   ```
-
-   CLI 完整指南：[docs/skills-cli.md](docs/skills-cli.md)
-
-2. **在目标仓库初始化 harness** — 对 Agent 说：
-
-   > 用 agent-harness 在当前仓库创建 harness
-
-   或手动执行：
-
-   ```bash
-   python path/to/agent-harness/scripts/init_harness.py --root /path/to/repo --project-name my_api
-   ```
-
-3. **开始协作** — 每轮 Agent 读取 `AGENTS.md` 与 `harness/todo.md` / `PROGRESS.md`。
-
-### 支持的 Agent 工具
-
-| 工具 | 安装说明 |
-|------|----------|
-| Cursor | [installation.md](docs/installation.md#cursor) |
-| Codex | [installation.md](docs/installation.md#codex) |
-| Claude Code | [installation.md](docs/installation.md#claude-code) |
-| 通用 / Skills CLI | [installation.md](docs/installation.md#universal--cross-agent) |
-
-### 初始化后会生成什么
-
-```text
-your-repo/
-├── AGENTS.md          # Agent Playbook
-├── pytest.ini
-└── harness/           # todo、PROGRESS、plans、code_review、scripts 等
-```
-
-详见 [docs/architecture.md](docs/architecture.md)。
 
 ### 协作流程概览
 
@@ -214,25 +188,31 @@ flowchart LR
     M --> N
 ```
 
+每次用户输入 = 一**回合**：门禁 → 读上下文 → [Plan] → 登记 todo → [tdd] → 实现 → [code-review] → 门禁 → PROGRESS。提交时：精炼 → 二次审查 → Git。
+
 详细流程：[docs/workflow.md](docs/workflow.md)
+
+### 支持的 Agent 工具
+
+| 工具 | 安装说明 |
+|------|----------|
+| Cursor | [installation.md](docs/installation.md#cursor) |
+| Codex | [installation.md](docs/installation.md#codex) |
+| Claude Code | [installation.md](docs/installation.md#claude-code) |
+| Skills CLI | [skills-cli.md](docs/skills-cli.md) |
 
 ### 文档索引
 
-| 文档 | 读者 | 内容 |
-|------|------|------|
-| [docs/installation.md](docs/installation.md) | 人类 | 多工具安装（Cursor、Codex、Claude Code、CLI） |
-| [docs/skills-cli.md](docs/skills-cli.md) | 人类 | `npx skills` 命令与 agent 参数 |
-| [docs/getting-started.md](docs/getting-started.md) | 人类 | 入门与首次配置 |
-| [docs/architecture.md](docs/architecture.md) | 人类 | 目录架构 |
-| [docs/workflow.md](docs/workflow.md) | 人类 | 回合流程、提交、Plan |
-| [agent-harness/SKILL.md](agent-harness/SKILL.md) | Agent | Skill 主指令 |
+| 文档 | 内容 |
+|------|------|
+| [getting-started.md](docs/getting-started.md) | 入门与首次配置 |
+| [installation.md](docs/installation.md) | 多工具安装 |
+| [architecture.md](docs/architecture.md) | 目录架构 |
+| [workflow.md](docs/workflow.md) | 回合流程、提交、Plan |
+| [SKILL.md](agent-harness/SKILL.md) | Agent 主指令 |
 
 ### 要求
 
-- **Python 3.10+**（脚手架与维护脚本）
-- **支持 `SKILL.md` 的 Agent 工具**（Cursor、Codex、Claude Code 等）
-- 目标项目跑通门禁：`.venv`、`ruff`、`pyright`、`pytest`
-
-### 参与贡献与许可证
+Python 3.10+ · 支持 `SKILL.md` 的 Agent 工具 · 跑通门禁需 `.venv`、`ruff`、`pyright`、`pytest`
 
 [CONTRIBUTING.md](CONTRIBUTING.md) · [SECURITY.md](SECURITY.md) · [CHANGELOG.md](CHANGELOG.md) · [MIT License](LICENSE)
