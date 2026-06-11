@@ -1,4 +1,4 @@
-﻿# 安装指南
+# 安装指南
 
 ### 支持的工具
 
@@ -20,16 +20,16 @@
 
 ```bash
 # 列出本仓库中的 Skill
-npx skills add HYX-LHJ/round-harness --list
+npx skills add HYX-LHJ/mini-harness --list
 
 # 全局（用户级）
-npx skills add HYX-LHJ/round-harness --skill agent-harness-zh -g -y
+npx skills add HYX-LHJ/mini-harness --skill agent-harness-zh -g -y
 
 # 项目级（可提交到仓库）
-npx skills add HYX-LHJ/round-harness --skill agent-harness-zh -y
+npx skills add HYX-LHJ/mini-harness --skill agent-harness-zh -y
 
 # 指定 Cursor + Claude Code + Codex
-npx skills add HYX-LHJ/round-harness --skill agent-harness-zh -a cursor -a claude-code -a codex -g -y
+npx skills add HYX-LHJ/mini-harness --skill agent-harness-zh -a cursor -a claude-code -a codex -g -y
 ```
 
 浏览 Skill：[skills.sh](https://skills.sh/)。完整指南：[skills-cli.md](skills-cli.md)
@@ -37,34 +37,34 @@ npx skills add HYX-LHJ/round-harness --skill agent-harness-zh -a cursor -a claud
 ### 方式二 — Git 克隆 + 复制
 
 ```bash
-git clone https://github.com/HYX-LHJ/round-harness.git
+git clone https://github.com/HYX-LHJ/mini-harness.git
 ```
 
-将 `round-harness/agent-harness-zh/` 复制到上表对应路径。
+将 `mini-harness/agent-harness-zh/` 复制到上表对应路径。
 
 **Windows（PowerShell）— Cursor 个人：**
 
 ```powershell
-Copy-Item -Recurse round-harness\agent-harness-zh $env:USERPROFILE\.cursor\skills\agent-harness-zh
+Copy-Item -Recurse mini-harness\agent-harness-zh $env:USERPROFILE\.cursor\skills\agent-harness-zh
 ```
 
 **macOS / Linux — Claude Code 个人：**
 
 ```bash
-cp -r round-harness/agent-harness-zh ~/.claude/skills/agent-harness-zh
+cp -r mini-harness/agent-harness-zh ~/.claude/skills/agent-harness-zh
 ```
 
 **macOS / Linux — Codex：**
 
 ```bash
-cp -r round-harness/agent-harness-zh "${CODEX_HOME:-$HOME/.codex}/skills/agent-harness-zh"
+cp -r mini-harness/agent-harness-zh "${CODEX_HOME:-$HOME/.codex}/skills/agent-harness-zh"
 ```
 
 ### 方式三 — 符号链接（开发者）
 
 ```bash
 # 示例：通用跨 Agent 路径
-ln -s "$(pwd)/round-harness/agent-harness-zh" ~/.agents/skills/agent-harness-zh
+ln -s "$(pwd)/mini-harness/agent-harness-zh" ~/.agents/skills/agent-harness-zh
 ```
 
 ### 方式四 — 内嵌到项目仓库

@@ -1,11 +1,11 @@
-﻿# Architecture
+# Architecture
 
-round-harness uses a **two-layer architecture**: the Skill package scaffolds once; the harness directory holds ongoing collaboration state.
+mini-harness uses a **two-layer architecture**: the Skill package scaffolds once; the harness directory holds ongoing collaboration state.
 
 ### Two layers
 
 ```text
-round-harness repo                    your project repo
+mini-harness repo                    your project repo
 ┌─────────────────────┐              ┌─────────────────────┐
 │ agent-harness-en/      │  init script │ AGENTS.md           │
 │  SKILL.md           │ ──────────►  │ pytest.ini          │

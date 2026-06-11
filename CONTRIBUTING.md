@@ -8,7 +8,7 @@
 
 ## English
 
-Thank you for contributing to round-harness! This repo contains `agent-harness-zh/` and `agent-harness-en/` Skill packages for **Cursor, Codex, Claude Code**, and universal skill loaders.
+Thank you for contributing to mini-harness! This repo contains `agent-harness-zh/` and `agent-harness-en/` Skill packages for **Cursor, Codex, Claude Code**, and universal skill loaders.
 
 ### What to contribute
 
@@ -26,8 +26,8 @@ Thank you for contributing to round-harness! This repo contains `agent-harness-z
 ### Development
 
 ```bash
-git clone https://github.com/HYX-LHJ/round-harness.git
-cd round-harness
+git clone https://github.com/HYX-LHJ/mini-harness.git
+cd mini-harness
 ```
 
 No third-party Python dependencies; `init_harness.py` uses the stdlib only.
@@ -37,7 +37,7 @@ No third-party Python dependencies; `init_harness.py` uses the stdlib only.
 ```bash
 mkdir /tmp/harness-test && cd /tmp/harness-test
 git init
-python /path/to/round-harness/agent-harness-zh/scripts/init_harness.py --root .
+python /path/to/mini-harness/agent-harness-zh/scripts/init_harness.py --root .
 ```
 
 Dry run:
@@ -85,7 +85,7 @@ Security issues: see [SECURITY.md](SECURITY.md) — do not file public issues.
 
 ## 中文
 
-感谢关注 round-harness！本仓库包含 `agent-harness-zh/` 与 `agent-harness-en/` Skill 包及面向 **Cursor、Codex、Claude Code** 与通用 Skill 加载器的文档。
+感谢关注 mini-harness！本仓库包含 `agent-harness-zh/` 与 `agent-harness-en/` Skill 包及面向 **Cursor、Codex、Claude Code** 与通用 Skill 加载器的文档。
 
 ### 可贡献内容
 
@@ -103,8 +103,8 @@ Security issues: see [SECURITY.md](SECURITY.md) — do not file public issues.
 ### 开发环境
 
 ```bash
-git clone https://github.com/HYX-LHJ/round-harness.git
-cd round-harness
+git clone https://github.com/HYX-LHJ/mini-harness.git
+cd mini-harness
 ```
 
 无第三方 Python 依赖；`init_harness.py` 仅使用标准库。
@@ -114,7 +114,7 @@ cd round-harness
 ```bash
 mkdir /tmp/harness-test && cd /tmp/harness-test
 git init
-python /path/to/round-harness/agent-harness-zh/scripts/init_harness.py --root .
+python /path/to/mini-harness/agent-harness-zh/scripts/init_harness.py --root .
 ```
 
 干跑：

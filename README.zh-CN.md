@@ -1,7 +1,7 @@
-# round-harness
+# mini-harness
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![CI](https://github.com/HYX-LHJ/round-harness/actions/workflows/validate-scaffold.yml/badge.svg)](https://github.com/HYX-LHJ/round-harness/actions/workflows/validate-scaffold.yml)
+[![CI](https://github.com/HYX-LHJ/mini-harness/actions/workflows/validate-scaffold.yml/badge.svg)](https://github.com/HYX-LHJ/mini-harness/actions/workflows/validate-scaffold.yml)
 
 **[English README](README.md)**
 
@@ -9,7 +9,7 @@
 
 ## 一句话
 
-**Agent Skill（中文 + 英文两个包）** — 一条命令，在任意仓库生成完整协作工程（`harness/`、`AGENTS.md`、门禁脚本）。支持 **Cursor · Codex · Claude Code · [Skills CLI](https://skills.sh/)**。
+**轻量级 Agent Skill（中文 + 英文两个包）** — 一条命令，在任意仓库生成 mini 协作工程（`harness/`、`AGENTS.md`、门禁脚本）。支持 **Cursor · Codex · Claude Code · [Skills CLI](https://skills.sh/)**。
 
 ---
 
@@ -17,8 +17,8 @@
 
 | 语言 | 包路径 | 安装 |
 |------|--------|------|
-| **中文** | [`agent-harness-zh/`](agent-harness-zh/) | `npx skills add HYX-LHJ/round-harness --skill agent-harness-zh -g -y` |
-| **English** | [`agent-harness-en/`](agent-harness-en/) | `npx skills add HYX-LHJ/round-harness --skill agent-harness-en -g -y` |
+| **中文** | [`agent-harness-zh/`](agent-harness-zh/) | `npx skills add HYX-LHJ/mini-harness --skill agent-harness-zh -g -y` |
+| **English** | [`agent-harness-en/`](agent-harness-en/) | `npx skills add HYX-LHJ/mini-harness --skill agent-harness-en -g -y` |
 
 两个包流程相同；**模板与生成的 `AGENTS.md` 语言与所选包一致**。
 

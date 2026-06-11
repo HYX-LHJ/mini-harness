@@ -7,9 +7,9 @@ description: >-
   to create, initialize, or install a harness.
 metadata:
   version: "1.0.0"
-  repository: round-harness
+  repository: mini-harness
   locale: en
-  install-cli: "npx skills add HYX-LHJ/round-harness --skill agent-harness-en -g -y"
+  install-cli: "npx skills add HYX-LHJ/mini-harness --skill agent-harness-en -g -y"
 ---
 
 # Agent Harness
@@ -82,7 +82,7 @@ Copy the entire `agent-harness-en/` directory to:
 | **Claude Code** | `~/.claude/skills/agent-harness-en/` | `<repo>/.claude/skills/agent-harness-en/` |
 | **Universal** | `~/.agents/skills/agent-harness-en/` | `<repo>/.agents/skills/agent-harness-en/` |
 
-**Skills CLI:** `npx skills add HYX-LHJ/round-harness --skill agent-harness-en -g -y`
+**Skills CLI:** `npx skills add HYX-LHJ/mini-harness --skill agent-harness-en -g -y`
 
 - **Do not** put it in `~/.cursor/skills-cursor/` (Cursor built-in)
 - **Codex**: after install, prompt the user to **restart**

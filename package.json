@@ -1,8 +1,9 @@
 {
-  "name": "round-harness",
+  "name": "mini-harness",
   "version": "1.1.0",
-  "description": "Agent Skills (ZH + EN): one-command harness scaffold for Cursor, Codex & Claude Code.",
+  "description": "Lightweight Agent Skills (ZH + EN): one-command mini harness scaffold for Cursor, Codex & Claude Code.",
   "keywords": [
+    "mini-harness",
     "agent-skills",
     "agent-harness",
     "harness",
@@ -12,13 +13,13 @@
     "skills-cli",
     "ai-coding"
   ],
-  "homepage": "https://github.com/HYX-LHJ/round-harness#readme",
+  "homepage": "https://github.com/HYX-LHJ/mini-harness#readme",
   "bugs": {
-    "url": "https://github.com/HYX-LHJ/round-harness/issues"
+    "url": "https://github.com/HYX-LHJ/mini-harness/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HYX-LHJ/round-harness.git"
+    "url": "git+https://github.com/HYX-LHJ/mini-harness.git"
   },
   "license": "MIT",
   "private": false,
@@ -34,12 +35,12 @@
     "agent-harness-zh": {
       "path": "agent-harness-zh",
       "locale": "zh-CN",
-      "install": "npx skills add HYX-LHJ/round-harness --skill agent-harness-zh -g -y"
+      "install": "npx skills add HYX-LHJ/mini-harness --skill agent-harness-zh -g -y"
     },
     "agent-harness-en": {
       "path": "agent-harness-en",
       "locale": "en",
-      "install": "npx skills add HYX-LHJ/round-harness --skill agent-harness-en -g -y"
+      "install": "npx skills add HYX-LHJ/mini-harness --skill agent-harness-en -g -y"
     }
   }
 }

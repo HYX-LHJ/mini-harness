@@ -1,7 +1,7 @@
-# round-harness
+# mini-harness
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![CI](https://github.com/HYX-LHJ/round-harness/actions/workflows/validate-scaffold.yml/badge.svg)](https://github.com/HYX-LHJ/round-harness/actions/workflows/validate-scaffold.yml)
+[![CI](https://github.com/HYX-LHJ/mini-harness/actions/workflows/validate-scaffold.yml/badge.svg)](https://github.com/HYX-LHJ/mini-harness/actions/workflows/validate-scaffold.yml)
 
 **[中文 README](README.zh-CN.md)**
 
@@ -9,7 +9,7 @@
 
 ## In one sentence
 
-**Agent Skills (English + Chinese)** — one command to scaffold a full collaboration harness (`harness/`, `AGENTS.md`, gate scripts) in any repo. Works with **Cursor · Codex · Claude Code · [Skills CLI](https://skills.sh/)**.
+**Lightweight Agent Skills (English + Chinese)** — one command to scaffold a mini collaboration harness (`harness/`, `AGENTS.md`, gate scripts) in any repo. Works with **Cursor · Codex · Claude Code · [Skills CLI](https://skills.sh/)**.
 
 ---
 
@@ -17,8 +17,8 @@
 
 | Language | Package | Install |
 |----------|---------|---------|
-| **English** | [`agent-harness-en/`](agent-harness-en/) | `npx skills add HYX-LHJ/round-harness --skill agent-harness-en -g -y` |
-| **中文** | [`agent-harness-zh/`](agent-harness-zh/) | `npx skills add HYX-LHJ/round-harness --skill agent-harness-zh -g -y` |
+| **English** | [`agent-harness-en/`](agent-harness-en/) | `npx skills add HYX-LHJ/mini-harness --skill agent-harness-en -g -y` |
+| **中文** | [`agent-harness-zh/`](agent-harness-zh/) | `npx skills add HYX-LHJ/mini-harness --skill agent-harness-zh -g -y` |
 
 Both packages share the same workflow; **templates and generated `AGENTS.md` match the package language**.
 

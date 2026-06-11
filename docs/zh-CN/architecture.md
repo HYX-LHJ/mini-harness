@@ -1,11 +1,11 @@
-﻿# 架构说明
+# 架构说明
 
-round-harness 采用「**Skill 包 + 目标仓库 harness 工程**」两层架构：Skill 负责**一次性脚手架**，harness 目录负责**持续协作状态**。
+mini-harness 采用「**Skill 包 + 目标仓库 harness 工程**」两层架构：Skill 负责**一次性脚手架**，harness 目录负责**持续协作状态**。
 
 ### 两层架构
 
 ```text
-round-harness 仓库                     你的项目仓库
+mini-harness 仓库                     你的项目仓库
 ┌─────────────────────┐              ┌─────────────────────┐
 │ agent-harness-zh/      │  init 脚本   │ AGENTS.md           │
 │  SKILL.md           │ ──────────►  │ pytest.ini          │

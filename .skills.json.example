@@ -3,12 +3,12 @@
   "skills": [
     {
       "name": "agent-harness-en",
-      "remote": "HYX-LHJ/round-harness",
+      "remote": "HYX-LHJ/mini-harness",
       "skill": "agent-harness-en"
     },
     {
       "name": "agent-harness-zh",
-      "remote": "HYX-LHJ/round-harness",
+      "remote": "HYX-LHJ/mini-harness",
       "skill": "agent-harness-zh"
     }
   ]

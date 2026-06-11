@@ -14,9 +14,9 @@
 ## Skills CLI
 
 ```bash
-npx skills add HYX-LHJ/round-harness --list
-npx skills add HYX-LHJ/round-harness --skill agent-harness-zh -g -y
-npx skills add HYX-LHJ/round-harness --skill agent-harness-en -g -y   # 英文版
+npx skills add HYX-LHJ/mini-harness --list
+npx skills add HYX-LHJ/mini-harness --skill agent-harness-zh -g -y
+npx skills add HYX-LHJ/mini-harness --skill agent-harness-en -g -y   # 英文版
 ```
 
 ## 规则

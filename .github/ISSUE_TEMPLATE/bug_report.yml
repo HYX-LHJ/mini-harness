@@ -27,7 +27,7 @@ body:
   - type: input
     id: version
     attributes:
-      label: round-harness version or commit / 版本或 commit
+      label: mini-harness version or commit / 版本或 commit
       description: Tag, commit SHA, or "main" / 标签、commit SHA 或 main
       placeholder: e.g. v1.0.0 or abc1234
     validations:
@@ -59,7 +59,7 @@ body:
       label: Steps to reproduce / 复现步骤
       description: Commands run, agent prompts used, install path / 执行的命令、对 Agent 说的话、Skill 安装路径
       placeholder: |
-        1. npx skills add <org>/round-harness --skill agent-harness-zh -g -y
+        1. npx skills add <org>/mini-harness --skill agent-harness-zh -g -y
         2. python agent-harness-zh/scripts/init_harness.py --root .
         3. ...
     validations:

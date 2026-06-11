@@ -1,4 +1,4 @@
-﻿# Skills CLI 指南
+# Skills CLI 指南
 
 ### 前置条件
 
@@ -8,7 +8,7 @@
 ### 发现本仓库中的 Skill
 
 ```bash
-npx skills add HYX-LHJ/round-harness --list
+npx skills add HYX-LHJ/mini-harness --list
 ```
 
 应能看到 **`agent-harness-zh`**（由 [`.claude-plugin/marketplace.json`](../.claude-plugin/marketplace.json) 声明）。
@@ -17,20 +17,20 @@ npx skills add HYX-LHJ/round-harness --list
 
 ```bash
 # 全局 — 本机所有项目可用
-npx skills add HYX-LHJ/round-harness --skill agent-harness-zh -g -y
+npx skills add HYX-LHJ/mini-harness --skill agent-harness-zh -g -y
 
 # 项目级 — 可提交到团队仓库
-npx skills add HYX-LHJ/round-harness --skill agent-harness-zh -y
+npx skills add HYX-LHJ/mini-harness --skill agent-harness-zh -y
 
 # 简写（等同 --skill agent-harness-zh）
-npx skills add HYX-LHJ/round-harness@agent-harness-zh -g -y
+npx skills add HYX-LHJ/mini-harness@agent-harness-zh -g -y
 ```
 
 ### 指定 Agent 工具
 
 ```bash
 # 仅安装到 Cursor + Claude Code + Codex
-npx skills add HYX-LHJ/round-harness \
+npx skills add HYX-LHJ/mini-harness \
   --skill agent-harness-zh \
   -a cursor -a claude-code -a codex \
   -g -y
@@ -48,7 +48,7 @@ npx skills add HYX-LHJ/round-harness \
 ### 不安装直接试用
 
 ```bash
-npx skills use HYX-LHJ/round-harness@agent-harness-zh --agent claude-code
+npx skills use HYX-LHJ/mini-harness@agent-harness-zh --agent claude-code
 ```
 
 ### 管理已安装 Skill
@@ -69,7 +69,7 @@ npx skills find harness      # 在 skills.sh 生态搜索
   "skills": [
     {
       "name": "agent-harness-zh",
-      "remote": "HYX-LHJ/round-harness",
+      "remote": "HYX-LHJ/mini-harness",
       "skill": "agent-harness-zh"
     }
   ]
@@ -79,7 +79,7 @@ npx skills find harness      # 在 skills.sh 生态搜索
 ### CI 中安装
 
 ```bash
-npx skills add HYX-LHJ/round-harness \
+npx skills add HYX-LHJ/mini-harness \
   --skill agent-harness-zh \
   -g -a cursor -y
 ```

@@ -1,4 +1,4 @@
-﻿# Installation
+# Installation
 
 ### Supported tools
 
@@ -20,16 +20,16 @@ Requires [Node.js](https://nodejs.org/) (`npx`):
 
 ```bash
 # List skills in this repo
-npx skills add HYX-LHJ/round-harness --list
+npx skills add HYX-LHJ/mini-harness --list
 
 # Global (user-level)
-npx skills add HYX-LHJ/round-harness --skill agent-harness-en -g -y
+npx skills add HYX-LHJ/mini-harness --skill agent-harness-en -g -y
 
 # Project-level (committed with the repo)
-npx skills add HYX-LHJ/round-harness --skill agent-harness-en -y
+npx skills add HYX-LHJ/mini-harness --skill agent-harness-en -y
 
 # Target Cursor + Claude Code + Codex
-npx skills add HYX-LHJ/round-harness --skill agent-harness-en -a cursor -a claude-code -a codex -g -y
+npx skills add HYX-LHJ/mini-harness --skill agent-harness-en -a cursor -a claude-code -a codex -g -y
 ```
 
 Browse skills at [skills.sh](https://skills.sh/). Full guide: [skills-cli.md](skills-cli.md).
@@ -37,34 +37,34 @@ Browse skills at [skills.sh](https://skills.sh/). Full guide: [skills-cli.md](sk
 ### Method 2 — Git clone + copy
 
 ```bash
-git clone https://github.com/HYX-LHJ/round-harness.git
+git clone https://github.com/HYX-LHJ/mini-harness.git
 ```
 
-Then copy `round-harness/agent-harness-en/` to the path for your tool (see table above).
+Then copy `mini-harness/agent-harness-en/` to the path for your tool (see table above).
 
 **Windows (PowerShell) — Cursor personal:**
 
 ```powershell
-Copy-Item -Recurse round-harness\agent-harness-en $env:USERPROFILE\.cursor\skills\agent-harness-en
+Copy-Item -Recurse mini-harness\agent-harness-en $env:USERPROFILE\.cursor\skills\agent-harness-en
 ```
 
 **macOS / Linux — Claude Code personal:**
 
 ```bash
-cp -r round-harness/agent-harness-en ~/.claude/skills/agent-harness-en
+cp -r mini-harness/agent-harness-en ~/.claude/skills/agent-harness-en
 ```
 
 **macOS / Linux — Codex:**
 
 ```bash
-cp -r round-harness/agent-harness-en "${CODEX_HOME:-$HOME/.codex}/skills/agent-harness-en"
+cp -r mini-harness/agent-harness-en "${CODEX_HOME:-$HOME/.codex}/skills/agent-harness-en"
 ```
 
 ### Method 3 — Symlink (developers)
 
 ```bash
 # Example: universal cross-agent path
-ln -s "$(pwd)/round-harness/agent-harness-en" ~/.agents/skills/agent-harness-en
+ln -s "$(pwd)/mini-harness/agent-harness-en" ~/.agents/skills/agent-harness-en
 ```
 
 ### Method 4 — Vendor into your repo

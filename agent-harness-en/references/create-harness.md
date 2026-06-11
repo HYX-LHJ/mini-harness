@@ -20,7 +20,7 @@ After others install the **agent-harness-en** Skill, the **same Agent conversati
 | Claude Code | `~/.claude/skills/agent-harness-en/` | `<repo>/.claude/skills/agent-harness-en/` |
 | Universal | `~/.agents/skills/agent-harness-en/` | `<repo>/.agents/skills/agent-harness-en/` |
 
-Or via Skills CLI: `npx skills add HYX-LHJ/round-harness@agent-harness-en`
+Or via Skills CLI: `npx skills add HYX-LHJ/mini-harness@agent-harness-en`
 
 Script path: `<SKILL_ROOT>/scripts/init_harness.py`
 

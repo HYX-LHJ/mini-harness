@@ -1,6 +1,6 @@
-﻿# Getting Started
+# Getting Started
 
-This guide walks you through installing round-harness and enabling agent collaboration in your project.
+This guide walks you through installing mini-harness and enabling agent collaboration in your project.
 
 ### Prerequisites
 
@@ -24,10 +24,10 @@ See **[installation.md](installation.md)** for all tools. Quick options:
 
 ```bash
 # Skills CLI (universal)
-npx skills add HYX-LHJ/round-harness@agent-harness-en -g -y
+npx skills add HYX-LHJ/mini-harness@agent-harness-en -g -y
 
 # Or clone
-git clone https://github.com/HYX-LHJ/round-harness.git
+git clone https://github.com/HYX-LHJ/mini-harness.git
 # Then copy agent-harness-en/ to ~/.cursor/skills/, ~/.claude/skills/, ~/.codex/skills/, or ~/.agents/skills/
 ```
 

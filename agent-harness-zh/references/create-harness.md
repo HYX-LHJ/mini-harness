@@ -20,7 +20,7 @@
 | Claude Code | `~/.claude/skills/agent-harness-zh/` | `<repo>/.claude/skills/agent-harness-zh/` |
 | 通用 | `~/.agents/skills/agent-harness-zh/` | `<repo>/.agents/skills/agent-harness-zh/` |
 
-或通过 Skills CLI：`npx skills add HYX-LHJ/round-harness --skill agent-harness-zh`
+或通过 Skills CLI：`npx skills add HYX-LHJ/mini-harness --skill agent-harness-zh`
 
 脚本路径：`<SKILL_ROOT>/scripts/init_harness.py`
 

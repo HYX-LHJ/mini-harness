@@ -14,10 +14,10 @@ When explaining install options to the user, pick paths based on their tool. Ful
 ## Skills CLI
 
 ```bash
-npx skills add HYX-LHJ/round-harness --list
-npx skills add HYX-LHJ/round-harness --skill agent-harness-en -g -y   # global
-npx skills add HYX-LHJ/round-harness --skill agent-harness-en -y      # project
-npx skills add HYX-LHJ/round-harness --skill agent-harness-en -a cursor -a claude-code -a codex -g -y
+npx skills add HYX-LHJ/mini-harness --list
+npx skills add HYX-LHJ/mini-harness --skill agent-harness-en -g -y   # global
+npx skills add HYX-LHJ/mini-harness --skill agent-harness-en -y      # project
+npx skills add HYX-LHJ/mini-harness --skill agent-harness-en -a cursor -a claude-code -a codex -g -y
 ```
 
 See [docs/skills-cli.md](../../../docs/skills-cli.md) for details.

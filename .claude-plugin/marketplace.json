@@ -4,8 +4,8 @@
   },
   "plugins": [
     {
-      "name": "round-harness",
-      "description": "Agent Skills to scaffold standard collaboration harness (harness/, AGENTS.md) — Chinese and English packages.",
+      "name": "mini-harness",
+      "description": "Lightweight Agent Skills to scaffold mini collaboration harness (harness/, AGENTS.md) — Chinese and English packages.",
       "source": ".",
       "skills": ["./agent-harness-zh", "./agent-harness-en"]
     }

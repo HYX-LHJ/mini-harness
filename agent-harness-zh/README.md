@@ -1,6 +1,6 @@
 # agent-harness-zh（中文版 Skill）
 
-[round-harness](../README.zh-CN.md) 的中文 Agent Skill 包。
+[mini-harness](../README.zh-CN.md) 的中文 Agent Skill 包。
 
 | 语言 | Skill 包 |
 |------|----------|
@@ -10,7 +10,7 @@
 ## 安装
 
 ```bash
-npx skills add HYX-LHJ/round-harness --skill agent-harness-zh -g -y
+npx skills add HYX-LHJ/mini-harness --skill agent-harness-zh -g -y
 ```
 
 或复制 `agent-harness-zh/` 到 `~/.cursor/skills/`、`~/.claude/skills/` 等。

@@ -1,6 +1,6 @@
 # agent-harness-en
 
-**Agent Skill package** for Cursor, Codex, Claude Code, and similar tools — part of [round-harness](../README.md). Package docs are **English** by default.
+**Agent Skill package** for Cursor, Codex, Claude Code, and similar tools — part of [mini-harness](../README.md). Package docs are **English** by default.
 
 Public repository overview: [README.md (English)](../README.md) · [README.zh-CN.md (Chinese)](../README.zh-CN.md) · [agent-harness-zh (Chinese Skill)](../agent-harness-zh)
 
@@ -13,7 +13,7 @@ After installing this Skill, tell your Agent one sentence to generate a standard
 Full instructions: [docs/installation.md](../docs/installation.md)
 
 ```bash
-npx skills add HYX-LHJ/round-harness --skill agent-harness-en -g -y
+npx skills add HYX-LHJ/mini-harness --skill agent-harness-en -g -y
 ```
 
 Or copy `agent-harness-en/` to `~/.cursor/skills/`, `~/.claude/skills/`, `~/.codex/skills/`, `~/.agents/skills/`, etc.

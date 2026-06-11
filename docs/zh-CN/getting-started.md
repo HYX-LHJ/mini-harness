@@ -1,6 +1,6 @@
-﻿# 快速入门
+# 快速入门
 
-本文介绍如何安装 round-harness，并在你的项目中启用 Agent 协作工程。
+本文介绍如何安装 mini-harness，并在你的项目中启用 Agent 协作工程。
 
 ### 前置条件
 
@@ -24,10 +24,10 @@ python -m venv .venv
 
 ```bash
 # Skills CLI（通用）
-npx skills add HYX-LHJ/round-harness@agent-harness-zh -g -y
+npx skills add HYX-LHJ/mini-harness@agent-harness-zh -g -y
 
 # 或克隆
-git clone https://github.com/HYX-LHJ/round-harness.git
+git clone https://github.com/HYX-LHJ/mini-harness.git
 # 将 agent-harness-zh/ 复制到 ~/.cursor/skills/、~/.claude/skills/、~/.codex/skills/ 或 ~/.agents/skills/
 ```
 

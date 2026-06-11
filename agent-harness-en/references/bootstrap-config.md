@@ -58,7 +58,7 @@ Workflow: commit/push on `dev` → merge to `test` → push → return to `dev`.
 Copy entire `agent-harness-en/` (including `SKILL.md`) to the matching path, or use Skills CLI:
 
 ```bash
-npx skills add HYX-LHJ/round-harness@agent-harness-en -g -y
+npx skills add HYX-LHJ/mini-harness@agent-harness-en -g -y
 ```
 
 | Tool | Personal path | Project path |
