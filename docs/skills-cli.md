@@ -18,7 +18,7 @@
 ### Discover skills in this repo
 
 ```bash
-npx skills add <your-org>/round-harness --list
+npx skills add HYX-LHJ/round-harness --list
 ```
 
 Expected output includes **`agent-harness`** (declared in [`.claude-plugin/marketplace.json`](../.claude-plugin/marketplace.json)).
@@ -27,20 +27,20 @@ Expected output includes **`agent-harness`** (declared in [`.claude-plugin/marke
 
 ```bash
 # Global — all projects on this machine
-npx skills add <your-org>/round-harness --skill agent-harness -g -y
+npx skills add HYX-LHJ/round-harness --skill agent-harness -g -y
 
 # Project — committed with your team repo
-npx skills add <your-org>/round-harness --skill agent-harness -y
+npx skills add HYX-LHJ/round-harness --skill agent-harness -y
 
 # Shorthand (same as --skill agent-harness)
-npx skills add <your-org>/round-harness@agent-harness -g -y
+npx skills add HYX-LHJ/round-harness@agent-harness -g -y
 ```
 
 ### Target specific agents
 
 ```bash
 # Cursor + Claude Code + Codex only
-npx skills add <your-org>/round-harness \
+npx skills add HYX-LHJ/round-harness \
   --skill agent-harness \
   -a cursor -a claude-code -a codex \
   -g -y
@@ -58,7 +58,7 @@ Full agent list: [vercel-labs/skills README](https://github.com/vercel-labs/skil
 ### Try without installing
 
 ```bash
-npx skills use <your-org>/round-harness@agent-harness --agent claude-code
+npx skills use HYX-LHJ/round-harness@agent-harness --agent claude-code
 ```
 
 ### Manage installed skills
@@ -79,7 +79,7 @@ Copy [`.skills.json.example`](../.skills.json.example) to your project as `.skil
   "skills": [
     {
       "name": "agent-harness",
-      "remote": "<your-org>/round-harness",
+      "remote": "HYX-LHJ/round-harness",
       "skill": "agent-harness"
     }
   ]
@@ -89,7 +89,7 @@ Copy [`.skills.json.example`](../.skills.json.example) to your project as `.skil
 ### CI-friendly install
 
 ```bash
-npx skills add <your-org>/round-harness \
+npx skills add HYX-LHJ/round-harness \
   --skill agent-harness \
   -g -a cursor -y
 ```
@@ -113,7 +113,7 @@ npx skills add <your-org>/round-harness \
 ### 发现本仓库中的 Skill
 
 ```bash
-npx skills add <your-org>/round-harness --list
+npx skills add HYX-LHJ/round-harness --list
 ```
 
 应能看到 **`agent-harness`**（由 [`.claude-plugin/marketplace.json`](../.claude-plugin/marketplace.json) 声明）。
@@ -122,20 +122,20 @@ npx skills add <your-org>/round-harness --list
 
 ```bash
 # 全局 — 本机所有项目可用
-npx skills add <your-org>/round-harness --skill agent-harness -g -y
+npx skills add HYX-LHJ/round-harness --skill agent-harness -g -y
 
 # 项目级 — 可提交到团队仓库
-npx skills add <your-org>/round-harness --skill agent-harness -y
+npx skills add HYX-LHJ/round-harness --skill agent-harness -y
 
 # 简写（等同 --skill agent-harness）
-npx skills add <your-org>/round-harness@agent-harness -g -y
+npx skills add HYX-LHJ/round-harness@agent-harness -g -y
 ```
 
 ### 指定 Agent 工具
 
 ```bash
 # 仅安装到 Cursor + Claude Code + Codex
-npx skills add <your-org>/round-harness \
+npx skills add HYX-LHJ/round-harness \
   --skill agent-harness \
   -a cursor -a claude-code -a codex \
   -g -y
@@ -153,7 +153,7 @@ npx skills add <your-org>/round-harness \
 ### 不安装直接试用
 
 ```bash
-npx skills use <your-org>/round-harness@agent-harness --agent claude-code
+npx skills use HYX-LHJ/round-harness@agent-harness --agent claude-code
 ```
 
 ### 管理已安装 Skill
@@ -174,7 +174,7 @@ npx skills find harness      # 在 skills.sh 生态搜索
   "skills": [
     {
       "name": "agent-harness",
-      "remote": "<your-org>/round-harness",
+      "remote": "HYX-LHJ/round-harness",
       "skill": "agent-harness"
     }
   ]
@@ -184,7 +184,7 @@ npx skills find harness      # 在 skills.sh 生态搜索
 ### CI 中安装
 
 ```bash
-npx skills add <your-org>/round-harness \
+npx skills add HYX-LHJ/round-harness \
   --skill agent-harness \
   -g -a cursor -y
 ```

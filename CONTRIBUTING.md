@@ -26,7 +26,7 @@ Thank you for contributing to round-harness! This repo contains the portable `ag
 ### Development
 
 ```bash
-git clone https://github.com/<your-org>/round-harness.git
+git clone https://github.com/HYX-LHJ/round-harness.git
 cd round-harness
 ```
 
@@ -102,7 +102,7 @@ Security issues: see [SECURITY.md](SECURITY.md) — do not file public issues.
 ### 开发环境
 
 ```bash
-git clone https://github.com/<your-org>/round-harness.git
+git clone https://github.com/HYX-LHJ/round-harness.git
 cd round-harness
 ```
 

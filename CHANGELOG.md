@@ -17,4 +17,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [`package.json`](package.json) repository metadata
 - GitHub Issue / PR templates and CI scaffold validation workflow
 
-[1.0.0]: https://github.com/<your-org>/round-harness/releases/tag/v1.0.0
+[1.0.0]: https://github.com/HYX-LHJ/round-harness/releases/tag/v1.0.0

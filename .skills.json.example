@@ -3,7 +3,7 @@
   "skills": [
     {
       "name": "agent-harness",
-      "remote": "<your-org>/round-harness",
+      "remote": "HYX-LHJ/round-harness",
       "skill": "agent-harness"
     }
   ]

@@ -28,16 +28,16 @@ Requires [Node.js](https://nodejs.org/) (`npx`):
 
 ```bash
 # List skills in this repo
-npx skills add <your-org>/round-harness --list
+npx skills add HYX-LHJ/round-harness --list
 
 # Global (user-level)
-npx skills add <your-org>/round-harness --skill agent-harness -g -y
+npx skills add HYX-LHJ/round-harness --skill agent-harness -g -y
 
 # Project-level (committed with the repo)
-npx skills add <your-org>/round-harness --skill agent-harness -y
+npx skills add HYX-LHJ/round-harness --skill agent-harness -y
 
 # Target Cursor + Claude Code + Codex
-npx skills add <your-org>/round-harness --skill agent-harness -a cursor -a claude-code -a codex -g -y
+npx skills add HYX-LHJ/round-harness --skill agent-harness -a cursor -a claude-code -a codex -g -y
 ```
 
 Browse skills at [skills.sh](https://skills.sh/). Full guide: [skills-cli.md](skills-cli.md).
@@ -45,7 +45,7 @@ Browse skills at [skills.sh](https://skills.sh/). Full guide: [skills-cli.md](sk
 ### Method 2 — Git clone + copy
 
 ```bash
-git clone https://github.com/<your-org>/round-harness.git
+git clone https://github.com/HYX-LHJ/round-harness.git
 ```
 
 Then copy `round-harness/agent-harness/` to the path for your tool (see table above).
@@ -162,16 +162,16 @@ Install companion skills to the **same tool-specific path** as `agent-harness`.
 
 ```bash
 # 列出本仓库中的 Skill
-npx skills add <your-org>/round-harness --list
+npx skills add HYX-LHJ/round-harness --list
 
 # 全局（用户级）
-npx skills add <your-org>/round-harness --skill agent-harness -g -y
+npx skills add HYX-LHJ/round-harness --skill agent-harness -g -y
 
 # 项目级（可提交到仓库）
-npx skills add <your-org>/round-harness --skill agent-harness -y
+npx skills add HYX-LHJ/round-harness --skill agent-harness -y
 
 # 指定 Cursor + Claude Code + Codex
-npx skills add <your-org>/round-harness --skill agent-harness -a cursor -a claude-code -a codex -g -y
+npx skills add HYX-LHJ/round-harness --skill agent-harness -a cursor -a claude-code -a codex -g -y
 ```
 
 浏览 Skill：[skills.sh](https://skills.sh/)。完整指南：[skills-cli.md](skills-cli.md)
@@ -179,7 +179,7 @@ npx skills add <your-org>/round-harness --skill agent-harness -a cursor -a claud
 ### 方式二 — Git 克隆 + 复制
 
 ```bash
-git clone https://github.com/<your-org>/round-harness.git
+git clone https://github.com/HYX-LHJ/round-harness.git
 ```
 
 将 `round-harness/agent-harness/` 复制到上表对应路径。

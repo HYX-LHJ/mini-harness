@@ -14,13 +14,13 @@
     "workflow",
     "tdd"
   ],
-  "homepage": "https://github.com/<your-org>/round-harness#readme",
+  "homepage": "https://github.com/HYX-LHJ/round-harness#readme",
   "bugs": {
-    "url": "https://github.com/<your-org>/round-harness/issues"
+    "url": "https://github.com/HYX-LHJ/round-harness/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/<your-org>/round-harness.git"
+    "url": "git+https://github.com/HYX-LHJ/round-harness.git"
   },
   "license": "MIT",
   "private": false,
@@ -34,7 +34,7 @@
     "agent-harness": {
       "path": "agent-harness",
       "name": "agent-harness",
-      "install": "npx skills add <your-org>/round-harness --skill agent-harness -g -y"
+      "install": "npx skills add HYX-LHJ/round-harness --skill agent-harness -g -y"
     }
   }
 }

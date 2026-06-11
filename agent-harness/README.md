@@ -18,7 +18,7 @@ See **[docs/installation.md](../docs/installation.md)** for all tools.
 
 ```bash
 # Skills CLI
-npx skills add <your-org>/round-harness@agent-harness -g -y
+npx skills add HYX-LHJ/round-harness@agent-harness -g -y
 
 # Or copy agent-harness/ to:
 #   ~/.cursor/skills/     (Cursor)
@@ -73,7 +73,7 @@ agent-harness/
 
 ```bash
 # Skills CLI
-npx skills add <your-org>/round-harness@agent-harness -g -y
+npx skills add HYX-LHJ/round-harness@agent-harness -g -y
 
 # 或复制 agent-harness/ 到：
 #   ~/.cursor/skills/     （Cursor）

@@ -58,7 +58,7 @@ pytest
 复制整个 `agent-harness/`（含 `SKILL.md`）到对应路径，或使用 Skills CLI：
 
 ```bash
-npx skills add <owner>/round-harness@agent-harness -g -y
+npx skills add HYX-LHJ/round-harness@agent-harness -g -y
 ```
 
 | 工具 | 个人路径 | 项目路径 |

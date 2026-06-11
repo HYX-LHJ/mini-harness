@@ -1,8 +1,8 @@
 blank_issues_enabled: false
 contact_links:
   - name: Documentation / 文档
-    url: https://github.com/<your-org>/round-harness#readme
+    url: https://github.com/HYX-LHJ/round-harness#readme
     about: Read the bilingual docs before opening an issue / 提 Issue 前先阅读中英双语文档
   - name: Installation guide / 安装指南
-    url: https://github.com/<your-org>/round-harness/blob/main/docs/installation.md
+    url: https://github.com/HYX-LHJ/round-harness/blob/main/docs/installation.md
     about: Multi-tool install (Cursor, Codex, Claude Code, Skills CLI) / 多工具安装说明

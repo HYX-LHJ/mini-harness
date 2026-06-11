@@ -32,10 +32,10 @@ See **[installation.md](installation.md)** for all tools. Quick options:
 
 ```bash
 # Skills CLI (universal)
-npx skills add <your-org>/round-harness@agent-harness -g -y
+npx skills add HYX-LHJ/round-harness@agent-harness -g -y
 
 # Or clone
-git clone https://github.com/<your-org>/round-harness.git
+git clone https://github.com/HYX-LHJ/round-harness.git
 # Then copy agent-harness/ to ~/.cursor/skills/, ~/.claude/skills/, ~/.codex/skills/, or ~/.agents/skills/
 ```
 
@@ -145,10 +145,10 @@ python -m venv .venv
 
 ```bash
 # Skills CLI（通用）
-npx skills add <your-org>/round-harness@agent-harness -g -y
+npx skills add HYX-LHJ/round-harness@agent-harness -g -y
 
 # 或克隆
-git clone https://github.com/<your-org>/round-harness.git
+git clone https://github.com/HYX-LHJ/round-harness.git
 # 将 agent-harness/ 复制到 ~/.cursor/skills/、~/.claude/skills/、~/.codex/skills/ 或 ~/.agents/skills/
 ```
 

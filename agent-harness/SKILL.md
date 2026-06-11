@@ -11,7 +11,7 @@ description: >-
 metadata:
   version: "1.0.0"
   repository: round-harness
-  install-cli: "npx skills add <owner>/round-harness --skill agent-harness -g -y"
+  install-cli: "npx skills add HYX-LHJ/round-harness --skill agent-harness -g -y"
 ---
 
 # Agent Harness
@@ -84,7 +84,7 @@ Copy the entire `agent-harness/` directory to a skill path for the user's tool:
 | **Claude Code** | `~/.claude/skills/agent-harness/` | `<repo>/.claude/skills/agent-harness/` |
 | **Universal** | `~/.agents/skills/agent-harness/` | `<repo>/.agents/skills/agent-harness/` |
 
-**Skills CLI:** `npx skills add <owner>/round-harness@agent-harness -g -y`
+**Skills CLI:** `npx skills add HYX-LHJ/round-harness@agent-harness -g -y`
 
 - **Do not** put in `~/.cursor/skills-cursor/` (Cursor built-ins)
 - **Codex:** tell user to restart Codex after install

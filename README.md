@@ -1,7 +1,7 @@
 # round-harness
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![CI](https://github.com/<your-org>/round-harness/actions/workflows/validate-scaffold.yml/badge.svg)](https://github.com/<your-org>/round-harness/actions/workflows/validate-scaffold.yml)
+[![CI](https://github.com/HYX-LHJ/round-harness/actions/workflows/validate-scaffold.yml/badge.svg)](https://github.com/HYX-LHJ/round-harness/actions/workflows/validate-scaffold.yml)
 
 **Languages:** [English](#english) · [中文](#中文)
 
@@ -31,10 +31,10 @@ round-harness turns these into **reusable engineering conventions**: directories
 
    ```bash
    # Universal (Skills CLI) — installs to Cursor, Codex, Claude Code, etc.
-   npx skills add <your-org>/round-harness --skill agent-harness -g -y
+   npx skills add HYX-LHJ/round-harness --skill agent-harness -g -y
 
    # Or clone and copy agent-harness/ to your tool's skill directory
-   git clone https://github.com/<your-org>/round-harness.git
+   git clone https://github.com/HYX-LHJ/round-harness.git
    ```
 
    Full CLI guide: [docs/skills-cli.md](docs/skills-cli.md)
@@ -142,10 +142,10 @@ round-harness 将这些变成**可复用的工程约定**：目录即协议、�
 
    ```bash
    # 通用方式（Skills CLI）— 可安装到 Cursor、Codex、Claude Code 等
-   npx skills add <your-org>/round-harness --skill agent-harness -g -y
+   npx skills add HYX-LHJ/round-harness --skill agent-harness -g -y
 
    # 或克隆后复制 agent-harness/ 到对应工具的 Skill 目录
-   git clone https://github.com/<your-org>/round-harness.git
+   git clone https://github.com/HYX-LHJ/round-harness.git
    ```
 
    CLI 完整指南：[docs/skills-cli.md](docs/skills-cli.md)
