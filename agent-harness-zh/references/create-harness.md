@@ -1,6 +1,6 @@
 # 创建 harness — Agent 执行清单
 
-他人安装 **agent-harness** Skill 后，用**同一套 Agent 对话**即可在任意仓库生成标准 harness。本文是 Agent 逐步清单。
+他人安装 **agent-harness-zh** Skill 后，用**同一套 Agent 对话**即可在任意仓库生成标准 harness。本文是 Agent 逐步清单。
 
 ## 用户怎么说会触发
 
@@ -11,16 +11,16 @@
 
 ### 1. 定位 skill 目录
 
-`SKILL_ROOT` = 本 Skill 安装路径（`agent-harness/` 目录），因工具而异：
+`SKILL_ROOT` = 本 Skill 安装路径（`agent-harness-zh/` 目录），因工具而异：
 
 | 工具 | 个人路径 | 项目路径 |
 |------|----------|----------|
-| Cursor | `~/.cursor/skills/agent-harness/` | `<repo>/.cursor/skills/agent-harness/` |
-| Codex | `$CODEX_HOME/skills/agent-harness/` | — |
-| Claude Code | `~/.claude/skills/agent-harness/` | `<repo>/.claude/skills/agent-harness/` |
-| 通用 | `~/.agents/skills/agent-harness/` | `<repo>/.agents/skills/agent-harness/` |
+| Cursor | `~/.cursor/skills/agent-harness-zh/` | `<repo>/.cursor/skills/agent-harness-zh/` |
+| Codex | `$CODEX_HOME/skills/agent-harness-zh/` | — |
+| Claude Code | `~/.claude/skills/agent-harness-zh/` | `<repo>/.claude/skills/agent-harness-zh/` |
+| 通用 | `~/.agents/skills/agent-harness-zh/` | `<repo>/.agents/skills/agent-harness-zh/` |
 
-或通过 Skills CLI：`npx skills add HYX-LHJ/round-harness@agent-harness`
+或通过 Skills CLI：`npx skills add HYX-LHJ/round-harness --skill agent-harness-zh`
 
 脚本路径：`<SKILL_ROOT>/scripts/init_harness.py`
 

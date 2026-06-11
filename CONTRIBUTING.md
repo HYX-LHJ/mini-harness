@@ -8,13 +8,13 @@
 
 ## English
 
-Thank you for contributing to round-harness! This repo contains the portable `agent-harness/` Skill and documentation for **Cursor, Codex, Claude Code**, and universal skill loaders.
+Thank you for contributing to round-harness! This repo contains `agent-harness-zh/` and `agent-harness-en/` Skill packages for **Cursor, Codex, Claude Code**, and universal skill loaders.
 
 ### What to contribute
 
 - **Bug fixes** — scaffold script, templates, docs
-- **Template improvements** — `agent-harness/templates/`
-- **Documentation** — `docs/`, `agent-harness/references/`, bilingual updates
+- **Template improvements** — `agent-harness-zh/templates/`, `agent-harness-en/templates/`
+- **Documentation** — `docs/en/`, `docs/zh-CN/`, skill `references/`
 - **Multi-tool support** — install paths, compatibility notes
 
 **Open an Issue first** for:
@@ -37,13 +37,13 @@ No third-party Python dependencies; `init_harness.py` uses the stdlib only.
 ```bash
 mkdir /tmp/harness-test && cd /tmp/harness-test
 git init
-python /path/to/round-harness/agent-harness/scripts/init_harness.py --root .
+python /path/to/round-harness/agent-harness-zh/scripts/init_harness.py --root .
 ```
 
 Dry run:
 
 ```bash
-python agent-harness/scripts/init_harness.py --root /tmp/harness-test --dry-run
+python agent-harness-zh/scripts/init_harness.py --root /tmp/harness-test --dry-run
 ```
 
 ### Commit messages
@@ -61,12 +61,12 @@ python agent-harness/scripts/init_harness.py --root /tmp/harness-test --dry-run
 
 | Path | Notes |
 |------|-------|
-| `agent-harness/SKILL.md` | Agent instructions (**Chinese**); keep in sync with `references/` and templates |
-| `README.md` / `README.zh-CN.md` | External docs (English / Chinese) |
-| `agent-harness/templates/` | Placeholders: `{{PROJECT_NAME}}`, etc. |
-| `agent-harness/scripts/init_harness.py` | Update `REQUIRED_PATHS` when templates change |
-| `docs/installation.md` | Canonical multi-tool install guide |
-| `docs/*.md` | Bilingual sections (external docs) |
+| `agent-harness-zh/` | Chinese Skill — `SKILL.md`, `references/`, `templates/` |
+| `agent-harness-en/` | English Skill — keep in sync with `-zh` (logic & structure) |
+| `README.md` / `README.zh-CN.md` | External repo overview |
+| `docs/en/` / `docs/zh-CN/` | External documentation |
+| `agent-harness-zh/templates/` / `agent-harness-en/templates/` | Placeholders: `{{PROJECT_NAME}}`, etc. |
+| `agent-harness-zh/scripts/init_harness.py` | Update `REQUIRED_PATHS` when templates change (sync `-en`) |
 
 ### Reporting issues
 
@@ -85,13 +85,13 @@ Security issues: see [SECURITY.md](SECURITY.md) — do not file public issues.
 
 ## 中文
 
-感谢关注 round-harness！本仓库包含可移植的 `agent-harness/` Skill 及面向 **Cursor、Codex、Claude Code** 与通用 Skill 加载器的文档。
+感谢关注 round-harness！本仓库包含 `agent-harness-zh/` 与 `agent-harness-en/` Skill 包及面向 **Cursor、Codex、Claude Code** 与通用 Skill 加载器的文档。
 
 ### 可贡献内容
 
 - **Bug 修复** — 脚手架脚本、模板、文档
-- **模板改进** — `agent-harness/templates/`
-- **文档** — `docs/`、`agent-harness/references/`、中英双语更新
+- **模板改进** — `agent-harness-zh/templates/`、`agent-harness-en/templates/`
+- **文档** — `docs/zh-CN/`、`docs/en/`
 - **多工具支持** — 安装路径、兼容性说明
 
 以下变更请**先开 Issue**：
@@ -114,13 +114,13 @@ cd round-harness
 ```bash
 mkdir /tmp/harness-test && cd /tmp/harness-test
 git init
-python /path/to/round-harness/agent-harness/scripts/init_harness.py --root .
+python /path/to/round-harness/agent-harness-zh/scripts/init_harness.py --root .
 ```
 
 干跑：
 
 ```bash
-python agent-harness/scripts/init_harness.py --root /tmp/harness-test --dry-run
+python agent-harness-zh/scripts/init_harness.py --root /tmp/harness-test --dry-run
 ```
 
 ### Commit message
@@ -138,12 +138,11 @@ python agent-harness/scripts/init_harness.py --root /tmp/harness-test --dry-run
 
 | 路径 | 注意 |
 |------|------|
-| `agent-harness/SKILL.md` | Agent 指令（**中文**）；与 `references/`、模板保持一致 |
-| `README.md` / `README.zh-CN.md` | 对外说明（英文 / 中文） |
-| `agent-harness/templates/` | 占位符 `{{PROJECT_NAME}}` 等 |
-| `agent-harness/scripts/init_harness.py` | 模板变更时同步 `REQUIRED_PATHS` |
-| `docs/installation.md` | 多工具安装 canonical 文档 |
-| `docs/*.md` | 对外文档，中英分区 |
+| `agent-harness-zh/` | 中文 Skill — `SKILL.md`、`references/`、`templates/` |
+| `agent-harness-en/` | 英文 Skill — 与 `-zh` 保持结构与逻辑同步 |
+| `README.md` / `README.zh-CN.md` | 对外仓库说明 |
+| `docs/en/` / `docs/zh-CN/` | 对外文档 |
+| `agent-harness-zh/scripts/init_harness.py` | 模板变更时同步 `REQUIRED_PATHS`（`-en` 同步） |
 
 ### Issue 报告
 

@@ -2,9 +2,14 @@
   "$schema": "https://skills.sh/schemas/skills.json",
   "skills": [
     {
-      "name": "agent-harness",
+      "name": "agent-harness-en",
       "remote": "HYX-LHJ/round-harness",
-      "skill": "agent-harness"
+      "skill": "agent-harness-en"
+    },
+    {
+      "name": "agent-harness-zh",
+      "remote": "HYX-LHJ/round-harness",
+      "skill": "agent-harness-zh"
     }
   ]
 }

@@ -59,8 +59,8 @@ body:
       label: Steps to reproduce / 复现步骤
       description: Commands run, agent prompts used, install path / 执行的命令、对 Agent 说的话、Skill 安装路径
       placeholder: |
-        1. npx skills add <org>/round-harness@agent-harness -g -y
-        2. python agent-harness/scripts/init_harness.py --root .
+        1. npx skills add <org>/round-harness --skill agent-harness-zh -g -y
+        2. python agent-harness-zh/scripts/init_harness.py --root .
         3. ...
     validations:
       required: true

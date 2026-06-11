@@ -1,54 +1,36 @@
 # GitHub Repository About / 仓库 About 设置
 
-Copy the values below into **GitHub → Repository → About (⚙️)**.
-将以下内容复制到 **GitHub 仓库主页 → About → ⚙️**。
+**Languages:** [English](#english) · [中文](#中文)
 
 ---
 
-## Description / 描述
+<a id="english"></a>
 
-**English (recommended for GitHub About):**
+## English — Description
 
 ```text
-Agent Skill: one-command harness scaffold (harness/, AGENTS.md, gates) for Cursor, Codex & Claude Code. npx skills add HYX-LHJ/round-harness@agent-harness
+Agent Skills (EN+ZH): one-command harness scaffold for Cursor, Codex & Claude Code. npx skills add HYX-LHJ/round-harness --skill agent-harness-en
 ```
 
-**中文（备选）:**
+## Topics
 
 ```text
-AI Agent 协作 Skill：一键生成 harness/、AGENTS.md、门禁与 todo 流程，支持 Cursor / Codex / Claude Code。npx skills add HYX-LHJ/round-harness@agent-harness
-```
-
----
-
-## Topics / 标签
-
-Add all of these (paste one by one or comma-separated if the UI allows):
-
-```text
-agent-skills
-cursor
-claude-code
-codex
-ai-coding
-agents-md
-developer-tools
-python
-workflow
-skills-cli
-llm
-tdd
+agent-skills, cursor, claude-code, codex, ai-coding, agents-md, developer-tools, python, workflow, skills-cli, llm, tdd
 ```
 
 ---
 
-## Website（可选）
+<a id="chinese"></a>
 
-Leave empty, or use:
+## 中文 — Description
 
 ```text
-https://skills.sh/
+Agent Skill（中英两包）：一键生成 harness/、AGENTS.md 协作工程。npx skills add HYX-LHJ/round-harness --skill agent-harness-zh
 ```
+
+## Topics
+
+同上 / Same as English section above.
 
 ---
 
@@ -56,7 +38,7 @@ https://skills.sh/
 
 ```bash
 gh repo edit HYX-LHJ/round-harness \
-  --description "Agent Skill: one-command harness scaffold (harness/, AGENTS.md, gates) for Cursor, Codex & Claude Code. npx skills add HYX-LHJ/round-harness@agent-harness"
+  --description "Agent Skills (EN+ZH): harness scaffold for Cursor, Codex & Claude Code. npx skills add HYX-LHJ/round-harness --skill agent-harness-en"
 
 gh repo edit HYX-LHJ/round-harness \
   --add-topic agent-skills,cursor,claude-code,codex,ai-coding,agents-md,developer-tools,python,workflow,skills-cli,llm,tdd

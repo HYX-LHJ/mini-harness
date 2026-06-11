@@ -55,18 +55,18 @@ pytest
 
 ## 安装本 Skill（多工具）
 
-复制整个 `agent-harness/`（含 `SKILL.md`）到对应路径，或使用 Skills CLI：
+复制整个 `agent-harness-zh/`（含 `SKILL.md`）到对应路径，或使用 Skills CLI：
 
 ```bash
-npx skills add HYX-LHJ/round-harness@agent-harness -g -y
+npx skills add HYX-LHJ/round-harness --skill agent-harness-zh -g -y
 ```
 
 | 工具 | 个人路径 | 项目路径 |
 |------|----------|----------|
-| **Cursor** | `~/.cursor/skills/agent-harness/` | `<repo>/.cursor/skills/agent-harness/` |
-| **Codex** | `$CODEX_HOME/skills/agent-harness/` | — |
-| **Claude Code** | `~/.claude/skills/agent-harness/` | `<repo>/.claude/skills/agent-harness/` |
-| **通用** | `~/.agents/skills/agent-harness/` | `<repo>/.agents/skills/agent-harness/` |
+| **Cursor** | `~/.cursor/skills/agent-harness-zh/` | `<repo>/.cursor/skills/agent-harness-zh/` |
+| **Codex** | `$CODEX_HOME/skills/agent-harness-zh/` | — |
+| **Claude Code** | `~/.claude/skills/agent-harness-zh/` | `<repo>/.claude/skills/agent-harness-zh/` |
+| **通用** | `~/.agents/skills/agent-harness-zh/` | `<repo>/.agents/skills/agent-harness-zh/` |
 
 - Cursor：**勿**放入 `~/.cursor/skills-cursor/`
 - Codex：安装后**重启**

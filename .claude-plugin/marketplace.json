@@ -5,9 +5,9 @@
   "plugins": [
     {
       "name": "round-harness",
-      "description": "Agent Skill: one-command harness scaffold (harness/, AGENTS.md, gates) for Cursor, Codex & Claude Code.",
+      "description": "Agent Skills to scaffold standard collaboration harness (harness/, AGENTS.md) — Chinese and English packages.",
       "source": ".",
-      "skills": ["./agent-harness"]
+      "skills": ["./agent-harness-zh", "./agent-harness-en"]
     }
   ]
 }
