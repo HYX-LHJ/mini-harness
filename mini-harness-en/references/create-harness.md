@@ -67,6 +67,7 @@ harness/todo.md
 harness/PROGRESS.md
 harness/DECISIONS.md
 harness/docs/plan-mode.md
+harness/docs/weekly-review.md
 harness/scripts/lint_src.py
 harness/scripts/sync_progress.py
 harness/scripts/archive_harness_todo.py
@@ -84,6 +85,7 @@ Tell the user:
 2. Each round: Agent reads `AGENTS.md` + `harness/todo.md` / `PROGRESS.md`
 3. Recommended companion Skills: `tdd`, `code-review-expert`, `code-simplifier`
 4. If there is `src/` and gates should pass: configure `.venv`, `ruff`, `pyright`, `pytest`
+5. First Agent session each Monday must run harness weekly review (see `harness/docs/weekly-review.md`)
 
 ### 7. Do not
 
@@ -100,5 +102,6 @@ Tell the user:
 | Maintenance scripts | `lint_src`, `sync_progress`, `archive_harness_todo` (bundled with skill) |
 | `pytest.ini` | `harness/tests` + excludes `integration` |
 | `harness/docs/plan-mode.md` | Plan mode details |
+| `harness/docs/weekly-review.md` | Weekly review: Agent active/archive readable surface |
 
 Project-specific content (API docs, DDL, integration tests) is added by the user under `harness/docs/`, `harness/sql/`, `harness/tests/`.

@@ -24,13 +24,18 @@ Each user input = one round. Start with a **regular round**; when the user asks 
 ```
 Regular: gates(before) → read harness → [Plan] → register todo → [change {{SRC_DIR}}/? → start tdd] → implement → [code-review] → gates(after) → PROGRESS
 
+Weekly review: gates(before) → weekly-review.md → archive/rewrite harness → archive_harness_todo + sync_progress → gates(after) → PROGRESS
+
 Commit: …regular wrap-up… → code-simplifier → second code-review → commit {{DEV_BRANCH}} → sync {{TEST_BRANCH}} → refresh PROGRESS again
 ```
 
 | Path | Trigger | Extra steps |
 |------|---------|-------------|
 | **Regular round** | Every user input | Changing `{{SRC_DIR}}/` requires tdd right after todo; code-review at wrap-up |
+| **Weekly review round** | **First session on Monday**, or first session of a new calendar week if last week was skipped | Read [weekly-review.md](harness/docs/weekly-review.md) first; process harness per active/archive checklist; then user tasks |
 | **Commit round** | "commit", "push", etc. | Delivery with `{{SRC_DIR}}/` needs simplify + second code-review, then Git workflow |
+
+**Weekly review hard constraint**: When triggered, **complete weekly review first** before registering/executing other user tasks (unless user explicitly says "skip this week's review"). Details: [harness/docs/weekly-review.md](harness/docs/weekly-review.md).
 
 ---
 
@@ -82,6 +87,8 @@ If gates fail, **fix gates only** — do not advance the user's task.
 ```
 
 ### 2. Read context
+
+If this round is a **weekly review round** (see table above), **first** read and execute [harness/docs/weekly-review.md](harness/docs/weekly-review.md), then read the files below.
 
 `harness/PROGRESS.md`, `harness/todo.md`; before major tasks [plan-mode.md](harness/docs/plan-mode.md); architecture boundaries `harness/DECISIONS.md`.
 

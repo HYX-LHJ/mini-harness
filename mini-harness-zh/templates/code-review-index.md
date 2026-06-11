@@ -6,6 +6,8 @@
 
 未修 **P0/P1** 登记 [open-findings.md](open-findings.md)。
 
+已关闭项归档见 [open-findings-closed.md](open-findings-closed.md)；历史索引见 [archive-index.md](archive-index.md)（周回顾由 Agent 维护）。
+
 ## 严重度约定
 
 | 级别 | 含义 |

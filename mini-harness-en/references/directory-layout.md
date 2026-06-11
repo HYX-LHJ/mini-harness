@@ -19,10 +19,13 @@ harness/
 │   └── YYYY-MM-DD-topic.md
 ├── docs/
 │   ├── index.md
-│   └── plan-mode.md         # Plan workflow details
+│   ├── plan-mode.md         # Plan workflow details
+│   └── weekly-review.md     # Monday Agent weekly review
 ├── code_review/
 │   ├── index.md
 │   ├── open-findings.md
+│   ├── open-findings-closed.md   # Closed findings (archive)
+│   ├── archive-index.md          # Historical review index (archive)
 │   └── YYYY-MM-DD_topic.md
 ├── code_simplifier/
 │   ├── index.md

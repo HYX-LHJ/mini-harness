@@ -37,6 +37,8 @@
 
 收尾：`python harness/scripts/sync_progress.py`（`--skip-gates` / `--dry-run` 见 [scripts/index.md](scripts/index.md)）。
 
+**每周一**（当天首个 Agent 会话）：须先走 [docs/weekly-review.md](docs/weekly-review.md) 周回顾回合（见 [AGENTS.md](../AGENTS.md)）。
+
 本回合若已 `git commit` 和/或 `git push`，须在推送完成后**再跑一遍** `sync_progress.py` 并手写 PROGRESS 人文章节（见根 [AGENTS.md](../AGENTS.md)）。
 
 ## 单一真相（读什么）

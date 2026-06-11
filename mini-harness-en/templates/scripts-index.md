@@ -19,4 +19,4 @@ Run from **repository root**.
 | Script | Purpose |
 |--------|---------|
 | [sync_progress.py](sync_progress.py) | Refresh PROGRESS mechanical sections; `--skip-gates`, `--dry-run` |
-| [archive_harness_todo.py](archive_harness_todo.py) | Cross-week todo archive → [../backlog/archive.md](../backlog/archive.md) |
+| [archive_harness_todo.py](archive_harness_todo.py) | Cross-week todo archive → [../backlog/archive.md](../backlog/archive.md) (Agent invokes during weekly review round) |

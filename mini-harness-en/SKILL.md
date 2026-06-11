@@ -3,8 +3,8 @@ name: mini-harness-en
 description: >-
   Scaffold a standard Agent harness in any repo: run init_harness.py to generate
   harness/, AGENTS.md, pytest.ini, gate scripts, and the full todo/PROGRESS/DECISIONS/plans/code_review
-  workflow. Works with Cursor, Codex, Claude Code, and Skills CLI. Always enable when the user asks
-  to create, initialize, or install a harness.
+  workflow; weekly harness review on Mondays. Works with Cursor, Codex, Claude Code, and Skills CLI.
+  Always enable when the user asks to create, initialize, or install a harness.
 metadata:
   version: "1.0.0"
   repository: mini-harness
@@ -66,6 +66,7 @@ Step-by-step checklist: [references/create-harness.md](references/create-harness
 | `harness/PROGRESS.md` | Mechanical sections + human-written sections |
 | `harness/DECISIONS.md` | Active decisions |
 | `harness/docs/plan-mode.md` | Plan mode details |
+| `harness/docs/weekly-review.md` | Monday Agent weekly review: active/archive checklist |
 | `harness/plans/`, `code_review/`, `code_simplifier/`, `backlog/`, `tests/`, `scripts/`, `sql/` | Each with `index.md` |
 | `harness/scripts/*.py` | `lint_src`, `sync_progress`, `archive_harness_todo` |
 
@@ -101,8 +102,14 @@ Priority: **project-root `AGENTS.md` > this Skill**.
 ```
 Regular: gates(before) → read harness → [Plan] → register todo → [change src/? → tdd] → implement → [code-review] → gates(after) → PROGRESS
 
+Weekly review: gates(before) → weekly-review.md → archive/rewrite harness → archive_harness_todo + sync_progress → gates(after) → PROGRESS
+
 Commit: …regular wrap-up… → code-simplifier → second code-review → dev → test → refresh PROGRESS again
 ```
+
+### Weekly review round
+
+**First Agent session each Monday** in this repo (or first session of a new calendar week if last week was skipped) must run harness weekly review before other user tasks. Details: `harness/docs/weekly-review.md`. **No dedicated weekly review script** — Agent writes each item per the doc; may invoke `archive_harness_todo.py` and `sync_progress.py`.
 
 | Skill | When | Executor |
 |-------|------|----------|

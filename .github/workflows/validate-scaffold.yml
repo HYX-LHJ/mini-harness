@@ -44,3 +44,4 @@ jobs:
           test -f /tmp/harness-test/pytest.ini
           test -f /tmp/harness-test/harness/index.md
           test -f /tmp/harness-test/harness/scripts/lint_src.py
+          test -f /tmp/harness-test/harness/docs/weekly-review.md

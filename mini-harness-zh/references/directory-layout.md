@@ -19,10 +19,13 @@ harness/
 │   └── YYYY-MM-DD-主题.md
 ├── docs/
 │   ├── index.md
-│   └── plan-mode.md         # Plan 流程细则
+│   ├── plan-mode.md         # Plan 流程细则
+│   └── weekly-review.md     # 每周一 Agent 周回顾
 ├── code_review/
 │   ├── index.md
 │   ├── open-findings.md
+│   ├── open-findings-closed.md   # 已关闭 findings（归档）
+│   ├── archive-index.md          # 历史审查索引（归档）
 │   └── YYYY-MM-DD_主题.md
 ├── code_simplifier/
 │   ├── index.md

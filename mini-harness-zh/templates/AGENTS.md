@@ -24,13 +24,18 @@
 ```
 常规：门禁(前) → 读 harness → [Plan] → 登记 todo → [改 {{SRC_DIR}}/? → 启动 tdd] → 实现 → [code-review] → 门禁(后) → PROGRESS
 
+周回顾：门禁(前) → weekly-review.md → 归档/重写 harness → archive_harness_todo + sync_progress → 门禁(后) → PROGRESS
+
 提交：…常规收尾… → code-simplifier → 二次 code-review → {{DEV_BRANCH}} 提交 → 同步 {{TEST_BRANCH}} → 再刷 PROGRESS
 ```
 
 | 路径 | 触发 | 额外步骤 |
 |------|------|----------|
 | **常规回合** | 每次用户输入 | 改 `{{SRC_DIR}}/` 须 todo 后立即启动 tdd，收尾做 code-review |
+| **周回顾回合** | **每周一**当天首个会话，或新自然周首个会话（上周未做） | 先读 [weekly-review.md](harness/docs/weekly-review.md)，按活跃/归档清单处理 harness；再进入用户任务 |
 | **提交回合** | 「提交」「推送」「commit」「push」等 | 交付含 `{{SRC_DIR}}/` 须 simplify + 二次 code-review，再 Git 工作流 |
+
+**周回顾硬约束**：触发时须**先**完成周回顾，再登记/执行用户其它 task（用户明确「跳过本周回顾」除外）。细则见 [harness/docs/weekly-review.md](harness/docs/weekly-review.md)。
 
 ---
 
@@ -82,6 +87,8 @@
 ```
 
 ### 2. 读上下文
+
+若本回合属 **周回顾回合**（见上表），**先**通读 [harness/docs/weekly-review.md](harness/docs/weekly-review.md) 并执行，再读下列文件。
 
 `harness/PROGRESS.md`、`harness/todo.md`；重大任务前 [plan-mode.md](harness/docs/plan-mode.md)；架构边界 `harness/DECISIONS.md`。
 

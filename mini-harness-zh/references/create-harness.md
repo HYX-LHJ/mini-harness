@@ -67,6 +67,7 @@ harness/todo.md
 harness/PROGRESS.md
 harness/DECISIONS.md
 harness/docs/plan-mode.md
+harness/docs/weekly-review.md
 harness/scripts/lint_src.py
 harness/scripts/sync_progress.py
 harness/scripts/archive_harness_todo.py
@@ -84,6 +85,7 @@ harness/tests/index.md
 2. 后续每回合 Agent 读 `AGENTS.md` + `harness/todo.md` / `PROGRESS.md`
 3. 建议安装配套 Skill：`tdd`、`code-review-expert`、`code-simplifier`
 4. 有 `src/` 且要跑通门禁时：配置 `.venv`、`ruff`、`pyright`、`pytest`
+5. 每周一首个 Agent 会话须先做 harness 周回顾（见 `harness/docs/weekly-review.md`）
 
 ### 7. 不要做的事
 
@@ -100,5 +102,6 @@ harness/tests/index.md
 | 维护脚本 | `lint_src`、`sync_progress`、`archive_harness_todo`（随 skill 捆绑） |
 | `pytest.ini` | `harness/tests` + 排除 `integration` |
 | `harness/docs/plan-mode.md` | Plan 模式细则 |
+| `harness/docs/weekly-review.md` | 周回顾：Agent 可读面活跃/归档 |
 
 业务专属内容（API 文档、DDL、集成测）由用户在 `harness/docs/`、`harness/sql/`、`harness/tests/` 自行补充。

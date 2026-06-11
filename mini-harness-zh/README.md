@@ -21,6 +21,8 @@ npx skills add HYX-LHJ/mini-harness --skill mini-harness-zh -g -y
 
 初始化产物（`AGENTS.md`、`harness/`）默认为**中文**。
 
+- 每周一 Agent 首个会话会自动做 harness 周回顾（`harness/docs/weekly-review.md`）
+
 ## 文档
 
 - [docs/zh-CN/](../docs/zh-CN/) — 中文文档

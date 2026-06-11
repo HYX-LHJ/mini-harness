@@ -19,4 +19,4 @@
 | 脚本 | 用途 |
 |------|------|
 | [sync_progress.py](sync_progress.py) | 刷新 PROGRESS 机械章节；`--skip-gates`、`--dry-run` |
-| [archive_harness_todo.py](archive_harness_todo.py) | 跨周归档 todo → [../backlog/archive.md](../backlog/archive.md) |
+| [archive_harness_todo.py](archive_harness_todo.py) | 跨周归档 todo → [../backlog/archive.md](../backlog/archive.md)（周回顾回合中由 Agent 调用） |

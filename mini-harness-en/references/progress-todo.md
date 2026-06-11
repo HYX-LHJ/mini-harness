@@ -25,6 +25,7 @@ Rules:
 - Each `task:` must have checkable, verifiable sub-items.
 - Mark `[x]` when done; when all sub-items under a task are `[x]`, `sync_progress.py` rolls it into PROGRESS "Completed".
 - Cross-week archive: project `archive_harness_todo.py` or manually move to `backlog/archive.md`.
+- **Weekly review** (first session each Monday): Agent organizes readable surface to active state per `docs/weekly-review.md`.
 
 ## PROGRESS.md
 

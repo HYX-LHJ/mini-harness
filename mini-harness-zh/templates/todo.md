@@ -5,6 +5,8 @@
 历史周任务见 [backlog/archive.md](backlog/archive.md)。
 跨周归档：仓库根目录执行 `python harness/scripts/archive_harness_todo.py`。
 
+周回顾：每周一 Agent 按 [docs/weekly-review.md](docs/weekly-review.md)（见 AGENTS.md）。
+
 ---
 {{TODAY}}
 

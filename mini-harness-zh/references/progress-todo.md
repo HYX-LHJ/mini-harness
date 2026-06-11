@@ -25,6 +25,7 @@ task：<一句话任务名>
 - 每个 `task：` 下子项须可勾选、可验收。
 - 完成打 `[x]`；整 task 子项全 `[x]` 后由 `sync_progress.py` 汇总到 PROGRESS「已完成」。
 - 跨周归档：项目 `archive_harness_todo.py` 或手工移入 `backlog/archive.md`。
+- **周回顾**（每周一首个会话）：Agent 按 `docs/weekly-review.md` 将可读面整理为活跃态。
 
 ## PROGRESS.md
 

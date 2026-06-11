@@ -30,6 +30,8 @@ Or run directly:
 python path/to/mini-harness-en/scripts/init_harness.py --root /path/to/repo --project-name my_api
 ```
 
+After init, the **first Agent session each Monday** runs harness weekly review (`harness/docs/weekly-review.md`).
+
 ## Package layout
 
 ```text

@@ -37,6 +37,8 @@ Run from repository root (unit tests only):
 
 Wrap-up: `python harness/scripts/sync_progress.py` (`--skip-gates` / `--dry-run` see [scripts/index.md](scripts/index.md)).
 
+**Every Monday** (first Agent session that day): run the [docs/weekly-review.md](docs/weekly-review.md) weekly review round first (see [AGENTS.md](../AGENTS.md)).
+
 If you `git commit` and/or `git push` this round, run `sync_progress.py` again after push and hand-write PROGRESS human sections (see root [AGENTS.md](../AGENTS.md)).
 
 ## Single source of truth (what to read)
