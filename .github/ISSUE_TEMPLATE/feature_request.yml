@@ -1,0 +1,57 @@
+name: Feature Request / 功能建议
+description: Suggest an improvement to templates, workflow, or multi-tool support / 建议改进模板、流程或多工具支持
+title: "[feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Describe the problem and proposed solution.
+        请说明遇到的问题与建议方案。
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / 问题
+      description: What pain point does this solve? / 这要解决什么痛点？
+      placeholder: |
+        EN: When initializing on Linux, the default lint command uses Windows paths...
+        中文：在 Linux 上初始化时，默认 lint 命令使用了 Windows 路径...
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution / 建议方案
+    validations:
+      required: true
+
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Affected area / 影响范围
+      options:
+        - init_harness.py / scaffold script
+        - AGENTS.md or templates / 模板
+        - SKILL.md or references / Skill 指令
+        - Documentation / 文档
+        - Multi-tool install / 多工具安装
+        - Other / 其他
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: breaking
+    attributes:
+      label: Compatibility / 兼容性
+      options:
+        - label: This may change default harness workflow (needs discussion) / 可能改变默认协作流程（需讨论）
+        - label: This is backward-compatible / 向后兼容
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered / 考虑过的替代方案
+    validations:
+      required: false

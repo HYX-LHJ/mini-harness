@@ -1,0 +1,10 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.json",
+  "skills": [
+    {
+      "name": "agent-harness",
+      "remote": "<your-org>/round-harness",
+      "skill": "agent-harness"
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+name: Bug Report / Bug 反馈
+description: Something is broken in the skill, scaffold script, or docs / Skill、脚手架或文档有问题
+title: "[bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting! Please fill in as much as you can.
+        感谢反馈！请尽量填写以下信息。
+
+  - type: dropdown
+    id: agent-tool
+    attributes:
+      label: Agent tool / Agent 工具
+      description: Which tool were you using? / 你使用的是哪个工具？
+      options:
+        - Cursor
+        - Codex
+        - Claude Code
+        - Skills CLI (npx skills)
+        - Universal (~/.agents/skills)
+        - Other / 其他
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: round-harness version or commit / 版本或 commit
+      description: Tag, commit SHA, or "main" / 标签、commit SHA 或 main
+      placeholder: e.g. v1.0.0 or abc1234
+    validations:
+      required: false
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system / 操作系统
+      options:
+        - Windows
+        - macOS
+        - Linux
+        - Other / 其他
+    validations:
+      required: true
+
+  - type: input
+    id: python
+    attributes:
+      label: Python version / Python 版本
+      placeholder: e.g. 3.12.3
+    validations:
+      required: false
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce / 复现步骤
+      description: Commands run, agent prompts used, install path / 执行的命令、对 Agent 说的话、Skill 安装路径
+      placeholder: |
+        1. npx skills add <org>/round-harness@agent-harness -g -y
+        2. python agent-harness/scripts/init_harness.py --root .
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior / 期望行为
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior / 实际行为
+      description: Include full error output if any / 如有报错请贴完整输出
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or screenshots / 日志或截图
+      description: Terminal output, agent conversation summary / 终端输出、Agent 对话摘要
+    validations:
+      required: false

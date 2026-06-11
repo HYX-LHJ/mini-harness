@@ -1,0 +1,40 @@
+{
+  "name": "round-harness",
+  "version": "1.0.0",
+  "description": "Portable Agent Skill to scaffold standard agent collaboration harness in any repository (Cursor, Codex, Claude Code, Skills CLI).",
+  "keywords": [
+    "agent",
+    "skill",
+    "harness",
+    "cursor",
+    "codex",
+    "claude-code",
+    "agents",
+    "ai-coding",
+    "workflow",
+    "tdd"
+  ],
+  "homepage": "https://github.com/<your-org>/round-harness#readme",
+  "bugs": {
+    "url": "https://github.com/<your-org>/round-harness/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/<your-org>/round-harness.git"
+  },
+  "license": "MIT",
+  "private": false,
+  "files": [
+    "agent-harness/",
+    "docs/",
+    "LICENSE",
+    "README.md"
+  ],
+  "skills": {
+    "agent-harness": {
+      "path": "agent-harness",
+      "name": "agent-harness",
+      "install": "npx skills add <your-org>/round-harness --skill agent-harness -g -y"
+    }
+  }
+}

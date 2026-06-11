@@ -1,0 +1,13 @@
+{
+  "metadata": {
+    "pluginRoot": "."
+  },
+  "plugins": [
+    {
+      "name": "round-harness",
+      "description": "Scaffold a standard agent collaboration harness (harness/, AGENTS.md, gate scripts) in any repository.",
+      "source": ".",
+      "skills": ["./agent-harness"]
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+name: Validate scaffold
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  init-harness:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Dry run
+        run: |
+          mkdir -p /tmp/harness-test
+          python agent-harness/scripts/init_harness.py \
+            --root /tmp/harness-test \
+            --dry-run
+
+      - name: Scaffold harness
+        run: |
+          rm -rf /tmp/harness-test
+          mkdir -p /tmp/harness-test
+          python agent-harness/scripts/init_harness.py \
+            --root /tmp/harness-test \
+            --project-name ci-test \
+            --lint-cmd '.venv/bin/python harness/scripts/lint_src.py' \
+            --pytest-cmd '.venv/bin/python -m pytest'
+
+      - name: Verify required files
+        run: |
+          test -f /tmp/harness-test/AGENTS.md
+          test -f /tmp/harness-test/pytest.ini
+          test -f /tmp/harness-test/harness/index.md
+          test -f /tmp/harness-test/harness/scripts/lint_src.py
+          test -f /tmp/harness-test/harness/scripts/sync_progress.py
+          test -f /tmp/harness-test/harness/scripts/archive_harness_todo.py
