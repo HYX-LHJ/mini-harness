@@ -74,30 +74,30 @@ Details: [agent-harness/references/plan-mode.md](../agent-harness/references/pla
 
 ```mermaid
 flowchart TD
-    Start([User input]) --> Gate1[Gates lint + pytest]
-    Gate1 -->|fail| FixGate[Fix gates only]
+    Start(["User input"]) --> Gate1["Gates lint + pytest"]
+    Gate1 -->|fail| FixGate["Fix gates only"]
     FixGate --> Gate1
-    Gate1 -->|pass| Read[Read PROGRESS / todo]
-    Read --> PlanCheck{Major task?}
-    PlanCheck -->|yes| Plan[Write plans/ wait confirm]
-    Plan --> UserOK{Confirmed?}
-    UserOK -->|no| Wait([Wait])
+    Gate1 -->|pass| Read["Read PROGRESS and todo"]
+    Read --> PlanCheck{"Major task?"}
+    PlanCheck -->|yes| Plan["Write plans, wait confirm"]
+    Plan --> UserOK{"Confirmed?"}
+    UserOK -->|no| Wait(["Wait"])
     UserOK -->|yes| Todo
-    PlanCheck -->|no| Todo[Register todo]
-    Todo --> SrcCheck{Change src?}
-    SrcCheck -->|yes| TDD[tdd → tests → implement]
-    SrcCheck -->|no| Impl[Implement / docs]
-    TDD --> Review[code-review subagent + write file]
-    Impl --> ReviewCheck{Changed src?}
+    PlanCheck -->|no| Todo["Register todo"]
+    Todo --> SrcCheck{"Change src?"}
+    SrcCheck -->|yes| TDD["tdd, tests, implement"]
+    SrcCheck -->|no| Impl["Implement or docs"]
+    TDD --> Review["code-review subagent"]
+    Impl --> ReviewCheck{"Changed src?"}
     ReviewCheck -->|yes| Review
     ReviewCheck -->|no| Gate2
-    Review --> Gate2[Gates + sync PROGRESS]
-    Gate2 --> CommitCheck{User commits?}
-    CommitCheck -->|no| End([Round end])
-    CommitCheck -->|yes| Simplify[simplify + write file]
-    Simplify --> Review2[2nd code-review]
-    Review2 --> Git[dev → test → push]
-    Git --> Sync[Refresh PROGRESS]
+    Review --> Gate2["Gates + sync PROGRESS"]
+    Gate2 --> CommitCheck{"User commits?"}
+    CommitCheck -->|no| End(["Round end"])
+    CommitCheck -->|yes| Simplify["simplify + write file"]
+    Simplify --> Review2["2nd code-review"]
+    Review2 --> Git["dev, test, push"]
+    Git --> Sync["Refresh PROGRESS"]
     Sync --> End
 ```
 
@@ -171,29 +171,29 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    Start([用户输入]) --> Gate1[门禁 lint + pytest]
-    Gate1 -->|失败| FixGate[只修门禁]
+    Start(["用户输入"]) --> Gate1["门禁 lint + pytest"]
+    Gate1 -->|失败| FixGate["只修门禁"]
     FixGate --> Gate1
-    Gate1 -->|通过| Read[读 PROGRESS / todo]
-    Read --> PlanCheck{重大任务?}
-    PlanCheck -->|是| Plan[写 plans/ 等确认]
-    Plan --> UserOK{用户确认?}
-    UserOK -->|否| Wait([等待])
+    Gate1 -->|通过| Read["读 PROGRESS 与 todo"]
+    Read --> PlanCheck{"重大任务?"}
+    PlanCheck -->|是| Plan["写 plans, 等确认"]
+    Plan --> UserOK{"用户确认?"}
+    UserOK -->|否| Wait(["等待"])
     UserOK -->|是| Todo
-    PlanCheck -->|否| Todo[登记 todo]
-    Todo --> SrcCheck{改 src?}
-    SrcCheck -->|是| TDD[tdd → 测试 → 实现]
-    SrcCheck -->|否| Impl[实现 / 文档]
-    TDD --> Review[code-review Subagent + 落盘]
-    Impl --> ReviewCheck{改过 src?}
+    PlanCheck -->|否| Todo["登记 todo"]
+    Todo --> SrcCheck{"改 src?"}
+    SrcCheck -->|是| TDD["tdd, 测试, 实现"]
+    SrcCheck -->|否| Impl["实现或文档"]
+    TDD --> Review["code-review Subagent"]
+    Impl --> ReviewCheck{"改过 src?"}
     ReviewCheck -->|是| Review
     ReviewCheck -->|否| Gate2
-    Review --> Gate2[门禁 + sync PROGRESS]
-    Gate2 --> CommitCheck{用户提交?}
-    CommitCheck -->|否| End([回合结束])
-    CommitCheck -->|是| Simplify[simplify + 落盘]
-    Simplify --> Review2[二次 code-review]
-    Review2 --> Git[dev → test → push]
-    Git --> Sync[再刷 PROGRESS]
+    Review --> Gate2["门禁 + sync PROGRESS"]
+    Gate2 --> CommitCheck{"用户提交?"}
+    CommitCheck -->|否| End(["回合结束"])
+    CommitCheck -->|是| Simplify["simplify + 落盘"]
+    Simplify --> Review2["二次 code-review"]
+    Review2 --> Git["dev, test, push"]
+    Git --> Sync["再刷 PROGRESS"]
     Sync --> End
 ```

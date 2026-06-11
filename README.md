@@ -75,21 +75,21 @@ See [docs/architecture.md](docs/architecture.md).
 
 ```mermaid
 flowchart LR
-    A[User input] --> B[Gates lint + pytest]
-    B --> C[Read harness context]
-    C --> D{Major task?}
-    D -->|Yes| E[Plan → user confirms]
-    D -->|No| F[Register todo]
+    A["User input"] --> B["Gates lint + pytest"]
+    B --> C["Read harness context"]
+    C --> D{"Major task?"}
+    D -->|Yes| E["Plan, user confirms"]
+    D -->|No| F["Register todo"]
     E --> F
-    F --> G{Change src/?}
-    G -->|Yes| H[tdd → implement]
-    G -->|No| I[Implement / docs]
-    H --> J[code-review subagent]
+    F --> G{"Change src?"}
+    G -->|Yes| H["tdd, implement"]
+    G -->|No| I["Implement or docs"]
+    H --> J["code-review subagent"]
     I --> J
-    J --> K[Gates + sync PROGRESS]
-    K --> L{User asks commit?}
-    L -->|Yes| M[simplify → review → Git]
-    L -->|No| N[Round end]
+    J --> K["Gates + sync PROGRESS"]
+    K --> L{"User asks commit?"}
+    L -->|Yes| M["simplify, review, Git"]
+    L -->|No| N["Round end"]
     M --> N
 ```
 
@@ -186,21 +186,21 @@ your-repo/
 
 ```mermaid
 flowchart LR
-    A[用户输入] --> B[门禁 lint + pytest]
-    B --> C[读 harness 上下文]
-    C --> D{重大任务?}
-    D -->|是| E[Plan → 用户确认]
-    D -->|否| F[登记 todo]
+    A["用户输入"] --> B["门禁 lint + pytest"]
+    B --> C["读 harness 上下文"]
+    C --> D{"重大任务?"}
+    D -->|是| E["Plan, 用户确认"]
+    D -->|否| F["登记 todo"]
     E --> F
-    F --> G{改 src/?}
-    G -->|是| H[tdd → 实现]
-    G -->|否| I[实现 / 文档]
-    H --> J[code-review Subagent]
+    F --> G{"改 src?"}
+    G -->|是| H["tdd, 实现"]
+    G -->|否| I["实现或文档"]
+    H --> J["code-review Subagent"]
     I --> J
-    J --> K[门禁 + sync PROGRESS]
-    K --> L{用户要求提交?}
-    L -->|是| M[simplify → review → Git]
-    L -->|否| N[回合结束]
+    J --> K["门禁 + sync PROGRESS"]
+    K --> L{"用户要求提交?"}
+    L -->|是| M["simplify, review, Git"]
+    L -->|否| N["回合结束"]
     M --> N
 ```
 
