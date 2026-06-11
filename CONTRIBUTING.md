@@ -61,12 +61,12 @@ python agent-harness/scripts/init_harness.py --root /tmp/harness-test --dry-run
 
 | Path | Notes |
 |------|-------|
-| `agent-harness/SKILL.md` | Agent instructions; keep in sync with `references/` and templates |
+| `agent-harness/SKILL.md` | Agent instructions (**Chinese**); keep in sync with `references/` and templates |
+| `README.md` / `README.zh-CN.md` | External docs (English / Chinese) |
 | `agent-harness/templates/` | Placeholders: `{{PROJECT_NAME}}`, etc. |
 | `agent-harness/scripts/init_harness.py` | Update `REQUIRED_PATHS` when templates change |
 | `docs/installation.md` | Canonical multi-tool install guide |
-| `README.md` / `README.zh-CN.md` | English and Chinese READMEs (keep in sync) |
-| `docs/*.md` | Bilingual: English + 中文 sections |
+| `docs/*.md` | Bilingual sections (external docs) |
 
 ### Reporting issues
 
@@ -138,12 +138,12 @@ python agent-harness/scripts/init_harness.py --root /tmp/harness-test --dry-run
 
 | 路径 | 注意 |
 |------|------|
-| `agent-harness/SKILL.md` | Agent 指令；与 `references/`、模板保持一致 |
+| `agent-harness/SKILL.md` | Agent 指令（**中文**）；与 `references/`、模板保持一致 |
+| `README.md` / `README.zh-CN.md` | 对外说明（英文 / 中文） |
 | `agent-harness/templates/` | 占位符 `{{PROJECT_NAME}}` 等 |
 | `agent-harness/scripts/init_harness.py` | 模板变更时同步 `REQUIRED_PATHS` |
 | `docs/installation.md` | 多工具安装 canonical 文档 |
-| `README.md` / `README.zh-CN.md` | 中英文 README（保持同步） |
-| `docs/*.md` | 中英双语：English + 中文 分区 |
+| `docs/*.md` | 对外文档，中英分区 |
 
 ### Issue 报告
 

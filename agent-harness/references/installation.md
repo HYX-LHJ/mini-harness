@@ -30,6 +30,4 @@ npx skills add HYX-LHJ/round-harness --skill agent-harness -a cursor -a claude-c
 - Claude Code：项目级路径在 **git 仓库根** 的 `.claude/skills/`
 - 定位 `SKILL_ROOT`：本文件所在目录的上一级（`agent-harness/`）
 
-## English (quick reference)
-
-Portable skill — works on Cursor, Codex, Claude Code, and any agent that loads `SKILL.md` directories. Copy `agent-harness/` to the tool-specific path above, or use `npx skills add HYX-LHJ/round-harness@agent-harness`. See [docs/installation.md](../../../docs/installation.md).
+对外安装说明（中英）：[docs/installation.md](../../../docs/installation.md)

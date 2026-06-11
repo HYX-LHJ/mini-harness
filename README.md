@@ -5,6 +5,8 @@
 
 **[中文 README](README.zh-CN.md)**
 
+> Skill 包（`agent-harness/`）内部文档与生成模板默认**中文**；本文件为对外英文说明。
+
 ---
 
 ## In one sentence
