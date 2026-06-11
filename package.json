@@ -1,18 +1,25 @@
 {
   "name": "round-harness",
   "version": "1.0.0",
-  "description": "Portable Agent Skill to scaffold standard agent collaboration harness in any repository (Cursor, Codex, Claude Code, Skills CLI).",
+  "description": "Agent Skill: one-command harness scaffold (harness/, AGENTS.md, gates) for Cursor, Codex & Claude Code. Install: npx skills add HYX-LHJ/round-harness --skill agent-harness",
   "keywords": [
-    "agent",
-    "skill",
+    "agent-skills",
+    "agent-skill",
+    "agent-harness",
     "harness",
+    "agents-md",
     "cursor",
     "codex",
     "claude-code",
-    "agents",
+    "skills-cli",
+    "npx-skills",
     "ai-coding",
+    "llm",
     "workflow",
-    "tdd"
+    "tdd",
+    "code-review",
+    "developer-tools",
+    "python"
   ],
   "homepage": "https://github.com/HYX-LHJ/round-harness#readme",
   "bugs": {

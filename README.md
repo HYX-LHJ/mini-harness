@@ -1,5 +1,7 @@
 # round-harness
 
+> **Agent Skill** — scaffold `harness/` + `AGENTS.md` workflow in any repo · Cursor · Codex · Claude Code · [`npx skills`](https://skills.sh/)
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![CI](https://github.com/HYX-LHJ/round-harness/actions/workflows/validate-scaffold.yml/badge.svg)](https://github.com/HYX-LHJ/round-harness/actions/workflows/validate-scaffold.yml)
 
@@ -11,9 +13,13 @@
 
 ## English
 
-**Scaffold a standard AI agent collaboration harness in any repository — one command, any agent tool.**
+**One command to scaffold a standard AI agent collaboration harness — works with Cursor, Codex, Claude Code, and 60+ agents via Skills CLI.**
 
-round-harness ships the portable Agent Skill [`agent-harness`](agent-harness/). Install it in **Cursor**, **Codex**, **Claude Code**, or via the universal [Skills CLI](https://skills.sh/), then tell your agent to create harness — it generates the full `harness/` tree, `AGENTS.md` playbook, gate scripts, and collaboration workflow.
+```bash
+npx skills add HYX-LHJ/round-harness --skill agent-harness -g -y
+```
+
+[`agent-harness`](agent-harness/) generates the full `harness/` tree, `AGENTS.md` playbook, gate scripts, and todo / PROGRESS / code-review workflow. Tell your agent: *"Use agent-harness to create harness in this repository."*
 
 ### Why
 
@@ -122,9 +128,13 @@ Details: [docs/workflow.md](docs/workflow.md)
 
 ## 中文
 
-**在任意代码仓库中，一键搭建标准化的 AI Agent 协作工程 — 支持多种 Agent 工具。**
+**一条命令，在任意仓库搭建标准化 AI Agent 协作工程 — 支持 Cursor、Codex、Claude Code 及 Skills CLI 安装的 60+ Agent。**
 
-round-harness 提供可移植的 Agent Skill 包 [`agent-harness`](agent-harness/)。可安装于 **Cursor**、**Codex**、**Claude Code**，或通过通用 [Skills CLI](https://skills.sh/) 安装。对 Agent 说一句话，即可生成完整的 `harness/` 目录树、`AGENTS.md` Playbook、门禁脚本与协作流程。
+```bash
+npx skills add HYX-LHJ/round-harness --skill agent-harness -g -y
+```
+
+可移植 Agent Skill [`agent-harness`](agent-harness/) 可生成完整 `harness/` 目录树、`AGENTS.md` Playbook、门禁脚本与 todo / PROGRESS / code-review 流程。对 Agent 说：「用 agent-harness 在当前仓库创建 harness」。
 
 ### 为什么需要它
 
