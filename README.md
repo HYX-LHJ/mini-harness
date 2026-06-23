@@ -9,13 +9,13 @@
 
 ## In one sentence
 
-**A portable Agent workflow plugin** — one command to activate a mini collaboration harness (`harness/`, `AGENTS.md`, built-in skills) in any repo. Works with **Cursor · Codex · Claude Code**.
+**A portable Agent workflow plugin** — install the plugin for the **using-harness skill** (superpowers-style playbook in `skills/using-harness/SKILL.md`); run `install` once per repo to scaffold `harness/` state. Works with **Cursor · Codex · Claude Code**.
 
 ---
 
 ## This repository
 
-This is the **plugin source repo** — not a pre-activated harness project. Edit only `mini-harness/`; run `install` in your own project (or a temp directory) to get `AGENTS.md`, `harness/`, and `tests/`. Do not commit those install outputs here.
+This is the **plugin source repo** — not a pre-activated harness project. Edit only `mini-harness/`; run `install` in your own project (or a temp directory) to get `harness/` and `tests/`. Do not commit those install outputs here.
 
 ```text
 mini-harness/   # authoritative plugin (skills, installer, templates)
@@ -57,7 +57,7 @@ First time? See [mini-harness/TRIAL.md](mini-harness/TRIAL.md) (5-minute walkthr
 | Every new chat starts from zero | `PROGRESS.md` + `todo.md` for **session handoff** |
 | Code ships without tests or review | **pytest / ruff / mypy gates** + subagent review |
 | Plans and reviews only in chat | **Committed to git** |
-| Everyone uses a different prompt | Shared **`AGENTS.md` playbook** |
+| Everyone uses a different prompt | Shared **using-harness skill** (`SKILL.md`) |
 
 ---
 
@@ -65,7 +65,7 @@ First time? See [mini-harness/TRIAL.md](mini-harness/TRIAL.md) (5-minute walkthr
 
 | Artifact | Purpose |
 |----------|---------|
-| `AGENTS.md` | Per-round playbook (project root) |
+| `skills/using-harness/SKILL.md` | Per-round playbook (plugin; copied to `harness/skills/` on install) |
 | `harness/todo.md` | Current task + acceptance criteria (AC) |
 | `harness/PROGRESS.md` | Progress snapshot |
 | `harness/skills/` | Built-in skills (tdd, code-review, acceptance, …) |
@@ -77,7 +77,6 @@ First time? See [mini-harness/TRIAL.md](mini-harness/TRIAL.md) (5-minute walkthr
 
 ```text
 your-repo/
-├── AGENTS.md
 ├── tests/
 └── harness/
     ├── todo.md, PROGRESS.md, DECISIONS.md
@@ -100,7 +99,7 @@ your-repo/
 | [Architecture](docs/en/architecture.md) | [架构说明](docs/zh-CN/architecture.md) |
 | [Workflow](docs/en/workflow.md) | [协作流程](docs/zh-CN/workflow.md) |
 
-Plugin maintainer docs: [mini-harness/README.md](mini-harness/README.md) · [mini-harness/skills/mini-harness/SKILL.md](mini-harness/skills/mini-harness/SKILL.md)
+Plugin maintainer docs: [mini-harness/README.md](mini-harness/README.md) · [mini-harness/skills/using-harness/SKILL.md](mini-harness/skills/using-harness/SKILL.md)
 
 ---
 

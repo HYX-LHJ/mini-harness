@@ -1,4 +1,4 @@
-﻿# Contributing / 参与贡献
+# Contributing / 参与贡献
 
 **Languages:** [English](#english) · [中文](#中文)
 
@@ -8,7 +8,7 @@
 
 ## English
 
-Thank you for contributing to mini-harness! This repo contains the **`mini-harness/` plugin** — the single authoritative source for playbook, skills, installer, and templates. It supports **Cursor, Codex, and Claude Code**.
+Thank you for contributing to mini-harness! This repo contains the **`mini-harness/` plugin** — the single authoritative source for the mini-harness skill, other skills, installer, and templates. It supports **Cursor, Codex, and Claude Code**.
 
 ### What to contribute
 
@@ -20,7 +20,7 @@ Thank you for contributing to mini-harness! This repo contains the **`mini-harne
 
 **Open an Issue first** for:
 
-- Changing default collaboration flow (`mini-harness/AGENTS.md` hard constraints)
+- Changing default collaboration flow (`mini-harness/skills/using-harness/SKILL.md` hard constraints)
 - Renaming or removing standard harness paths
 - Behavior that conflicts with a skill `SKILL.md`
 
@@ -50,13 +50,13 @@ python -m pytest mini-harness/tests
 
 ### Maintainer workflow
 
-`mini-harness/` is the **only authoritative source**. After editing playbook, skills, or templates:
+`mini-harness/` is the **only authoritative source**. After editing the mini-harness skill, other skills, or templates:
 
 1. Change files under `mini-harness/` only
 2. Re-run `install` on target repos
 3. Run `doctor` and `pytest mini-harness/tests`
 
-See [mini-harness/skills/mini-harness/SKILL.md](mini-harness/skills/mini-harness/SKILL.md) — section「维护者与权威源」.
+See [mini-harness/skills/using-harness/SKILL.md](mini-harness/skills/using-harness/SKILL.md) — section「维护者与权威源」.
 
 ### Commit messages
 
@@ -73,12 +73,12 @@ See [mini-harness/skills/mini-harness/SKILL.md](mini-harness/skills/mini-harness
 
 | Path | Notes |
 |------|-------|
-| `mini-harness/` | **Authoritative plugin** — `AGENTS.md`, `skills/`, `scripts/`, `assets/harness-template/` |
+| `mini-harness/` | **Authoritative plugin** — `skills/using-harness/SKILL.md`, `skills/`, `scripts/`, `assets/harness-template/` |
 | `mini-harness/tests/` | Plugin installer and hook tests |
 | `README.md` / `README.zh-CN.md` | External repo overview |
 | `docs/en/` / `docs/zh-CN/` | External documentation |
 
-**Do not commit** root `AGENTS.md`, `harness/`, or `tests/` in this repo — they are `install` output (gitignored). Verify in a temp directory instead.
+**Do not commit** `harness/` or `tests/` in this repo — they are `install` output (gitignored). Verify in a temp directory instead.
 
 ### Reporting issues
 
@@ -97,7 +97,7 @@ Security issues: see [SECURITY.md](SECURITY.md) — do not file public issues.
 
 ## 中文
 
-感谢参与 mini-harness！本仓库以 **`mini-harness/` 插件**为唯一权威源，包含 Playbook、Skills、安装器与模板，支持 **Cursor、Codex、Claude Code**。
+感谢参与 mini-harness！本仓库以 **`mini-harness/` 插件**为唯一权威源，包含 mini-harness skill、其它 Skills、安装器与模板，支持 **Cursor、Codex、Claude Code**。
 
 ### 可贡献内容
 
@@ -109,7 +109,7 @@ Security issues: see [SECURITY.md](SECURITY.md) — do not file public issues.
 
 以下情况**请先开 Issue**：
 
-- 修改默认协作流程（`mini-harness/AGENTS.md` 硬约束）
+- 修改默认协作流程（`mini-harness/skills/using-harness/SKILL.md` 硬约束）
 - 重命名或删除标准 harness 路径
 - 与某个 Skill `SKILL.md` 冲突的行为变更
 
@@ -141,7 +141,7 @@ python -m pytest mini-harness/tests
 
 **只改** `mini-harness/` 下的权威源文件，然后在目标仓库重新 `install`，并运行 `doctor` 与 `pytest mini-harness/tests`。
 
-详见 [mini-harness/skills/mini-harness/SKILL.md](mini-harness/skills/mini-harness/SKILL.md)「维护者与权威源」。
+详见 [mini-harness/skills/using-harness/SKILL.md](mini-harness/skills/using-harness/SKILL.md)「维护者与权威源」。
 
 ### 提交信息
 
@@ -158,12 +158,12 @@ python -m pytest mini-harness/tests
 
 | 路径 | 说明 |
 |------|------|
-| `mini-harness/` | **权威插件** — `AGENTS.md`、`skills/`、`scripts/`、`assets/harness-template/` |
+| `mini-harness/` | **权威插件** — `skills/using-harness/SKILL.md`、`skills/`、`scripts/`、`assets/harness-template/` |
 | `mini-harness/tests/` | 安装器与钩子测试 |
 | `README.md` / `README.zh-CN.md` | 对外仓库概览 |
 | `docs/zh-CN/` / `docs/en/` | 对外文档 |
 
-**勿提交**本仓库根目录的 `AGENTS.md`、`harness/`、`tests/` — 它们是 `install` 产物（已 gitignore）。请在临时目录验证。
+**勿提交**本仓库的 `harness/`、`tests/` — 它们是 `install` 产物（已 gitignore）。请在临时目录验证。
 
 ### 报告问题
 

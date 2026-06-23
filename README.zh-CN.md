@@ -9,13 +9,13 @@
 
 ## 一句话
 
-**可移植的 Agent 工作流插件** — 一条命令在任意仓库激活 mini 协作工程（`harness/`、`AGENTS.md`、内置 Skills）。支持 **Cursor · Codex · Claude Code**。
+**可移植的 Agent 工作流插件** — 安装插件即可获得 **using-harness skill**（superpowers 式 Playbook，见 `skills/using-harness/SKILL.md`）；在仓库执行 `install` 一次性生成 `harness/` 状态目录。支持 **Cursor · Codex · Claude Code**。
 
 ---
 
 ## 本仓库是什么
 
-这是 **插件源码仓库**，不是已激活 harness 的项目。只改 `mini-harness/`；在你自己的项目（或临时目录）执行 `install` 才会生成 `AGENTS.md`、`harness/`、`tests/`。**不要**把这些 install 产物提交回本仓库。
+这是 **插件源码仓库**，不是已激活 harness 的项目。只改 `mini-harness/`；在你自己的项目（或临时目录）执行 `install` 才会生成 `harness/`、`tests/`。**不要**把这些 install 产物提交回本仓库。
 
 ```text
 mini-harness/   # 权威插件源码（skills、安装器、模板）
@@ -57,7 +57,7 @@ python harness/scripts/mini_harness.py doctor --root .
 | 每开新对话从零开始 | `PROGRESS.md` + `todo.md` **无缝接手** |
 | 改完就提交 | **pytest / ruff / mypy 门禁** + subagent 审查 |
 | Plan、审查只在聊天里 | **落盘到 git** |
-| 每人一套 Prompt | 统一 **`AGENTS.md` Playbook** |
+| 每人一套 Prompt | 统一 **using-harness skill**（`SKILL.md`） |
 
 ---
 
@@ -65,7 +65,7 @@ python harness/scripts/mini_harness.py doctor --root .
 
 | 产物 | 作用 |
 |------|------|
-| `AGENTS.md` | 每回合 Playbook（项目根目录） |
+| `skills/using-harness/SKILL.md` | 每回合 Playbook（插件内；`install` 后位于 `harness/skills/`） |
 | `harness/todo.md` | 当前任务与验收标准（AC） |
 | `harness/PROGRESS.md` | 进度快照 |
 | `harness/skills/` | 内置 Skill（tdd、code-review、acceptance 等） |
@@ -77,7 +77,6 @@ python harness/scripts/mini_harness.py doctor --root .
 
 ```text
 your-repo/
-├── AGENTS.md
 ├── tests/
 └── harness/
     ├── todo.md、PROGRESS.md、DECISIONS.md
@@ -100,7 +99,7 @@ your-repo/
 | [架构说明](docs/zh-CN/architecture.md) | [Architecture](docs/en/architecture.md) |
 | [协作流程](docs/zh-CN/workflow.md) | [Workflow](docs/en/workflow.md) |
 
-插件维护文档：[mini-harness/README.md](mini-harness/README.md) · [mini-harness/skills/mini-harness/SKILL.md](mini-harness/skills/mini-harness/SKILL.md)
+插件维护文档：[mini-harness/README.md](mini-harness/README.md) · [mini-harness/skills/using-harness/SKILL.md](mini-harness/skills/using-harness/SKILL.md)
 
 ---
 

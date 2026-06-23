@@ -24,6 +24,16 @@ Thumbs.db
 /harness/
 /tests/
 
+# Legacy v1 skill packages and scripts (removed in v2)
+/mini-harness-en/
+/mini-harness-zh/
+/scripts/
+
+# Obsolete maintainer docs (plugin-only repo)
+/.github/repository-about.md
+/docs/en/skills-cli.md
+/docs/zh-CN/skills-cli.md
+
 # Local harness test runs
 harness/out/
 harness/pre/

@@ -1,4 +1,4 @@
-﻿name: Validate scaffold
+name: Validate scaffold
 
 on:
   push:
@@ -27,12 +27,12 @@ jobs:
 
       - name: Verify required files
         run: |
-          test -f /tmp/harness-test/AGENTS.md
+          test -f /tmp/harness-test/harness/skills/using-harness/SKILL.md
+          ! test -f /tmp/harness-test/AGENTS.md
           test -f /tmp/harness-test/harness/index.md
           test -f /tmp/harness-test/harness/PROGRESS.md
           test -f /tmp/harness-test/harness/todo.md
           test -f /tmp/harness-test/harness/scripts/mini_harness.py
-          test -f /tmp/harness-test/harness/skills/mini-harness/SKILL.md
           test -f /tmp/harness-test/harness/skills/tdd/SKILL.md
           test -f /tmp/harness-test/harness/rules/python-coding-conventions.md
           test -f /tmp/harness-test/harness/docs/weekly-review.md

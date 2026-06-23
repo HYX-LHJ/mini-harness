@@ -1,4 +1,4 @@
-﻿# Installation
+# Installation
 
 mini-harness ships as a **host plugin** for Claude Code, Cursor, and Codex. Plugin install loads skills and session hooks; **repo activation** (`mini_harness.py install`) scaffolds `harness/` in your project.
 
@@ -96,12 +96,11 @@ python harness/scripts/mini_harness.py uninstall --root .
 
 ### Verify
 
-1. Plugin: skills visible in host; session-start hook trusted (Codex)
-2. Repo: `doctor` → `ok: true`, empty `warnings`
-3. `AGENTS.md` at project root; `harness/skills/mini-harness/SKILL.md` exists
+1. Plugin: `skills/using-harness/SKILL.md` visible in host; session-start hook trusted (Codex) — workflow usable without repo `install`
+2. Repo (after `install`): `doctor` → `ok: true`, empty `warnings`; `harness/skills/using-harness/SKILL.md` exists
 
 ### Runtime requirements
 
 Python 3.10+ (`python` or `py` on Windows). Installer uses stdlib only.
 
-See also: [host-support.md](../../mini-harness/skills/mini-harness/references/host-support.md)
+See also: [host-support.md](../../mini-harness/skills/using-harness/references/host-support.md)

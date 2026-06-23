@@ -1,4 +1,4 @@
-﻿# Documentation / 文档
+# Documentation / 文档
 
 | English | 中文 |
 |---------|------|
@@ -13,7 +13,7 @@
 |--|--|
 | Source | [`mini-harness/`](../mini-harness/) |
 | Trial guide | [TRIAL.md](../mini-harness/TRIAL.md) |
-| Maintainer skill | [skills/mini-harness/SKILL.md](../mini-harness/skills/mini-harness/SKILL.md) |
+| Maintainer skill | [skills/using-harness/SKILL.md](../mini-harness/skills/using-harness/SKILL.md) |
 
 **Activate in a repo:**
 

@@ -4,8 +4,6 @@ import importlib.util
 import json
 from pathlib import Path
 
-import pytest
-
 PLUGIN_ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -13,23 +11,24 @@ def test_install_initializes_generic_harness(installer, tmp_path: Path) -> None:
     result = installer.install(tmp_path)
 
     assert result["changed"] is True
-    agents = tmp_path / "AGENTS.md"
-    assert agents.is_file()
-    assert "# Agent Harness Playbook" in agents.read_text(encoding="utf-8")
+    skill = tmp_path / "harness" / "skills" / "using-harness" / "SKILL.md"
+    assert skill.is_file()
+    assert "硬约束" in skill.read_text(encoding="utf-8")
+    assert not (tmp_path / "AGENTS.md").exists()
     assert (tmp_path / "harness" / "PROGRESS.md").is_file()
     marker = json.loads((tmp_path / "harness" / ".mini-harness.json").read_text(encoding="utf-8"))
     assert marker["active"] is True
-    assert marker["template_version"] == "0.3.0"
+    assert marker["template_version"] == "0.4.0"
     assert marker["commands"]["gate"] == []
-    assert marker["agents_mode"] == "created"
+    assert "agents_mode" not in marker
 
 
 def test_install_copies_skills_scripts_and_package(installer, tmp_path: Path) -> None:
     installer.install(tmp_path)
 
     assert (tmp_path / "tests" / "README.md").is_file()
-    assert "# Agent Harness Playbook" in (tmp_path / "AGENTS.md").read_text(encoding="utf-8")
-    assert (tmp_path / "harness" / "skills" / "mini-harness" / "SKILL.md").is_file()
+    assert not (tmp_path / "AGENTS.md").exists()
+    assert (tmp_path / "harness" / "skills" / "using-harness" / "SKILL.md").is_file()
     assert (tmp_path / "harness" / "skills" / "brainstorming" / "SKILL.md").is_file()
     assert (tmp_path / "harness" / "scripts" / "mini_harness.py").is_file()
     assert (tmp_path / "harness" / "rules" / "python-coding-conventions.md").is_file()
@@ -37,7 +36,7 @@ def test_install_copies_skills_scripts_and_package(installer, tmp_path: Path) ->
     assert (tmp_path / "harness" / "skills" / "acceptance-verification" / "SKILL.md").is_file()
     assert (tmp_path / "harness" / ".package" / "skills" / "tdd" / "SKILL.md").is_file()
     assert (tmp_path / "harness" / ".package" / "rules" / "python-coding-conventions.md").is_file()
-    assert (tmp_path / "harness" / ".package" / "AGENTS.md").is_file()
+    assert not (tmp_path / "harness" / ".package" / "AGENTS.md").exists()
     assert not (tmp_path / "harness" / "AGENTS.md").exists()
 
 
@@ -120,9 +119,9 @@ def test_update_preserves_modified_managed_files(installer, monkeypatch, tmp_pat
 
 def test_plugin_install_force_syncs_modified_skill_bundle(installer, tmp_path: Path) -> None:
     installer.install(tmp_path)
-    skill = tmp_path / "harness" / "skills" / "mini-harness" / "SKILL.md"
+    skill = tmp_path / "harness" / "skills" / "using-harness" / "SKILL.md"
     skill.write_text("# tampered\n", encoding="utf-8")
-    canonical = (PLUGIN_ROOT / "skills" / "mini-harness" / "SKILL.md").read_text(encoding="utf-8")
+    canonical = (PLUGIN_ROOT / "skills" / "using-harness" / "SKILL.md").read_text(encoding="utf-8")
 
     installer.install(tmp_path)
 
@@ -184,13 +183,29 @@ def test_uninstall_removes_managed_content_and_preserves_project_files(installer
     assert not (tmp_path / "harness" / ".mini-harness.json").exists()
 
 
-def test_uninstall_removes_created_playbook_and_preserves_user_edits(installer, tmp_path: Path) -> None:
-    installer.install(tmp_path)
+def test_install_migrates_legacy_harness_agents(installer, tmp_path: Path) -> None:
+    marker = tmp_path / "harness" / ".mini-harness.json"
+    marker.parent.mkdir(parents=True)
+    marker.write_text(
+        json.dumps(
+            {
+                "active": True,
+                "template_version": "0.3.0",
+                "agents_mode": "created",
+                "managed_files": ["AGENTS.md", "harness/PROGRESS.md"],
+                "managed_hashes": {},
+            }
+        ),
+        encoding="utf-8",
+    )
     agents = tmp_path / "AGENTS.md"
-    agents.write_text(agents.read_text(encoding="utf-8") + "\n## Team rules\n\nKeep this.\n", encoding="utf-8")
+    agents.write_text("# Agent Harness Playbook\n", encoding="utf-8")
+    package_agents = tmp_path / "harness" / ".package" / "AGENTS.md"
+    package_agents.parent.mkdir(parents=True)
+    package_agents.write_text("# Agent Harness Playbook\n", encoding="utf-8")
 
-    installer.uninstall(tmp_path)
+    installer.install(tmp_path)
 
-    assert agents.is_file()
-    assert "Keep this." in agents.read_text(encoding="utf-8")
-    assert "# Agent Harness Playbook" in agents.read_text(encoding="utf-8")
+    assert not agents.exists()
+    assert not package_agents.exists()
+    assert (tmp_path / "harness" / "skills" / "using-harness" / "SKILL.md").is_file()

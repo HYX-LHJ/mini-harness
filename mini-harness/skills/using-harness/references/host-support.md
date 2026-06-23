@@ -4,7 +4,7 @@
 
 ## 一键安装（插件）
 
-安装插件后，在**目标项目**执行 `mini_harness.py install` 激活 harness（见 [SKILL.md](../SKILL.md)）。
+安装插件后 **立即可用** `skills/using-harness/SKILL.md` 及全部内置 Skill；Session Start 钩子会在每轮会话提醒调用。要在项目中持久化 `harness/` 状态，再在**目标项目**执行 `mini_harness.py install`（见 [SKILL.md](../SKILL.md) 与 [lifecycle.md](lifecycle.md)）。
 
 ### Claude Code
 
@@ -64,4 +64,4 @@ codex plugin install mini-harness
 | Codex | `.agents/plugins/marketplace.json` | `mini-harness/.codex-plugin/plugin.json` | `hooks/hooks.json`（默认） |
 | Cursor | `.cursor-plugin/marketplace.json` | `mini-harness/.cursor-plugin/plugin.json` | `hooks/cursor/hooks.json` |
 
-Codex 要求用户审阅并信任插件捆绑的钩子。Session Start 钩子会在已激活仓库注入提醒：**必须先调用 mini-harness skill**（读 `harness/skills/mini-harness/SKILL.md` 与根 `AGENTS.md`），再执行用户任务。钩子被禁用时，仍须手动遵循该入口。
+Codex 要求用户审阅并信任插件捆绑的钩子。Session Start 钩子每轮注入提醒：**必须先调用 using-harness skill**（已 `install` 读 `harness/skills/using-harness/SKILL.md`，否则读插件内 `skills/using-harness/SKILL.md`）。钩子被禁用时，仍须手动遵循该入口。

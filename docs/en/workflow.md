@@ -1,6 +1,6 @@
 ﻿# Workflow
 
-Workflow rules live in project root `AGENTS.md` (copied from the plugin). This page summarizes the collaboration model.
+Workflow rules live in `harness/skills/using-harness/SKILL.md` (plugin: `skills/using-harness/SKILL.md`). This page summarizes the collaboration model.
 
 ### Concepts
 
@@ -13,7 +13,7 @@ Workflow rules live in project root `AGENTS.md` (copied from the plugin). This p
 | **Plan mode** | Write plan, sync AC to todo, wait for user confirmation |
 | **Subagent** | Separate agent for tests, acceptance, review, simplify (via Task tool) |
 
-> Subagent dispatch differs between Cursor (Task), Claude Code, Codex, etc. Harness **file layout and `AGENTS.md` rules are tool-agnostic**.
+> Subagent dispatch differs between Cursor (Task), Claude Code, Codex, etc. Harness **file layout and using-harness skill rules are tool-agnostic**.
 
 ### Regular round
 
@@ -97,4 +97,4 @@ flowchart TD
     Sync --> End
 ```
 
-Full rules: project root `AGENTS.md` and [mini-harness/AGENTS.md](../../mini-harness/AGENTS.md).
+Full rules: `harness/skills/using-harness/SKILL.md` and [mini-harness/skills/using-harness/SKILL.md](../../mini-harness/skills/using-harness/SKILL.md).

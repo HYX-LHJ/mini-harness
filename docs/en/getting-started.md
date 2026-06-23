@@ -20,13 +20,13 @@ python -m venv .venv
 
 ### Step 1 — Get the plugin
 
-Clone or vendor the `mini-harness/` directory into your environment:
+Install via marketplace (recommended) or clone the repo. **Plugin install loads `skills/using-harness/SKILL.md` immediately** — the collaboration workflow is usable before repo activation.
 
 ```bash
 git clone https://github.com/HYX-LHJ/mini-harness.git
 ```
 
-**Optional — host plugin** (session-start reminders only):
+**Host plugin** (skills + optional session-start reminders):
 
 | Host | Local test |
 |------|------------|
@@ -47,13 +47,13 @@ python harness/scripts/mini_harness.py doctor --root .
 
 > Initialize mini-harness in this repository — run install and doctor.
 
-The installer creates `AGENTS.md`, `harness/`, `tests/`, syncs built-in skills to `harness/skills/`, and writes `harness/scripts/mini_harness.py`.
+The installer creates `harness/`, `tests/`, syncs built-in skills to `harness/skills/`, and writes `harness/scripts/mini_harness.py`. It does **not** create or overwrite a project-root `AGENTS.md` — the workflow lives in `harness/skills/using-harness/SKILL.md` (available from the plugin immediately after install).
 
 | Flag | Description |
 |------|-------------|
 | `--root` | Target repo root (default: cwd) |
 
-Existing `AGENTS.md` is **not overwritten** unless the repo has none.
+If your repo already has a user-owned `AGENTS.md` at the root, `install` leaves it unchanged.
 
 ### Step 3 — Built-in skills (no separate install)
 
@@ -81,14 +81,13 @@ Always reference repo paths, e.g. `harness/skills/tdd/SKILL.md` — not global `
 `doctor` returns `ok: true` with no warnings, and these exist:
 
 ```text
-AGENTS.md
 harness/index.md, harness/todo.md, harness/PROGRESS.md
 harness/scripts/mini_harness.py
-harness/skills/mini-harness/SKILL.md
+harness/skills/using-harness/SKILL.md
 tests/
 ```
 
-Ask your agent: *"Read AGENTS.md and harness/PROGRESS.md, then summarize current state."*
+Ask your agent: *"Read harness/skills/using-harness/SKILL.md and harness/PROGRESS.md, then summarize current state."*
 
 ### FAQ
 
@@ -96,7 +95,7 @@ Ask your agent: *"Read AGENTS.md and harness/PROGRESS.md, then summarize current
 
 **No Python project?** Skip `python-code-style`; harness still works for docs-only repos.
 
-**Agent skipped todo / AC?** Remind it to follow `AGENTS.md` hard constraints — register todo and confirm AC before implementation.
+**Agent skipped todo / AC?** Remind it to follow the using-harness skill hard constraints — register todo and confirm AC before implementation.
 
 ### Next steps
 

@@ -1,6 +1,6 @@
 ﻿# 协作流程
 
-工作流规则以项目根目录 `AGENTS.md` 为准（由插件复制）。本文概述协作模型。
+工作流规则以 `harness/skills/using-harness/SKILL.md` 为准（插件内为 `skills/using-harness/SKILL.md`）。本文概述协作模型。
 
 ### 概念
 
@@ -13,7 +13,7 @@
 | **Plan 模式** | 写方案、AC 同步到 todo、等待用户确认 |
 | **Subagent** | 独立 Agent 负责测试、验收、审查、精炼（通过 Task 工具） |
 
-> Subagent 调度因 Cursor（Task）、Claude Code、Codex 等而异；harness **目录布局与 `AGENTS.md` 规则与工具无关**。
+> Subagent 调度因 Cursor（Task）、Claude Code、Codex 等而异；harness **目录布局与 using-harness skill 规则与工具无关**。
 
 ### 常规回合
 
@@ -97,4 +97,4 @@ flowchart TD
     Sync --> End
 ```
 
-完整规则：项目根 `AGENTS.md` 与 [mini-harness/AGENTS.md](../../mini-harness/AGENTS.md)。
+完整规则：`harness/skills/using-harness/SKILL.md` 与 [mini-harness/skills/using-harness/SKILL.md](../../mini-harness/skills/using-harness/SKILL.md)。

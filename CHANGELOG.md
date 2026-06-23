@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2026-06-23
+
+### Added
+
+- **`using-harness` skill** — superpowers-style workflow entry (`SKILL.md`) with detailed steps in `references/workflow.md`
+- Session hooks inject reminders for plugin-only repos (before `install`) and activated repos
+- Legacy migration: removes root `AGENTS.md` and `harness/skills/mini-harness/` on `install`/`update`
+
+### Changed
+
+- **Breaking:** removed `mini-harness/AGENTS.md`; workflow lives entirely in `skills/using-harness/`
+- Renamed core skill `mini-harness` → `using-harness`
+- Installer v0.4.0 no longer copies Playbook to project root
+- Skill `description` fields unified in Chinese; hooks point to entry + `workflow.md`
+- Documentation and templates updated for plugin-first, skill-entry model
+
+### Removed
+
+- Root `package.json` (v1 Skills CLI npm metadata)
+- Obsolete install artifacts from plugin source repo (gitignore hardened)
+
 ## [2.0.0] - 2026-06-23
 
 ### Added

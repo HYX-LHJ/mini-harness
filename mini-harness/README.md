@@ -15,7 +15,7 @@ python scripts/mini_harness.py doctor --root /path/to/repository
 
 安装器会：
 
-- 保留现有 `AGENTS.md` 内容及 `harness/` 下由项目自行维护的文件；
+- 保留 `harness/` 下由项目自行维护的文件（若仓库根目录已有用户自有的 `AGENTS.md`，**不会**删除或覆盖）；
 - 将 **Skills**、**scripts** 与模板快照迁移到目标仓库的 `harness/`；
 - 创建仓库根目录 `tests/`；
 - 不猜测项目的构建或测试命令。
@@ -23,9 +23,8 @@ python scripts/mini_harness.py doctor --root /path/to/repository
 激活后，仓库内典型布局：
 
 ```text
-AGENTS.md           # Agent Harness Playbook（项目根目录）
 harness/
-  skills/           # 内置 Agent Skills
+  skills/           # 内置 Agent Skills（含 using-harness/SKILL.md 工作流）
   scripts/          # install / update / doctor
   PROGRESS.md
   todo.md
@@ -33,13 +32,13 @@ harness/
 tests/              # 全部测试文件
 ```
 
-Playbook 源文件在插件根目录 `AGENTS.md`；`install` 会将其复制到**项目根目录**。完整初始化步骤见 `harness/skills/mini-harness/SKILL.md`。
+工作流入口在插件 `skills/using-harness/SKILL.md`（细则在同目录 `references/workflow.md`）；`install` 会同步到 `harness/skills/using-harness/`。安装插件后即可按该 Skill 工作。
 
 目标项目执行 `install` 后，团队成员即可使用 `harness/skills/` 与 `harness/scripts/`，无需每人单独配置插件路径。
 
 ## 维护 mini-harness（权威源）
 
-本目录 **`mini-harness/` 是唯一权威源**。Playbook、Skills、安装器与模板的变更须**先在此修改**，再同步到已激活仓库：
+本目录 **`mini-harness/` 是唯一权威源**。using-harness Skill、其它 Skills、安装器与模板的变更须**先在此修改**，再同步到已激活仓库：
 
 ```text
 python mini-harness/scripts/mini_harness.py install --root /path/to/repository
@@ -47,7 +46,7 @@ python harness/scripts/mini_harness.py doctor --root /path/to/repository
 python -m pytest mini-harness/tests
 ```
 
-勿只改已激活仓库内的 `harness/skills/` 或根 `AGENTS.md` 而忘记回写插件——`doctor` 会检测 `.package` 漂移，新仓库 `install` 也会分发过时内容。详见 `skills/mini-harness/SKILL.md` 的「维护者与权威源」。
+勿只改已激活仓库内的 `harness/skills/` 而忘记回写插件——`doctor` 会检测 `.package` 漂移，新仓库 `install` 也会分发过时内容。详见 `skills/using-harness/SKILL.md` 的「维护者与权威源」。
 
 ## 宿主一键安装
 
@@ -57,7 +56,7 @@ python -m pytest mini-harness/tests
 | Cursor | `.cursor-plugin/marketplace.json` | Dashboard → Import `https://github.com/HYX-LHJ/mini-harness` |
 | Codex | `.agents/plugins/marketplace.json` | `codex plugin marketplace add github.com/HYX-LHJ/mini-harness` |
 
-安装插件后，在目标项目执行 `install` 激活 harness。详见 [skills/mini-harness/references/host-support.md](skills/mini-harness/references/host-support.md)。
+安装插件后，在目标项目执行 `install` 激活 harness。详见 [skills/using-harness/references/host-support.md](skills/using-harness/references/host-support.md)。
 
 ## 宿主包（本地开发）
 

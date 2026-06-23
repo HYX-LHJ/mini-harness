@@ -11,7 +11,7 @@ EXPECTED_SKILLS = {
     "brainstorming",
     "code-review-expert",
     "code-simplifier",
-    "mini-harness",
+    "using-harness",
     "python-code-style",
     "python-testing-patterns",
     "tdd",
@@ -28,7 +28,7 @@ def test_three_host_manifests_share_identity_and_components() -> None:
     parsed = [json.loads(path.read_text(encoding="utf-8")) for path in manifests]
 
     assert {manifest["name"] for manifest in parsed} == {"mini-harness"}
-    assert {manifest["version"] for manifest in parsed} == {"2.0.0"}
+    assert {manifest["version"] for manifest in parsed} == {"2.1.0"}
     assert all(manifest.get("description") for manifest in parsed)
 
 
@@ -66,7 +66,9 @@ def test_template_is_generic_and_contains_no_project_residue() -> None:
 def test_all_skill_markdown_links_resolve() -> None:
     markdown_link = re.compile(r"\[[^\]]+\]\(([^)#]+)(?:#[^)]+)?\)")
     missing: list[str] = []
-    for skill_file in (PLUGIN_ROOT / "skills").glob("*/SKILL.md"):
+    skill_roots = list((PLUGIN_ROOT / "skills").glob("*/SKILL.md"))
+    skill_roots.extend((PLUGIN_ROOT / "skills" / "using-harness" / "references").glob("*.md"))
+    for skill_file in skill_roots:
         text = skill_file.read_text(encoding="utf-8")
         for match in markdown_link.finditer(text):
             target = match.group(1)
@@ -90,19 +92,44 @@ def test_hook_configs_reference_host_specific_session_start_scripts() -> None:
         assert script in path.read_text(encoding="utf-8").replace("\\", "/")
 
 
+def test_three_host_manifests_point_at_bundled_skills() -> None:
+    manifests = [
+        PLUGIN_ROOT / ".claude-plugin" / "plugin.json",
+        PLUGIN_ROOT / ".codex-plugin" / "plugin.json",
+        PLUGIN_ROOT / ".cursor-plugin" / "plugin.json",
+    ]
+    for path in manifests:
+        manifest = json.loads(path.read_text(encoding="utf-8"))
+        skills_dir = (PLUGIN_ROOT / manifest["skills"].removeprefix("./")).resolve()
+        assert skills_dir.is_dir()
+        assert (skills_dir / "using-harness" / "SKILL.md").is_file()
+        for skill_name in EXPECTED_SKILLS:
+            assert (skills_dir / skill_name / "SKILL.md").is_file()
+
+
 def test_playbook_covers_ac_contract_archival_and_harness_skills() -> None:
-    text = (PLUGIN_ROOT / "AGENTS.md").read_text(encoding="utf-8")
-    required = (
-        "mini-harness 核心 Skill 正文",
+    skill = (PLUGIN_ROOT / "skills" / "using-harness" / "SKILL.md").read_text(encoding="utf-8")
+    workflow = (PLUGIN_ROOT / "skills" / "using-harness" / "references" / "workflow.md").read_text(
+        encoding="utf-8"
+    )
+    entry_required = (
+        "开场",
+        "路径",
+        "硬约束",
+        "references/workflow.md",
+        "harness/skills/",
+        "~/.agents/skills/",
+    )
+    detail_required = (
         "AC 已确认",
         "任务归档",
         "harness/backlog/",
-        "harness/skills/",
-        "~/.agents/skills/",
         "并行规则",
     )
-    missing = [phrase for phrase in required if phrase not in text]
-    assert missing == [], f"AGENTS.md missing: {missing}"
+    missing_entry = [phrase for phrase in entry_required if phrase not in skill]
+    missing_detail = [phrase for phrase in detail_required if phrase not in workflow]
+    assert missing_entry == [], f"SKILL.md missing: {missing_entry}"
+    assert missing_detail == [], f"workflow.md missing: {missing_detail}"
 
 
 def test_template_todo_includes_ac_confirmation_block() -> None:
@@ -140,8 +167,9 @@ def test_repo_marketplaces_enable_one_click_plugin_install() -> None:
 
 
 def test_mini_harness_skill_documents_canonical_plugin_root() -> None:
-    text = (PLUGIN_ROOT / "skills" / "mini-harness" / "SKILL.md").read_text(encoding="utf-8")
-    assert "唯一权威源" in text
-    assert "mini-harness/" in text
-    assert "AGENTS.md" in text
-    assert "每回合入口" in text
+    text = (PLUGIN_ROOT / "skills" / "using-harness" / "SKILL.md").read_text(encoding="utf-8")
+    assert "开场" in text
+    assert "硬约束" in text
+    assert "references/workflow.md" in text
+    assert "references/lifecycle.md" in text
+    assert "工作流入口" in text

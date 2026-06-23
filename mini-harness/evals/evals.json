@@ -1,13 +1,13 @@
 {
-  "skill_name": "mini-harness",
+  "skill_name": "using-harness",
   "evals": [
     {
       "id": 1,
       "prompt": "在空仓库中初始化 mini-harness。不要臆造构建或测试命令。",
-      "expected_output": "创建 harness 目录、同步 skills 与脚本，并将 Playbook 复制到项目根 AGENTS.md；随后按 python-code-style 初始化 Python 工具链。",
+      "expected_output": "创建 harness 目录、同步 skills 与脚本；工作流正文在 harness/skills/using-harness/SKILL.md；随后按 python-code-style 初始化 Python 工具链。",
       "files": [],
       "assertions": [
-        "仓库包含根目录 AGENTS.md（Agent Harness Playbook）与 harness/.mini-harness.json。",
+        "仓库包含 harness/.mini-harness.json 与 harness/skills/using-harness/SKILL.md。",
         "harness/skills 与 harness/scripts 已就绪。",
         "标记为激活状态，且不包含猜测的门禁命令。",
         "todo 模板或注释中含 AC 核对与 AC 已确认。"

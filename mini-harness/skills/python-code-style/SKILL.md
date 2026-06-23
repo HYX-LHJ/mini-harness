@@ -1,6 +1,6 @@
 ---
 name: python-code-style
-description: 仅在仓库初始化 mini-harness 时使用。配置 Python 工具链（pyproject.toml、Ruff、pytest、mypy 等），并将工具链与验证命令摘要写入 harness/DECISIONS.md。不含编码规范；编码规范由独立 Skill 负责。日常开发不要读取本 Skill。
+description: 仅在仓库初始化 mini-harness 时使用。配置 Python 工具链（pyproject.toml、Ruff、pytest、mypy 等），并将工具链与验证命令摘要写入 harness/DECISIONS.md。不含编码规范；编码规范由独立技能负责。日常开发不要读取本技能。
 ---
 
 # Python 工具链初始化（仅 harness 初始化时）
@@ -122,7 +122,7 @@ pytest
 
 | Skill | 关系 |
 |-------|------|
-| `mini-harness` | 先完成 install；本 Skill 是其初始化清单第 3 步 |
+| `using-harness` | 先完成 install；本 Skill 是其初始化清单第 3 步 |
 | `harness/rules/` | 编码规范常驻规则（`python-coding-conventions.md`） |
 | `tdd` / `python-testing-patterns` | 日常改运行时代码前使用 |
 | `code-review-expert` | 日常编码完成后审查 |

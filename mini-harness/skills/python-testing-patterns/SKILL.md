@@ -1,6 +1,6 @@
 ---
 name: python-testing-patterns
-description: 使用 pytest、fixtures、mock 和测试驱动开发实现全面的测试策略。适用于编写 Python 测试、搭建测试套件或落实测试最佳实践。
+description: 使用 pytest 测试夹具、模拟对象和测试驱动开发实现全面的测试策略。适用于编写 Python 测试、搭建测试套件或落实测试最佳实践。
 ---
 
 # Python 测试模式

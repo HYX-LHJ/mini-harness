@@ -1,10 +1,10 @@
 # 5 分钟上手 mini-harness
 
-面向第一次试用的小伙伴。读完按场景操作即可；细节见 [README.md](README.md) 与根目录 [AGENTS.md](AGENTS.md)。
+面向第一次试用的小伙伴。读完按场景操作即可；细节见 [README.md](README.md) 与 [skills/using-harness/SKILL.md](skills/using-harness/SKILL.md)。
 
 ## 你将得到什么
 
-- Agent 每回合须先调用 **mini-harness skill**：`harness/skills/mini-harness/SKILL.md` → 根 `AGENTS.md`（Playbook 正文）→ `harness/PROGRESS.md` + `harness/todo.md`
+- Agent 每回合须先调用 **using-harness skill**：`harness/skills/using-harness/SKILL.md`（插件内为 `skills/using-harness/SKILL.md`）→ `harness/PROGRESS.md` + `harness/todo.md`
 - 改运行时代码前须写 **验收标准（AC）** 并 **人工确认**
 - 任务结束归档到 `harness/backlog/`，状态写入 `PROGRESS.md`
 
@@ -23,7 +23,7 @@
 2. **新开一个 Agent 会话**，第一句话建议：
 
    ```text
-   先调用 mini-harness skill：读 harness/skills/mini-harness/SKILL.md 和 AGENTS.md、harness/PROGRESS.md、harness/todo.md，再帮我做下一件事：……
+   先调用 using-harness skill：读 harness/skills/using-harness/SKILL.md、harness/PROGRESS.md、harness/todo.md，再帮我做下一件事：……
    ```
 
 3. 提一个**很小**的需求（例如改一句文档、加一个小函数）。
@@ -52,15 +52,15 @@ python harness/scripts/mini_harness.py doctor --root .
    python harness/scripts/mini_harness.py doctor --root .
    ```
 
-3. 确认生成了 `AGENTS.md`、`harness/`、`tests/`。
+3. 确认生成了 `harness/`、`tests/`。
 4. 新开 Agent 会话，同场景 A 第 2 步。
 5. **（Python 项目，可选）** 让 Agent 按 `harness/skills/python-code-style/SKILL.md` 初始化 `pyproject.toml` 与 `harness/DECISIONS.md` 中的验证命令。
 
 ---
 
-## 场景 C：可选 — 安装 Cursor 插件（Session 提醒）
+## 场景 C：可选 — 安装 Cursor 插件（Skills + Session 提醒）
 
-仅想要「每次开聊提醒读 Playbook」时再做；**不装也能用**场景 A/B。
+插件安装后即可使用 using-harness skill；Session 钩子额外提醒每回合先读 Skill。**不装也能用**场景 A/B。
 
 1. 将 `mini-harness/` 复制或符号链接到：
 
@@ -80,9 +80,9 @@ Codex：从市场安装后须信任钩子并**新开会话**。
 
 | 阶段 | 你可以说 |
 |------|----------|
-| 开聊 | 「先读 AGENTS.md 和 harness 状态文件」 |
+| 开聊 | 「先读 harness/skills/using-harness/SKILL.md 和 harness 状态文件」 |
 | 提需求 | 「先登记 todo 和 AC，等我确认 AC 再实现」 |
-| 做完后 | 「按 AGENTS §5 归档 todo 并更新 PROGRESS」 |
+| 做完后 | 「按 SKILL §5 归档 todo 并更新 PROGRESS」 |
 | 走 subagent | 「读 `harness/skills/tdd/SKILL.md`，不要用全局 skills」 |
 
 ---
@@ -100,19 +100,19 @@ Codex：从市场安装后须信任钩子并**新开会话**。
 ## 常见问题
 
 **Q：必须装插件吗？**  
-不必。仓库里有 `harness/` 和 `AGENTS.md` 就能用；插件只多 Session 开场提醒。
+不必。仓库里有 `harness/`（含 `harness/skills/using-harness/SKILL.md`）就能用；插件安装后即可按 Skill 工作，并多 Session 开场提醒。
 
 **Q：`python` 找不到？**  
 Windows 试 `py`；macOS/Linux 试 `python3`，或安装 Python 3.10+ 并加入 PATH。
 
 **Q：Agent 跳过 todo / AC 怎么办？**  
-直接提醒：「按 AGENTS.md 硬约束，先登记 todo 并完成 AC 核对」。流程是软约束，需要你盯一下。
+直接提醒：「按 using-harness skill 硬约束，先登记 todo 并完成 AC 核对」。流程是软约束，需要你盯一下。
 
 **Q：同名 skill 读错了？**  
 在任务里写明仓库路径，例如 `harness/skills/acceptance-verification/SKILL.md`，不要用 `~/.agents/skills/`。
 
-**Q：`install` 会覆盖我的 `AGENTS.md` 吗？**  
-若仓库已有 `AGENTS.md`，默认**不覆盖**；全新仓库会自动复制 Playbook。
+**Q：仓库根已有 `AGENTS.md` 会怎样？**  
+`install` **不会**创建或覆盖根目录 `AGENTS.md`；若你已有自有的 `AGENTS.md`，会原样保留。
 
 ---
 
@@ -124,4 +124,4 @@ Windows 试 `py`；macOS/Linux 试 `python3`，或安装 Python 3.10+ 并加入 
 2. Agent 是否遵守 AC 核对？
 3. `doctor` 输出是否全绿？
 
-维护者文档见 [skills/mini-harness/SKILL.md](skills/mini-harness/SKILL.md) 的「维护者与权威源」。
+维护者文档见 [skills/using-harness/SKILL.md](skills/using-harness/SKILL.md) 的「维护者与权威源」。

@@ -1,4 +1,4 @@
-﻿# 安装指南
+# 安装指南
 
 mini-harness 以 **宿主插件** 形式分发，支持 Claude Code、Cursor、Codex。安装插件可加载 Skills 与 Session 钩子；在项目中 **`mini_harness.py install`** 才会生成 `harness/` 协作工程。
 
@@ -94,12 +94,11 @@ python harness/scripts/mini_harness.py uninstall --root .
 
 ### 验证
 
-1. 插件：宿主中可见 Skills；Codex 须信任 Session 钩子
-2. 仓库：`doctor` → `ok: true`，`warnings` 为空
-3. 项目根有 `AGENTS.md`；存在 `harness/skills/mini-harness/SKILL.md`
+1. 插件：宿主中可见 `skills/using-harness/SKILL.md`；Codex 须信任 Session 钩子 — 无需仓库 `install` 即可按 Skill 工作
+2. 仓库（`install` 后）：`doctor` → `ok: true`，`warnings` 为空；存在 `harness/skills/using-harness/SKILL.md`
 
 ### 运行时要求
 
 Python 3.10+（Windows 可用 `py`）。安装器仅使用标准库。
 
-详见：[host-support.md](../../mini-harness/skills/mini-harness/references/host-support.md)
+详见：[host-support.md](../../mini-harness/skills/using-harness/references/host-support.md)

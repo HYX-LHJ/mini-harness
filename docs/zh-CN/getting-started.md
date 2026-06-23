@@ -20,13 +20,13 @@ python -m venv .venv
 
 ### 第一步 — 获取插件
 
-克隆或将 `mini-harness/` 目录放入你的环境：
+通过市场安装（推荐）或克隆仓库。**安装插件后即可使用 `skills/using-harness/SKILL.md`** — 无需先执行仓库 `install`。
 
 ```bash
 git clone https://github.com/HYX-LHJ/mini-harness.git
 ```
 
-**可选 — 宿主插件**（仅 Session 开场提醒）：
+**宿主插件**（Skills + 可选 Session 开场提醒）：
 
 | 宿主 | 本地测试 |
 |------|----------|
@@ -47,13 +47,13 @@ python harness/scripts/mini_harness.py doctor --root .
 
 > 在当前仓库初始化 mini-harness — 执行 install 和 doctor。
 
-安装器会创建 `AGENTS.md`、`harness/`、`tests/`，将内置 Skill 同步到 `harness/skills/`，并写入 `harness/scripts/mini_harness.py`。
+安装器会创建 `harness/`、`tests/`，将内置 Skill 同步到 `harness/skills/`，并写入 `harness/scripts/mini_harness.py`。**不会**在项目根创建或覆盖 `AGENTS.md` — 工作流在 `harness/skills/using-harness/SKILL.md`（安装插件后即可使用）。
 
 | 参数 | 说明 |
 |------|------|
 | `--root` | 目标仓库根目录（默认当前目录） |
 
-若仓库已有 `AGENTS.md`，默认**不覆盖**。
+若仓库根目录已有用户自有的 `AGENTS.md`，`install` 会原样保留。
 
 ### 第三步 — 内置 Skill（无需单独安装）
 
@@ -81,14 +81,13 @@ python harness/scripts/mini_harness.py doctor --root .
 `doctor` 返回 `ok: true` 且无 warnings，且存在：
 
 ```text
-AGENTS.md
 harness/index.md、harness/todo.md、harness/PROGRESS.md
 harness/scripts/mini_harness.py
-harness/skills/mini-harness/SKILL.md
+harness/skills/using-harness/SKILL.md
 tests/
 ```
 
-对 Agent 说：「读 AGENTS.md 和 harness/PROGRESS.md，总结当前状态」。
+对 Agent 说：「读 harness/skills/using-harness/SKILL.md 和 harness/PROGRESS.md，总结当前状态」。
 
 ### 常见问题
 
@@ -96,7 +95,7 @@ tests/
 
 **非 Python 项目？** 可跳过 `python-code-style`；纯文档仓库也能用 harness。
 
-**Agent 跳过 todo / AC？** 提醒按 `AGENTS.md` 硬约束 — 先登记 todo 并确认 AC 再实现。
+**Agent 跳过 todo / AC？** 提醒按 using-harness skill 硬约束 — 先登记 todo 并确认 AC 再实现。
 
 ### 下一步
 

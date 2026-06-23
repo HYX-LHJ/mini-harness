@@ -32,5 +32,5 @@
 - **验收契约的执行锚点是 `harness/todo.md`**，不是 plan 文件。
 - Plan 批准后：将「验收标准」表**同步**到当前任务的 todo（可摘要 + 链接回本 plan）。
 - 无 Plan 的小任务：直接在 todo 中写「验收标准」，不必创建 plan 文件。
-- **AC 同步到 todo 后，须完成「AC 核对」并勾选「AC 已确认」，方可进入 TDD**（见 `AGENTS.md` §3.1）。
+- **AC 同步到 todo 后，须完成「AC 核对」并勾选「AC 已确认」，方可进入 TDD**（见 `harness/skills/using-harness/SKILL.md` §3.1）。
 - `acceptance-verification` subagent 以 todo 为主、plan 为辅（仅当 todo 链接了 plan）；并先检查 AC 契约是否已确认。

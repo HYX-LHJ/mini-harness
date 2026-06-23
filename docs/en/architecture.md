@@ -7,16 +7,18 @@ mini-harness uses a **two-layer architecture**: the plugin scaffolds once; the h
 ```text
 mini-harness repo                    your project repo
 ┌─────────────────────┐              ┌─────────────────────┐
-│ mini-harness/         │  install     │ AGENTS.md           │
-│  AGENTS.md (source)   │ ──────────►  │ harness/            │
-│  skills/, scripts/    │              │  todo, PROGRESS, …  │
+│ mini-harness/         │  install     │ harness/            │
+│  skills/using-harness/ │ ──────────►  │  skills/, todo,     │
+│  skills/, scripts/    │              │  PROGRESS, …        │
 │  assets/template/     │              │ tests/              │
 └─────────────────────┘              └─────────────────────┘
+         ▲
+         │ plugin install (skills + hooks) — usable immediately
 ```
 
 **Principles:**
 
-1. **Plugin vs harness** — Plugin can be upgraded; harness lives in your repo
+1. **Plugin vs harness** — Plugin delivers the using-harness skill; `install` scaffolds harness state in your repo
 2. **Files as state** — Agents read files each round, not chat history
 3. **Single source of truth** — Each information type has one canonical location
 4. **Authoritative source** — Edit `mini-harness/` only; `install` syncs to repos
@@ -25,14 +27,13 @@ mini-harness repo                    your project repo
 
 ```text
 your-repo/
-├── AGENTS.md                 # Playbook (project root)
 ├── tests/                    # All tests
 └── harness/
     ├── index.md              # L0 entry
     ├── todo.md               # Current task + AC (only place to check boxes)
     ├── PROGRESS.md           # Snapshot: state, in-progress, completed
     ├── DECISIONS.md          # Long-term constraints
-    ├── skills/               # Built-in skills (tdd, review, …)
+    ├── skills/               # Built-in skills (mini-harness, tdd, review, …)
     ├── rules/                # Coding conventions
     ├── scripts/              # mini_harness.py (install/update/doctor)
     ├── plans/                # Plan documents
@@ -53,10 +54,10 @@ your-repo/
 | Why can't we change X? | `harness/DECISIONS.md` |
 | Known tech debt? | `code_review/open-findings.md` |
 | Pre-implementation plan? | `harness/plans/` |
-| What should agent do each round? | Project root `AGENTS.md` |
+| What should agent do each round? | `harness/skills/using-harness/SKILL.md` |
 | Which skill to use? | `harness/skills/<name>/SKILL.md` |
 
-**Priority:** `AGENTS.md` > skill `SKILL.md` in `harness/skills/`.
+**Entry:** Invoke the using-harness skill each round; other skills are loaded on demand from `harness/skills/`.
 
 ### Naming conventions
 
@@ -71,7 +72,7 @@ your-repo/
 
 | Command | Role |
 |---------|------|
-| `install` | Create/sync harness, skills, scripts, rules, AGENTS.md |
+| `install` | Create/sync harness, skills, scripts, rules |
 | `update` | Refresh managed files from `.package` snapshot |
 | `doctor` | Health check + drift warnings |
 | `uninstall` | Remove managed harness (preserves project extensions) |
@@ -82,7 +83,6 @@ your-repo/
 your-repo/
 ├── src/ or agent/    # Business code (tdd + review required when changed)
 ├── harness/          # Collaboration control plane (not runtime)
-├── AGENTS.md
 └── tests/            # Tests at repo root (not harness/tests/)
 ```
 
