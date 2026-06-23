@@ -13,6 +13,18 @@
 
 ---
 
+## 本仓库是什么
+
+这是 **插件源码仓库**，不是已激活 harness 的项目。只改 `mini-harness/`；在你自己的项目（或临时目录）执行 `install` 才会生成 `AGENTS.md`、`harness/`、`tests/`。**不要**把这些 install 产物提交回本仓库。
+
+```text
+mini-harness/   # 权威插件源码（skills、安装器、模板）
+docs/           # 用户文档
+.github/        # CI
+```
+
+---
+
 ## 快速开始
 
 **在目标仓库激活：**

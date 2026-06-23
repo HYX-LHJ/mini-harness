@@ -35,7 +35,7 @@ tests/              # 全部测试文件
 
 Playbook 源文件在插件根目录 `AGENTS.md`；`install` 会将其复制到**项目根目录**。完整初始化步骤见 `harness/skills/mini-harness/SKILL.md`。
 
-团队成员克隆仓库后即可使用 `harness/skills/` 与 `harness/scripts/`，无需每人单独配置插件路径。
+目标项目执行 `install` 后，团队成员即可使用 `harness/skills/` 与 `harness/scripts/`，无需每人单独配置插件路径。
 
 ## 维护 mini-harness（权威源）
 

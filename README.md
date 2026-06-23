@@ -13,6 +13,18 @@
 
 ---
 
+## This repository
+
+This is the **plugin source repo** — not a pre-activated harness project. Edit only `mini-harness/`; run `install` in your own project (or a temp directory) to get `AGENTS.md`, `harness/`, and `tests/`. Do not commit those install outputs here.
+
+```text
+mini-harness/   # authoritative plugin (skills, installer, templates)
+docs/           # user documentation
+.github/        # CI
+```
+
+---
+
 ## Quick start
 
 **Activate in your project:**

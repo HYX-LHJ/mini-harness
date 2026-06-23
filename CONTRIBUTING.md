@@ -78,6 +78,8 @@ See [mini-harness/skills/mini-harness/SKILL.md](mini-harness/skills/mini-harness
 | `README.md` / `README.zh-CN.md` | External repo overview |
 | `docs/en/` / `docs/zh-CN/` | External documentation |
 
+**Do not commit** root `AGENTS.md`, `harness/`, or `tests/` in this repo — they are `install` output (gitignored). Verify in a temp directory instead.
+
 ### Reporting issues
 
 Use GitHub Issue templates (Bug / Feature) when possible:
@@ -160,6 +162,8 @@ python -m pytest mini-harness/tests
 | `mini-harness/tests/` | 安装器与钩子测试 |
 | `README.md` / `README.zh-CN.md` | 对外仓库概览 |
 | `docs/zh-CN/` / `docs/en/` | 对外文档 |
+
+**勿提交**本仓库根目录的 `AGENTS.md`、`harness/`、`tests/` — 它们是 `install` 产物（已 gitignore）。请在临时目录验证。
 
 ### 报告问题
 

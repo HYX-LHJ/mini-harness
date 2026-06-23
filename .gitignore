@@ -5,6 +5,8 @@ __pycache__/
 .venv/
 venv/
 .env
+.pytest_cache/
+pytest-cache-files-*/
 
 # IDE
 .idea/
@@ -15,6 +17,12 @@ venv/
 # OS
 .DS_Store
 Thumbs.db
+
+# Local install output (authoritative source is mini-harness/)
+# Run `py mini-harness/scripts/mini_harness.py install --root .` to dogfood locally.
+/AGENTS.md
+/harness/
+/tests/
 
 # Local harness test runs
 harness/out/
