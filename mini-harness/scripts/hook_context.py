@@ -10,7 +10,11 @@ from typing import Any
 
 CONTEXT = """本仓库已启用 mini-harness。
 
-开始工作前，请先阅读项目根目录 `AGENTS.md`（Agent Harness Playbook），再阅读 `harness/PROGRESS.md` 与 `harness/todo.md`。
+开始任何用户任务前，必须先调用 mini-harness skill：
+1. 阅读 `harness/skills/mini-harness/SKILL.md`（工作流入口）
+2. 阅读项目根 `AGENTS.md`（本 Skill 的 Playbook 正文）
+3. 并行阅读 `harness/PROGRESS.md` 与 `harness/todo.md`
+
 若 todo 含运行时代码任务且「AC 已确认」未勾选，须先与用户核对 AC，不得启动 TDD 或编写实现。
 不要仅因本提醒被注入就修改文件。
 """

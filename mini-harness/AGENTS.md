@@ -1,5 +1,7 @@
 # Agent Harness Playbook
 
+> **mini-harness 核心 Skill 正文。** 本文件由 `mini-harness` Skill 分发；每回合须先遵循本 Playbook，再执行用户任务。Skill 入口：`harness/skills/mini-harness/SKILL.md`（插件内为 `skills/mini-harness/SKILL.md`）。
+
 项目业务规则写在 `harness/DECISIONS.md` 或项目文档，不写入本文件。
 
 ## 硬约束

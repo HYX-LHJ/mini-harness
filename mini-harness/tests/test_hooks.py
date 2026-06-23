@@ -24,6 +24,8 @@ def test_claude_and_codex_emit_hook_specific_context(hook_context, host: str, tm
     specific = output["hookSpecificOutput"]
     assert specific["hookEventName"] == "SessionStart"
     assert "AGENTS.md" in specific["additionalContext"]
+    assert "mini-harness skill" in specific["additionalContext"]
+    assert "harness/skills/mini-harness/SKILL.md" in specific["additionalContext"]
     assert "harness/PROGRESS.md" in specific["additionalContext"]
 
 
@@ -35,6 +37,7 @@ def test_cursor_emits_additional_context(hook_context, tmp_path: Path) -> None:
     output = hook_context.build_output("cursor", tmp_path)
 
     assert "AGENTS.md" in output["additional_context"]
+    assert "mini-harness skill" in output["additional_context"]
 
 
 def test_disabled_marker_returns_no_context(hook_context, tmp_path: Path) -> None:

@@ -64,4 +64,4 @@ codex plugin install mini-harness
 | Codex | `.agents/plugins/marketplace.json` | `mini-harness/.codex-plugin/plugin.json` | `hooks/hooks.json`（默认） |
 | Cursor | `.cursor-plugin/marketplace.json` | `mini-harness/.cursor-plugin/plugin.json` | `hooks/cursor/hooks.json` |
 
-Codex 要求用户审阅并信任插件捆绑的钩子。任何宿主上，钩子都可能被托管策略禁用。仓库仍可使用，因为 `AGENTS.md` 是持久的工作流入口；钩子仅是提醒。
+Codex 要求用户审阅并信任插件捆绑的钩子。Session Start 钩子会在已激活仓库注入提醒：**必须先调用 mini-harness skill**（读 `harness/skills/mini-harness/SKILL.md` 与根 `AGENTS.md`），再执行用户任务。钩子被禁用时，仍须手动遵循该入口。

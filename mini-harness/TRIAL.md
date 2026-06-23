@@ -4,7 +4,7 @@
 
 ## 你将得到什么
 
-- Agent 每回合有固定入口：`AGENTS.md` + `harness/PROGRESS.md` + `harness/todo.md`
+- Agent 每回合须先调用 **mini-harness skill**：`harness/skills/mini-harness/SKILL.md` → 根 `AGENTS.md`（Playbook 正文）→ `harness/PROGRESS.md` + `harness/todo.md`
 - 改运行时代码前须写 **验收标准（AC）** 并 **人工确认**
 - 任务结束归档到 `harness/backlog/`，状态写入 `PROGRESS.md`
 
@@ -23,7 +23,7 @@
 2. **新开一个 Agent 会话**，第一句话建议：
 
    ```text
-   先读 AGENTS.md、harness/PROGRESS.md、harness/todo.md，再帮我做下一件事：……
+   先调用 mini-harness skill：读 harness/skills/mini-harness/SKILL.md 和 AGENTS.md、harness/PROGRESS.md、harness/todo.md，再帮我做下一件事：……
    ```
 
 3. 提一个**很小**的需求（例如改一句文档、加一个小函数）。

@@ -93,6 +93,7 @@ def test_hook_configs_reference_host_specific_session_start_scripts() -> None:
 def test_playbook_covers_ac_contract_archival_and_harness_skills() -> None:
     text = (PLUGIN_ROOT / "AGENTS.md").read_text(encoding="utf-8")
     required = (
+        "mini-harness 核心 Skill 正文",
         "AC 已确认",
         "任务归档",
         "harness/backlog/",
@@ -142,3 +143,5 @@ def test_mini_harness_skill_documents_canonical_plugin_root() -> None:
     text = (PLUGIN_ROOT / "skills" / "mini-harness" / "SKILL.md").read_text(encoding="utf-8")
     assert "唯一权威源" in text
     assert "mini-harness/" in text
+    assert "AGENTS.md" in text
+    assert "每回合入口" in text
