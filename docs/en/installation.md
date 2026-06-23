@@ -1,25 +1,82 @@
 ﻿# Installation
 
-mini-harness is a **portable plugin** with shared skills, host manifests, and session-start hooks. Plugin install and repo activation are **two separate steps**.
+mini-harness ships as a **host plugin** for Claude Code, Cursor, and Codex. Plugin install loads skills and session hooks; **repo activation** (`mini_harness.py install`) scaffolds `harness/` in your project.
 
-### Two steps
+## One-click plugin install
+
+| Host | Steps |
+|------|-------|
+| **Claude Code** | `/plugin marketplace add HYX-LHJ/mini-harness` then `/plugin install mini-harness@mini-harness` |
+| **Cursor** | Dashboard → Settings → Plugins → **Import Marketplace** → `https://github.com/HYX-LHJ/mini-harness` → install **mini-harness** |
+| **Codex** | `codex plugin marketplace add github.com/HYX-LHJ/mini-harness` then `codex plugin install mini-harness` |
+
+After installing the plugin, activate harness in your project:
+
+```bash
+python mini-harness/scripts/mini_harness.py install --root .
+python harness/scripts/mini_harness.py doctor --root .
+```
+
+Or ask the agent: *"Initialize mini-harness in this repository."*
+
+<details>
+<summary>Per-host details</summary>
+
+### Claude Code
+
+```text
+/plugin marketplace add HYX-LHJ/mini-harness
+/plugin install mini-harness@mini-harness
+```
+
+CLI equivalent:
+
+```bash
+claude plugin marketplace add HYX-LHJ/mini-harness
+claude plugin install mini-harness@mini-harness
+```
+
+Local dev: `claude --plugin-dir /path/to/repo/mini-harness`
+
+### Cursor
+
+1. [Cursor Dashboard](https://cursor.com/dashboard) → **Settings** → **Plugins**
+2. **Import Marketplace** → paste `https://github.com/HYX-LHJ/mini-harness`
+3. Install **mini-harness** from the marketplace panel
+
+Local dev: copy or symlink `mini-harness/` to `~/.cursor/plugins/local/mini-harness`, then reload the window.
+
+### Codex
+
+```bash
+codex plugin marketplace add github.com/HYX-LHJ/mini-harness
+codex plugin install mini-harness
+```
+
+Review and trust bundled hooks when prompted; start a **new session**.
+
+</details>
+
+---
+
+## Two layers
 
 | Step | What | Required |
 |------|------|----------|
-| 1. Plugin | Install host plugin (optional reminders) | No — repo activation is enough |
-| 2. Activate | `mini_harness.py install` in target repo | **Yes** |
+| 1. Plugin | Install via table above | Recommended (skills + hooks) |
+| 2. Activate | `mini_harness.py install` in target repo | **Yes** for harness files |
 
-### Supported hosts
+### Manifest locations
 
-| Host | Manifest | Hooks |
-|------|----------|-------|
-| [Cursor](https://cursor.com/) | `.cursor-plugin/plugin.json` | `hooks/cursor/hooks.json` |
-| [Claude Code](https://docs.anthropic.com/en/docs/claude-code) | `.claude-plugin/plugin.json` | `hooks/claude/hooks.json` |
-| [Codex](https://github.com/openai/codex) | `.codex-plugin/plugin.json` | `hooks/codex/hooks.json` |
+| Host | Marketplace (repo root) | Plugin manifest |
+|------|-------------------------|-----------------|
+| Claude Code | `.claude-plugin/marketplace.json` | `mini-harness/.claude-plugin/plugin.json` |
+| Cursor | `.cursor-plugin/marketplace.json` | `mini-harness/.cursor-plugin/plugin.json` |
+| Codex | `.agents/plugins/marketplace.json` | `mini-harness/.codex-plugin/plugin.json` |
 
-Hooks remind agents to read `AGENTS.md`; the playbook is the persistent workflow entry.
+### Method 2 — Git clone + activate only
 
-### Method 1 — Git clone + activate (recommended)
+If you skip the host plugin:
 
 ```bash
 git clone https://github.com/HYX-LHJ/mini-harness.git
@@ -28,61 +85,10 @@ python /path/to/mini-harness/mini-harness/scripts/mini_harness.py install --root
 python harness/scripts/mini_harness.py doctor --root .
 ```
 
-**Windows (PowerShell):**
-
-```powershell
-python mini-harness\scripts\mini_harness.py install --root .
-python harness\scripts\mini_harness.py doctor --root .
-```
-
-### Method 2 — Vendor plugin into your repo
-
-Commit the plugin so the team shares one version:
-
-```text
-your-repo/
-├── mini-harness/          # plugin source (or submodule)
-├── AGENTS.md              # after install
-├── harness/               # after install
-└── tests/
-```
-
-Team members run `python harness/scripts/mini_harness.py install --root .` after pull.
-
-### Method 3 — Host plugin (optional)
-
-<a id="cursor"></a>
-
-#### Cursor
-
-Local test — copy or symlink:
-
-```text
-~/.cursor/plugins/local/mini-harness  →  /path/to/mini-harness
-```
-
-Restart Cursor or reload the window.
-
-<a id="claude-code"></a>
-
-#### Claude Code
+### Maintenance (activated repo)
 
 ```bash
-claude --plugin-dir /path/to/mini-harness
-```
-
-Publish via Claude Code plugin marketplace for team distribution.
-
-<a id="codex"></a>
-
-#### Codex
-
-Install `mini-harness` from the Codex marketplace. **Review and trust** bundled hooks before execution. Start a **new session** after install.
-
-### Maintenance commands (activated repo)
-
-```bash
-python harness/scripts/mini_harness.py install --root .   # sync templates & skills
+python harness/scripts/mini_harness.py install --root .
 python harness/scripts/mini_harness.py update --root .
 python harness/scripts/mini_harness.py doctor --root .
 python harness/scripts/mini_harness.py uninstall --root .
@@ -90,17 +96,12 @@ python harness/scripts/mini_harness.py uninstall --root .
 
 ### Verify
 
-1. `doctor` → `ok: true`, empty `warnings`
-2. `AGENTS.md` at repo root
-3. `harness/skills/mini-harness/SKILL.md` exists
-4. New agent session: *"Read AGENTS.md and harness state files"*
+1. Plugin: skills visible in host; session-start hook trusted (Codex)
+2. Repo: `doctor` → `ok: true`, empty `warnings`
+3. `AGENTS.md` at project root; `harness/skills/mini-harness/SKILL.md` exists
 
 ### Runtime requirements
 
-- Python 3.10+ callable as `python` (or `py` on Windows)
-- No third-party deps for the installer itself
-- Target repo language/framework is not prescribed
+Python 3.10+ (`python` or `py` on Windows). Installer uses stdlib only.
 
-### Maintainer note
-
-Edit **`mini-harness/` only** (authoritative source), then re-run `install` on target repos. See [mini-harness/skills/mini-harness/SKILL.md](../../mini-harness/skills/mini-harness/SKILL.md).
+See also: [host-support.md](../../mini-harness/skills/mini-harness/references/host-support.md)

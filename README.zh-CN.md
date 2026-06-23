@@ -27,20 +27,24 @@ docs/           # 用户文档
 
 ## 快速开始
 
-**在目标仓库激活：**
+### 1. 安装插件（一键）
+
+| 宿主 | 操作 |
+|------|------|
+| **Claude Code** | `/plugin marketplace add HYX-LHJ/mini-harness` → `/plugin install mini-harness@mini-harness` |
+| **Cursor** | Dashboard → Plugins → 导入 `https://github.com/HYX-LHJ/mini-harness` → 安装 **mini-harness** |
+| **Codex** | `codex plugin marketplace add github.com/HYX-LHJ/mini-harness` → `codex plugin install mini-harness` |
+
+详见 [docs/zh-CN/installation.md](docs/zh-CN/installation.md)
+
+### 2. 在目标仓库激活 harness
 
 ```bash
 python mini-harness/scripts/mini_harness.py install --root .
 python harness/scripts/mini_harness.py doctor --root .
 ```
 
-**可选 — 安装宿主插件**（仅 Session 开场提醒；仓库仍须执行上面的 `install`）：
-
-| 宿主 | 本地测试 |
-|------|----------|
-| Cursor | 将 `mini-harness/` 复制或符号链接到 `~/.cursor/plugins/local/mini-harness` |
-| Claude Code | `claude --plugin-dir /path/to/mini-harness` |
-| Codex | 从市场安装；信任钩子并新开会话 |
+**可选 — 本地插件开发**（不经市场导入）：
 
 第一次试用？见 [mini-harness/TRIAL.md](mini-harness/TRIAL.md)（约 5 分钟）。
 

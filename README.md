@@ -27,20 +27,24 @@ docs/           # user documentation
 
 ## Quick start
 
-**Activate in your project:**
+### 1. Install the plugin (one click)
+
+| Host | Command / action |
+|------|------------------|
+| **Claude Code** | `/plugin marketplace add HYX-LHJ/mini-harness` → `/plugin install mini-harness@mini-harness` |
+| **Cursor** | Dashboard → Plugins → Import `https://github.com/HYX-LHJ/mini-harness` → install **mini-harness** |
+| **Codex** | `codex plugin marketplace add github.com/HYX-LHJ/mini-harness` → `codex plugin install mini-harness` |
+
+Details: [docs/en/installation.md](docs/en/installation.md)
+
+### 2. Activate harness in your project
 
 ```bash
 python mini-harness/scripts/mini_harness.py install --root .
 python harness/scripts/mini_harness.py doctor --root .
 ```
 
-**Optional — install the host plugin** (session-start reminders only; activation still requires `install` above):
-
-| Host | Local test |
-|------|------------|
-| Cursor | Copy or symlink `mini-harness/` to `~/.cursor/plugins/local/mini-harness` |
-| Claude Code | `claude --plugin-dir /path/to/mini-harness` |
-| Codex | Install from marketplace; trust hooks and start a new session |
+**Optional — local plugin dev** (without marketplace import):
 
 First time? See [mini-harness/TRIAL.md](mini-harness/TRIAL.md) (5-minute walkthrough).
 

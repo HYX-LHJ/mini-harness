@@ -49,7 +49,17 @@ python -m pytest mini-harness/tests
 
 勿只改已激活仓库内的 `harness/skills/` 或根 `AGENTS.md` 而忘记回写插件——`doctor` 会检测 `.package` 漂移，新仓库 `install` 也会分发过时内容。详见 `skills/mini-harness/SKILL.md` 的「维护者与权威源」。
 
-## 宿主包
+## 宿主一键安装
+
+| 宿主 | Marketplace 清单 | 安装方式 |
+|------|------------------|----------|
+| Claude Code | `.claude-plugin/marketplace.json` | `/plugin marketplace add HYX-LHJ/mini-harness` |
+| Cursor | `.cursor-plugin/marketplace.json` | Dashboard → Import `https://github.com/HYX-LHJ/mini-harness` |
+| Codex | `.agents/plugins/marketplace.json` | `codex plugin marketplace add github.com/HYX-LHJ/mini-harness` |
+
+安装插件后，在目标项目执行 `install` 激活 harness。详见 [skills/mini-harness/references/host-support.md](skills/mini-harness/references/host-support.md)。
+
+## 宿主包（本地开发）
 
 - Claude Code：`.claude-plugin/plugin.json`
 - Codex：`.codex-plugin/plugin.json`

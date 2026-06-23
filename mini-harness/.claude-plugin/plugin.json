@@ -1,10 +1,14 @@
 {
   "name": "mini-harness",
-  "version": "0.1.0",
-  "description": "可移植的仓库工作流 harness：状态恢复、范围化任务跟踪、验证与评审指引。",
+  "displayName": "Mini Harness",
+  "version": "2.0.0",
+  "description": "可移植的仓库工作流 harness：状态恢复、范围化任务跟踪、验收标准（AC）、验证与评审指引。",
   "author": {
     "name": "mini-harness contributors"
   },
+  "license": "MIT",
+  "repository": "https://github.com/HYX-LHJ/mini-harness",
+  "keywords": ["harness", "workflow", "agent", "tdd", "skills", "claude-code"],
   "skills": "./skills/",
   "hooks": "./hooks/claude/hooks.json"
 }

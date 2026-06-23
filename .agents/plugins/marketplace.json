@@ -1,0 +1,20 @@
+{
+  "name": "mini-harness",
+  "interface": {
+    "displayName": "Mini Harness"
+  },
+  "plugins": [
+    {
+      "name": "mini-harness",
+      "source": {
+        "source": "local",
+        "path": "./mini-harness"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

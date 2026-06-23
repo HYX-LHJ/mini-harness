@@ -23,6 +23,9 @@
   "private": false,
   "files": [
     "mini-harness/",
+    ".cursor-plugin/",
+    ".claude-plugin/",
+    ".agents/",
     "docs/",
     "LICENSE",
     "README.md",

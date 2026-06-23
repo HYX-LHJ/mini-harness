@@ -28,7 +28,7 @@ def test_three_host_manifests_share_identity_and_components() -> None:
     parsed = [json.loads(path.read_text(encoding="utf-8")) for path in manifests]
 
     assert {manifest["name"] for manifest in parsed} == {"mini-harness"}
-    assert {manifest["version"] for manifest in parsed} == {"0.1.0"}
+    assert {manifest["version"] for manifest in parsed} == {"2.0.0"}
     assert all(manifest.get("description") for manifest in parsed)
 
 
@@ -110,6 +110,32 @@ def test_template_todo_includes_ac_confirmation_block() -> None:
     )
     assert "### AC 核对" in todo
     assert "**AC 已确认**" in todo
+
+
+def test_repo_marketplaces_enable_one_click_plugin_install() -> None:
+    repo_root = PLUGIN_ROOT.parent
+    cursor_marketplace = json.loads(
+        (repo_root / ".cursor-plugin" / "marketplace.json").read_text(encoding="utf-8")
+    )
+    claude_marketplace = json.loads(
+        (repo_root / ".claude-plugin" / "marketplace.json").read_text(encoding="utf-8")
+    )
+    codex_marketplace = json.loads(
+        (repo_root / ".agents" / "plugins" / "marketplace.json").read_text(encoding="utf-8")
+    )
+
+    for marketplace in (cursor_marketplace, claude_marketplace):
+        assert marketplace["name"] == "mini-harness"
+        assert marketplace["owner"]["name"]
+        assert len(marketplace["plugins"]) == 1
+        entry = marketplace["plugins"][0]
+        assert entry["name"] == "mini-harness"
+        assert entry["source"] == "./mini-harness"
+
+    codex_entry = codex_marketplace["plugins"][0]
+    assert codex_entry["name"] == "mini-harness"
+    assert codex_entry["source"]["path"] == "./mini-harness"
+    assert codex_entry["policy"]["installation"] == "AVAILABLE"
 
 
 def test_mini_harness_skill_documents_canonical_plugin_root() -> None:
