@@ -1,17 +1,14 @@
 ﻿{
   "name": "mini-harness",
-  "version": "1.2.0",
-  "description": "Lightweight Agent Skills (ZH + EN): one-command mini harness scaffold for Cursor, Codex & Claude Code.",
+  "version": "2.0.0",
+  "description": "Portable Agent workflow plugin: one-command mini harness for Cursor, Codex & Claude Code.",
   "keywords": [
     "mini-harness",
     "agent-skills",
-    "mini-harness-en",
-    "mini-harness-zh",
     "harness",
     "cursor",
     "codex",
     "claude-code",
-    "skills-cli",
     "ai-coding"
   ],
   "homepage": "https://github.com/HYX-LHJ/mini-harness#readme",
@@ -25,23 +22,10 @@
   "license": "MIT",
   "private": false,
   "files": [
-    "mini-harness-zh/",
-    "mini-harness-en/",
+    "mini-harness/",
     "docs/",
     "LICENSE",
     "README.md",
     "README.zh-CN.md"
-  ],
-  "skills": {
-    "mini-harness-zh": {
-      "path": "mini-harness-zh",
-      "locale": "zh-CN",
-      "install": "npx skills add HYX-LHJ/mini-harness --skill mini-harness-zh -g -y"
-    },
-    "mini-harness-en": {
-      "path": "mini-harness-en",
-      "locale": "en",
-      "install": "npx skills add HYX-LHJ/mini-harness --skill mini-harness-en -g -y"
-    }
-  }
+  ]
 }

@@ -12,7 +12,8 @@
 
 | Version | Supported |
 |---------|-----------|
-| 1.0.x   | Yes       |
+| 2.0.x   | Yes       |
+| 1.x     | No (deprecated skill packages removed) |
 
 ### Reporting a vulnerability
 
@@ -24,7 +25,7 @@ Include:
 
 - Description of the issue
 - Steps to reproduce
-- Impact assessment (e.g. arbitrary code execution via scaffold script)
+- Impact assessment (e.g. arbitrary code execution via installer or hooks)
 - Suggested fix if you have one
 
 We aim to acknowledge reports within **7 days**.
@@ -33,10 +34,10 @@ We aim to acknowledge reports within **7 days**.
 
 This project ships:
 
-- Documentation and Skill templates (markdown)
-- `init_harness.py` and harness maintenance scripts (Python stdlib only)
+- Documentation and harness templates (markdown)
+- `mini_harness.py` installer and session-start hooks (Python stdlib only)
 
-It does **not** run as a network service. Primary risks are malicious template content or unsafe script behavior when scaffolding user repositories.
+It does **not** run as a network service. Primary risks are malicious template content or unsafe script/hook behavior when activating user repositories.
 
 ---
 
@@ -48,7 +49,8 @@ It does **not** run as a network service. Primary risks are malicious template c
 
 | 版本 | 支持 |
 |------|------|
-| 1.0.x | 是 |
+| 2.0.x | 是 |
+| 1.x | 否（旧 Skill 包已移除） |
 
 ### 报告漏洞
 
@@ -60,7 +62,7 @@ It does **not** run as a network service. Primary risks are malicious template c
 
 - 问题描述
 - 复现步骤
-- 影响评估（例如脚手架脚本是否可能导致任意代码执行）
+- 影响评估（例如安装器或钩子是否可能导致任意代码执行）
 - 修复建议（如有）
 
 我们将在 **7 天内**确认收到。
@@ -69,7 +71,7 @@ It does **not** run as a network service. Primary risks are malicious template c
 
 本项目包含：
 
-- 文档与 Skill 模板（Markdown）
-- `init_harness.py` 与 harness 维护脚本（仅 Python 标准库）
+- 文档与 harness 模板（Markdown）
+- `mini_harness.py` 安装器与 Session Start 钩子（仅 Python 标准库）
 
-**不作为网络服务运行**。主要风险来自恶意模板内容，或在用户仓库中执行脚手架脚本时的不安全行为。
+**不作为网络服务运行**。主要风险来自恶意模板内容，或在用户仓库中执行安装器/钩子时的不安全行为。

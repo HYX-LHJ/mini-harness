@@ -1,121 +1,106 @@
 ﻿# 安装指南
 
-### 支持的工具
+mini-harness 是**可移植插件**，包含共享 Skills、宿主清单与 Session Start 钩子。插件安装与仓库激活是**两个独立步骤**。
 
-`mini-harness-zh` 是**可移植的 Agent Skill**，不绑定单一 IDE。任何能加载 `SKILL.md` 目录的环境均可使用：
+### 两步流程
 
-| 工具 | 个人（全局） | 项目（仓库共享） | 说明 |
-|------|-------------|-----------------|------|
-| **[Cursor](https://cursor.com/)** | `~/.cursor/skills/mini-harness-zh/` | `<repo>/.cursor/skills/mini-harness-zh/` | **勿**放入 `~/.cursor/skills-cursor/`（内置目录） |
-| **[Codex](https://github.com/openai/codex)** | `$CODEX_HOME/skills/mini-harness-zh/` | — | 默认 `$CODEX_HOME` 为 `~/.codex`；安装后**重启 Codex** |
-| **[Claude Code](https://docs.anthropic.com/en/docs/claude-code)** | `~/.claude/skills/mini-harness-zh/` | `<repo>/.claude/skills/mini-harness-zh/` | 从 **git 仓库根** 的 `.claude/skills/` 加载 |
-| **通用 / 跨 Agent** | `~/.agents/skills/mini-harness-zh/` | `<repo>/.agents/skills/mini-harness-zh/` | 多工具共用的 Skill 目录约定 |
-| **Skills CLI** | 见下文 | 见下文 | 开放生态安装器 — [skills.sh](https://skills.sh/) |
+| 步骤 | 内容 | 是否必须 |
+|------|------|----------|
+| 1. 插件 | 安装宿主插件（可选提醒） | 否 — 仓库激活即可使用 |
+| 2. 激活 | 在目标仓库执行 `mini_harness.py install` | **是** |
 
-> **通用规则：** 将完整的 `mini-harness-zh/` 文件夹（须含 `SKILL.md`）复制到你所用工具的 Skill 目录；若工具无标准路径，可手动将该目录加入 Agent 上下文。
+### 支持的宿主
 
-### 方式一 — Skills CLI（推荐，通用安装）
+| 宿主 | 清单 | 钩子 |
+|------|------|------|
+| [Cursor](https://cursor.com/) | `.cursor-plugin/plugin.json` | `hooks/cursor/hooks.json` |
+| [Claude Code](https://docs.anthropic.com/en/docs/claude-code) | `.claude-plugin/plugin.json` | `hooks/claude/hooks.json` |
+| [Codex](https://github.com/openai/codex) | `.codex-plugin/plugin.json` | `hooks/codex/hooks.json` |
 
-需要 [Node.js](https://nodejs.org/)（`npx`）：
+钩子提醒 Agent 读取 `AGENTS.md`；Playbook 才是持久的工作流入口。
 
-```bash
-# 列出本仓库中的 Skill
-npx skills add HYX-LHJ/mini-harness --list
-
-# 全局（用户级）
-npx skills add HYX-LHJ/mini-harness --skill mini-harness-zh -g -y
-
-# 项目级（可提交到仓库）
-npx skills add HYX-LHJ/mini-harness --skill mini-harness-zh -y
-
-# 指定 Cursor + Claude Code + Codex
-npx skills add HYX-LHJ/mini-harness --skill mini-harness-zh -a cursor -a claude-code -a codex -g -y
-```
-
-浏览 Skill：[skills.sh](https://skills.sh/)。完整指南：[skills-cli.md](skills-cli.md)
-
-### 方式二 — Git 克隆 + 复制
+### 方式一 — 克隆 + 激活（推荐）
 
 ```bash
 git clone https://github.com/HYX-LHJ/mini-harness.git
+cd your-project
+python /path/to/mini-harness/mini-harness/scripts/mini_harness.py install --root .
+python harness/scripts/mini_harness.py doctor --root .
 ```
 
-将 `mini-harness/mini-harness-zh/` 复制到上表对应路径。
-
-**Windows（PowerShell）— Cursor 个人：**
+**Windows（PowerShell）：**
 
 ```powershell
-Copy-Item -Recurse mini-harness\mini-harness-zh $env:USERPROFILE\.cursor\skills\mini-harness-zh
+python mini-harness\scripts\mini_harness.py install --root .
+python harness\scripts\mini_harness.py doctor --root .
 ```
 
-**macOS / Linux — Claude Code 个人：**
+### 方式二 — 将插件纳入仓库
 
-```bash
-cp -r mini-harness/mini-harness-zh ~/.claude/skills/mini-harness-zh
-```
-
-**macOS / Linux — Codex：**
-
-```bash
-cp -r mini-harness/mini-harness-zh "${CODEX_HOME:-$HOME/.codex}/skills/mini-harness-zh"
-```
-
-### 方式三 — 符号链接（开发者）
-
-```bash
-# 示例：通用跨 Agent 路径
-ln -s "$(pwd)/mini-harness/mini-harness-zh" ~/.agents/skills/mini-harness-zh
-```
-
-### 方式四 — 内嵌到项目仓库
-
-将 Skill 提交到项目中，团队共享：
+提交插件目录，团队共享同一版本：
 
 ```text
 your-repo/
-├── .cursor/skills/mini-harness-zh/    # Cursor
-├── .claude/skills/mini-harness-zh/    # Claude Code
-└── .agents/skills/mini-harness-zh/    # 通用
+├── mini-harness/          # 插件源码（或子模块）
+├── AGENTS.md              # install 后生成
+├── harness/               # install 后生成
+└── tests/
 ```
 
-按团队实际使用的工具，**任选其一**即可。
+团队成员 pull 后执行 `python harness/scripts/mini_harness.py install --root .`。
 
-### 验证安装
+### 方式三 — 宿主插件（可选）
 
-1. 重启 Agent 工具（或重新加载 Skill）
-2. 询问 Agent：「列出可用 Skill」或「是否有 mini-harness-zh？」
-3. 在目标仓库中说：**「用 mini-harness-zh 在当前仓库创建 harness」**
-
-### 各工具说明
+<a id="cursor"></a>
 
 #### Cursor
 
-- 个人 Skill：`~/.cursor/skills/`
-- 项目 Skill：`.cursor/skills/`（可提交 git）
-- Subagent 通过 Cursor **Task** 工具派遣
+本地测试 — 复制或符号链接：
 
-#### Codex
+```text
+~/.cursor/plugins/local/mini-harness  →  /path/to/mini-harness
+```
 
-- Skill 目录：`$CODEX_HOME/skills/`（默认 `~/.codex/skills/`）
-- 可从 GitHub 安装：使用 Codex 的 `skill-installer` 或手动复制
-- 新增 Skill 后需重启 Codex
+重启 Cursor 或重新加载窗口。
+
+<a id="claude-code"></a>
 
 #### Claude Code
 
-- 个人：`~/.claude/skills/`
-- 项目：**git 仓库根** 下的 `.claude/skills/`
-- Subagent 机制可能与 Cursor 不同；harness **目录结构与 `AGENTS.md` Playbook 保持一致**
+```bash
+claude --plugin-dir /path/to/mini-harness
+```
 
-#### 通用路径 `~/.agents/skills/`
+团队分发可通过 Claude Code 插件市场发布。
 
-跨工具约定：支持开放 Skill 格式的 Agent 通常会扫描此目录。同一台机器使用**多种工具**时优先选此路径。
+<a id="codex"></a>
 
-### 配套 Skill（可选）
+#### Codex
 
-| Skill | 作用 |
-|-------|------|
-| `tdd` | 改 `src/` 前先写测试 |
-| `code-review-expert` | Subagent 代码审查 |
-| `code-simplifier` | 提交前精炼代码 |
+从 Codex 市场安装 `mini-harness`。执行前须**审阅并信任**捆绑钩子。安装后**新开会话**。
 
-配套 Skill 安装到与 `mini-harness-zh` **相同的工具路径**。
+### 维护命令（已激活仓库）
+
+```bash
+python harness/scripts/mini_harness.py install --root .   # 同步模板与 Skills
+python harness/scripts/mini_harness.py update --root .
+python harness/scripts/mini_harness.py doctor --root .
+python harness/scripts/mini_harness.py uninstall --root .
+```
+
+### 验证
+
+1. `doctor` → `ok: true`，`warnings` 为空
+2. 仓库根目录有 `AGENTS.md`
+3. 存在 `harness/skills/mini-harness/SKILL.md`
+4. 新 Agent 会话：「读 AGENTS.md 和 harness 状态文件」
+
+### 运行时要求
+
+- Python 3.10+，可通过 `python`（Windows 可用 `py`）调用
+- 安装器本身无第三方依赖
+- 不规定目标仓库的语言或框架
+
+### 维护者说明
+
+**只改** `mini-harness/`（权威源），再在目标仓库重新 `install`。见 [mini-harness/skills/mini-harness/SKILL.md](../../mini-harness/skills/mini-harness/SKILL.md)。

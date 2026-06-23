@@ -18,8 +18,7 @@ body:
         - Cursor
         - Codex
         - Claude Code
-        - Skills CLI (npx skills)
-        - Universal (~/.agents/skills)
+        - Other plugin host / 其他插件宿主
         - Other / 其他
     validations:
       required: true
@@ -59,8 +58,8 @@ body:
       label: Steps to reproduce / 复现步骤
       description: Commands run, agent prompts used, install path / 执行的命令、对 Agent 说的话、Skill 安装路径
       placeholder: |
-        1. npx skills add <org>/mini-harness --skill mini-harness-zh -g -y
-        2. python mini-harness-zh/scripts/init_harness.py --root .
+        1. python mini-harness/scripts/mini_harness.py install --root .
+        2. python harness/scripts/mini_harness.py doctor --root .
         3. ...
     validations:
       required: true

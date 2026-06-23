@@ -1,0 +1,25 @@
+{
+  "name": "mini-harness",
+  "version": "0.1.0",
+  "description": "可移植的仓库工作流 harness：状态恢复、范围化任务跟踪、验证与评审指引。",
+  "author": {
+    "name": "mini-harness contributors"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Mini Harness",
+    "shortDescription": "可移植的仓库工作流规范",
+    "longDescription": "初始化并使用小型、与项目无关的 Agent harness，支持持久状态、任务跟踪、验证与安全交接。",
+    "developerName": "mini-harness contributors",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "在本仓库初始化 mini-harness。",
+      "检查本仓库的 mini-harness 健康状态。"
+    ],
+    "brandColor": "#4F46E5"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python",
+            "args": [
+              "${PLUGIN_ROOT}/hooks/codex/session_start.py"
+            ],
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

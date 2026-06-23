@@ -4,21 +4,22 @@
 
 ## Scope / 影响范围
 
-- [ ] `mini-harness-zh/` or `mini-harness-en/`
-- [ ] `mini-harness-zh/scripts/init_harness.py` / `mini-harness-en/scripts/init_harness.py`
-- [ ] `templates/` (zh and/or en)
+- [ ] `mini-harness/` (plugin — authoritative source)
+- [ ] `mini-harness/scripts/mini_harness.py`
+- [ ] `mini-harness/assets/harness-template/`
+- [ ] `mini-harness/skills/` or `mini-harness/hooks/`
 - [ ] `docs/en/` / `docs/zh-CN/`
 - [ ] `README.md` / `README.zh-CN.md`
 
 ## Test plan / 验证方式
 
 ```bash
-python mini-harness-zh/scripts/init_harness.py --root /tmp/harness-test-zh --dry-run
-python mini-harness-zh/scripts/init_harness.py --root /tmp/harness-test-zh
-python mini-harness-en/scripts/init_harness.py --root /tmp/harness-test-en --dry-run
-python mini-harness-en/scripts/init_harness.py --root /tmp/harness-test-en
+python mini-harness/scripts/mini_harness.py install --root /tmp/harness-test
+python /tmp/harness-test/harness/scripts/mini_harness.py doctor --root /tmp/harness-test
+python -m pytest mini-harness/tests
 ```
 
-- [ ] Both skill packages scaffold successfully / 两个 Skill 包脚手架均通过
+- [ ] Install + doctor pass / 安装与健康检查通过
+- [ ] Plugin tests pass / 插件测试通过
 
 Closes #

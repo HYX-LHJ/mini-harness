@@ -12,24 +12,18 @@ TITLE_MAP = {
     "installation": ("Installation", "安装指南"),
     "architecture": ("Architecture", "架构说明"),
     "workflow": ("Workflow", "协作流程"),
-    "skills-cli": ("Skills CLI", "Skills CLI 指南"),
 }
 
 EN_REPL = [
-    ("agent-harness/", "mini-harness-en/"),
-    ("--skill agent-harness", "--skill mini-harness-en"),
-    ("../agent-harness/", "../mini-harness-en/"),
-    ("skills/agent-harness/", "skills/mini-harness-en/"),
-    ("agent-harness@", "mini-harness-en@"),
-    ("agent-harness?", "mini-harness-en?"),
+    ("init_harness.py", "mini_harness.py"),
+    ("mini-harness-en/", "mini-harness/"),
+    ("mini-harness-zh/", "mini-harness/"),
 ]
 
 ZH_REPL = [
-    ("agent-harness/", "mini-harness-zh/"),
-    ("--skill agent-harness", "--skill mini-harness-zh"),
-    ("../agent-harness/", "../mini-harness-zh/"),
-    ("skills/agent-harness/", "skills/mini-harness-zh/"),
-    ("agent-harness@", "mini-harness-zh@"),
+    ("init_harness.py", "mini_harness.py"),
+    ("mini-harness-en/", "mini-harness/"),
+    ("mini-harness-zh/", "mini-harness/"),
 ]
 
 
@@ -40,34 +34,23 @@ def _apply(text: str, pairs: list[tuple[str, str]]) -> str:
 
 
 def main() -> None:
-    (DOCS / "en").mkdir(exist_ok=True)
-    (DOCS / "zh-CN").mkdir(exist_ok=True)
-    for path in DOCS.glob("*.md"):
-        if path.name == "README.md":
+    for stem, (en_title, zh_title) in TITLE_MAP.items():
+        source = DOCS / f"{stem}.md"
+        if not source.is_file():
             continue
-        text = path.read_text(encoding="utf-8")
-        text = re.sub(
-            r"^# [^\n]+\n\n\*\*Languages:\*\*[^\n]+\n\n---\n\n",
-            "",
-            text,
+        raw = source.read_text(encoding="utf-8")
+        sections = re.split(r"\n---\n", raw, maxsplit=1)
+        if len(sections) != 2:
+            continue
+        en_body, zh_body = sections
+        en_body = en_body.replace(f"# {en_title}", f"# {en_title}", 1)
+        zh_body = zh_body.replace(f"# {zh_title}", f"# {zh_title}", 1)
+        (DOCS / "en" / f"{stem}.md").write_text(
+            _apply(en_body.strip() + "\n", EN_REPL), encoding="utf-8"
         )
-        en_m = re.search(
-            r'<a id="english"></a>\n\n(.*?)(?=\n---\n\n<a id="chinese">|$)',
-            text,
-            re.S,
+        (DOCS / "zh-CN" / f"{stem}.md").write_text(
+            _apply(zh_body.strip() + "\n", ZH_REPL), encoding="utf-8"
         )
-        zh_m = re.search(r'<a id="chinese"></a>\n\n(.*)', text, re.S)
-        stem = path.stem
-        titles = TITLE_MAP.get(stem, (stem.title(), stem))
-        if en_m:
-            body = re.sub(r"^## English\n\n", "", en_m.group(1).strip())
-            out = f"# {titles[0]}\n\n" + _apply(body, EN_REPL) + "\n"
-            (DOCS / "en" / path.name).write_text(out, encoding="utf-8")
-        if zh_m:
-            body = re.sub(r"^## 中文\n\n", "", zh_m.group(1).strip())
-            out = f"# {titles[1]}\n\n" + _apply(body, ZH_REPL) + "\n"
-            (DOCS / "zh-CN" / path.name).write_text(out, encoding="utf-8")
-    print("split ok")
 
 
 if __name__ == "__main__":

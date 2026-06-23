@@ -32,7 +32,7 @@ body:
     attributes:
       label: Affected area / 影响范围
       options:
-        - init_harness.py / scaffold script
+        - mini_harness.py / installer
         - AGENTS.md or templates / 模板
         - SKILL.md or references / Skill 指令
         - Documentation / 文档

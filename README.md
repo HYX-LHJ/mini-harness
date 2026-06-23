@@ -9,23 +9,28 @@
 
 ## In one sentence
 
-**Lightweight Agent Skills (English + Chinese)** — one command to scaffold a mini collaboration harness (`harness/`, `AGENTS.md`, gate scripts) in any repo. Works with **Cursor · Codex · Claude Code · [Skills CLI](https://skills.sh/)**.
+**A portable Agent workflow plugin** — one command to activate a mini collaboration harness (`harness/`, `AGENTS.md`, built-in skills) in any repo. Works with **Cursor · Codex · Claude Code**.
 
 ---
 
-## Choose your Skill package
+## Quick start
 
-| Language | Package | Install |
-|----------|---------|---------|
-| **English** | [`mini-harness-en/`](mini-harness-en/) | `npx skills add HYX-LHJ/mini-harness --skill mini-harness-en -g -y` |
-| **中文** | [`mini-harness-zh/`](mini-harness-zh/) | `npx skills add HYX-LHJ/mini-harness --skill mini-harness-zh -g -y` |
+**Activate in your project:**
 
-Both packages share the same workflow; **templates and generated `AGENTS.md` match the package language**.
+```bash
+python mini-harness/scripts/mini_harness.py install --root .
+python harness/scripts/mini_harness.py doctor --root .
+```
 
-**Initialize in your project:**
+**Optional — install the host plugin** (session-start reminders only; activation still requires `install` above):
 
-> Use mini-harness-en to create harness in this repository  
-> (install `mini-harness-en` for English templates, or `mini-harness-zh` for 中文)
+| Host | Local test |
+|------|------------|
+| Cursor | Copy or symlink `mini-harness/` to `~/.cursor/plugins/local/mini-harness` |
+| Claude Code | `claude --plugin-dir /path/to/mini-harness` |
+| Codex | Install from marketplace; trust hooks and start a new session |
+
+First time? See [mini-harness/TRIAL.md](mini-harness/TRIAL.md) (5-minute walkthrough).
 
 ---
 
@@ -34,7 +39,7 @@ Both packages share the same workflow; **templates and generated `AGENTS.md` mat
 | Without harness | With harness |
 |-----------------|--------------|
 | Every new chat starts from zero | `PROGRESS.md` + `todo.md` for **session handoff** |
-| Code ships without tests or review | **lint + pytest gates** |
+| Code ships without tests or review | **pytest / ruff / mypy gates** + subagent review |
 | Plans and reviews only in chat | **Committed to git** |
 | Everyone uses a different prompt | Shared **`AGENTS.md` playbook** |
 
@@ -44,12 +49,12 @@ Both packages share the same workflow; **templates and generated `AGENTS.md` mat
 
 | Artifact | Purpose |
 |----------|---------|
-| `AGENTS.md` | Per-round playbook |
-| `harness/todo.md` | Weekly task board |
+| `AGENTS.md` | Per-round playbook (project root) |
+| `harness/todo.md` | Current task + acceptance criteria (AC) |
 | `harness/PROGRESS.md` | Progress snapshot |
-| `harness/plans/` | Plan-before-code for major tasks |
-| `harness/code_review/` | Review reports on disk |
-| `harness/scripts/` | Gate & maintenance scripts |
+| `harness/skills/` | Built-in skills (tdd, code-review, acceptance, …) |
+| `harness/scripts/` | `mini_harness.py` (install / update / doctor) |
+| `tests/` | All test files (repo root) |
 
 <details>
 <summary>Generated layout</summary>
@@ -57,10 +62,11 @@ Both packages share the same workflow; **templates and generated `AGENTS.md` mat
 ```text
 your-repo/
 ├── AGENTS.md
-├── pytest.ini
+├── tests/
 └── harness/
     ├── todo.md, PROGRESS.md, DECISIONS.md
-    ├── plans/, code_review/, tests/, scripts/
+    ├── skills/, rules/, scripts/
+    ├── plans/, acceptance/, code_review/, backlog/
     └── ...
 ```
 
@@ -77,7 +83,8 @@ your-repo/
 | [Installation](docs/en/installation.md) | [安装指南](docs/zh-CN/installation.md) |
 | [Architecture](docs/en/architecture.md) | [架构说明](docs/zh-CN/architecture.md) |
 | [Workflow](docs/en/workflow.md) | [协作流程](docs/zh-CN/workflow.md) |
-| [Skills CLI](docs/en/skills-cli.md) | [Skills CLI](docs/zh-CN/skills-cli.md) |
+
+Plugin maintainer docs: [mini-harness/README.md](mini-harness/README.md) · [mini-harness/skills/mini-harness/SKILL.md](mini-harness/skills/mini-harness/SKILL.md)
 
 ---
 
@@ -85,20 +92,19 @@ your-repo/
 
 ```mermaid
 flowchart LR
-    A["User input"] --> B["Gates lint + pytest"]
-    B --> C["Read harness context"]
-    C --> D{"Major task?"}
-    D -->|Yes| E["Plan, user confirms"]
-    D -->|No| F["Register todo"]
-    E --> F
-    F --> G{"Change src?"}
-    G -->|Yes| H["tdd, implement"]
-    G -->|No| I["Implement or docs"]
-    H --> J["code-review subagent"]
-    I --> J
-    J --> K["Gates + sync PROGRESS"]
+    A["User input"] --> B["Read harness state"]
+    B --> C{"Major task?"}
+    C -->|Yes| D["Plan + confirm AC"]
+    C -->|No| E["Register todo + AC"]
+    D --> E
+    E --> F["AC confirmed?"]
+    F -->|No| G["Wait for user"]
+    F -->|Yes| H["Subagent: write tests"]
+    H --> I["Implement + local gates"]
+    I --> J["Subagent: acceptance ∥ review"]
+    J --> K["Archive + PROGRESS"]
     K --> L{"User asks commit?"}
-    L -->|Yes| M["simplify, review, Git"]
+    L -->|Yes| M["simplify → review → Git"]
     L -->|No| N["Round end"]
     M --> N
 ```
@@ -109,6 +115,6 @@ Details: [docs/en/workflow.md](docs/en/workflow.md)
 
 ## Requirements
 
-Python 3.10+ · Agent tool with `SKILL.md` support · Optional: `ruff`, `pyright`, `pytest`
+Python 3.10+ · Agent tool with skill / plugin support · Optional: `ruff`, `pytest`, `mypy`
 
 [CONTRIBUTING.md](CONTRIBUTING.md) · [SECURITY.md](SECURITY.md) · [CHANGELOG.md](CHANGELOG.md) · [MIT License](LICENSE)

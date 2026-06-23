@@ -1,0 +1,619 @@
+"""Install, inspect, update, or remove the generic mini-harness template."""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import sys
+from collections.abc import Callable
+from datetime import date
+from pathlib import Path
+from typing import Any
+
+SCRIPT_FILE = Path(__file__)
+PLUGIN_ROOT = SCRIPT_FILE.resolve().parents[1]
+TEMPLATE_VERSION = "0.3.0"
+MARKER_RELATIVE = Path("harness/.mini-harness.json")
+AGENTS_RELATIVE = Path("AGENTS.md")
+PLAYBOOK_TITLE = "# Agent Harness Playbook"
+PACKAGE_DIRNAME = ".package"
+PLAYBOOK_SOURCE = "AGENTS.md"
+PACKAGE_PLAYBOOK = Path("harness/.package/AGENTS.md")
+BUNDLE_NAMES = ("skills", "scripts", "rules")
+TEMPLATE_BUNDLE = "template"
+EXPOSED_BUNDLES = {
+    "skills": Path("harness/skills"),
+    "scripts": Path("harness/scripts"),
+    "rules": Path("harness/rules"),
+}
+
+
+def _render(text: str) -> str:
+    return text.replace("{{TODAY}}", date.today().isoformat())
+
+
+def _plugin_root(script_file: Path) -> Path | None:
+    resolved = script_file.resolve()
+    parent = resolved.parent
+    if parent.name == "scripts" and parent.parent.name == "mini-harness":
+        return parent.parent
+    return None
+
+
+def _package_root(repo_root: Path) -> Path:
+    return repo_root / "harness" / PACKAGE_DIRNAME
+
+
+def _template_root(repo_root: Path, script_file: Path) -> Path:
+    package_template = _package_root(repo_root) / TEMPLATE_BUNDLE
+    if package_template.is_dir():
+        return package_template
+    plugin = _plugin_root(script_file)
+    if plugin:
+        return plugin / "assets" / "harness-template"
+    msg = "找不到模板：请先通过插件运行 install，或确保 harness/.package/template 存在"
+    raise FileNotFoundError(msg)
+
+
+def _should_skip_bundle_path(relative: Path) -> bool:
+    return any(part == "__pycache__" for part in relative.parts) or relative.suffix == ".pyc"
+
+
+def _iter_relative_files(root: Path) -> list[Path]:
+    if not root.is_dir():
+        return []
+    files = sorted(path.relative_to(root) for path in root.rglob("*") if path.is_file())
+    return [path for path in files if not _should_skip_bundle_path(path)]
+
+
+def _mirror_tree(source: Path, destination: Path) -> bool:
+    changed = False
+    for path in source.rglob("*"):
+        if not path.is_file():
+            continue
+        relative = path.relative_to(source)
+        if _should_skip_bundle_path(relative):
+            continue
+        target = destination / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        data = path.read_bytes()
+        if not target.exists() or target.read_bytes() != data:
+            target.write_bytes(data)
+            changed = True
+    return changed
+
+
+def _refresh_package_mirror(repo_root: Path, script_file: Path) -> bool:
+    plugin = _plugin_root(script_file)
+    if plugin is None:
+        return False
+    package = _package_root(repo_root)
+    mappings = [
+        (plugin / "skills", package / "skills"),
+        (plugin / "scripts", package / "scripts"),
+        (plugin / "rules", package / "rules"),
+        (plugin / "assets" / "harness-template", package / TEMPLATE_BUNDLE),
+    ]
+    changed = False
+    for source, destination in mappings:
+        if source.is_dir() and _mirror_tree(source, destination):
+            changed = True
+    playbook = plugin / PLAYBOOK_SOURCE
+    if playbook.is_file():
+        destination = package / PLAYBOOK_SOURCE
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        data = playbook.read_bytes()
+        if not destination.exists() or destination.read_bytes() != data:
+            destination.write_bytes(data)
+            changed = True
+    return changed
+
+
+def _playbook_source(repo_root: Path, script_file: Path) -> Path | None:
+    package_playbook = repo_root / PACKAGE_PLAYBOOK
+    if package_playbook.is_file():
+        return package_playbook
+    plugin = _plugin_root(script_file)
+    if plugin and (plugin / PLAYBOOK_SOURCE).is_file():
+        return plugin / PLAYBOOK_SOURCE
+    return None
+
+
+def _template_files(template_root: Path) -> list[Path]:
+    return _iter_relative_files(template_root)
+
+
+def _install_root_playbook(
+    root_path: Path,
+    playbook_source: Path,
+    *,
+    managed_files: set[str],
+    managed_hashes: dict[str, str],
+    previous_managed: set[str],
+    previous_hashes: dict[str, str],
+) -> tuple[bool, str]:
+    """Copy the harness Playbook to the repository root AGENTS.md when safe."""
+    target = root_path / AGENTS_RELATIVE
+    desired = playbook_source.read_text(encoding="utf-8")
+    relative_name = AGENTS_RELATIVE.as_posix()
+
+    if not target.exists():
+        target.write_text(desired, encoding="utf-8")
+        managed_files.add(relative_name)
+        managed_hashes[relative_name] = _sha256(desired)
+        return True, "created"
+
+    if relative_name not in previous_managed:
+        return False, "preserved"
+
+    changed = _sync_managed_text_file(
+        root_path=root_path,
+        relative_name=relative_name,
+        desired=desired,
+        managed_files=managed_files,
+        managed_hashes=managed_hashes,
+        previous_managed=previous_managed,
+        previous_hashes=previous_hashes,
+    )
+    return changed, "managed"
+
+
+def _sha256(text: str) -> str:
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
+def _read_marker(path: Path) -> dict[str, Any]:
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
+    return payload if isinstance(payload, dict) else {}
+
+
+def _marker_payload(
+    *,
+    agents_mode: str,
+    agents_hash: str,
+    managed_files: list[str],
+    managed_hashes: dict[str, str],
+) -> dict[str, Any]:
+    return {
+        "schema_version": 1,
+        "template_version": TEMPLATE_VERSION,
+        "active": True,
+        "agents_mode": agents_mode,
+        "agents_hash": agents_hash,
+        "managed_files": sorted(managed_files),
+        "managed_hashes": dict(sorted(managed_hashes.items())),
+        "commands": {"gate": [], "progress_sync": []},
+        "runtime_paths": [],
+        "test_paths": [],
+    }
+
+
+def _sync_managed_text_file(
+    *,
+    root_path: Path,
+    relative_name: str,
+    desired: str,
+    managed_files: set[str],
+    managed_hashes: dict[str, str],
+    previous_managed: set[str],
+    previous_hashes: dict[str, str],
+    force: bool = False,
+) -> bool:
+    changed = False
+    target = root_path / relative_name
+    if not target.exists():
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(desired, encoding="utf-8")
+        managed_files.add(relative_name)
+        managed_hashes[relative_name] = _sha256(desired)
+        return True
+
+    if relative_name not in previous_managed and not force:
+        return False
+
+    current = target.read_text(encoding="utf-8")
+    if force or previous_hashes.get(relative_name) == _sha256(current):
+        if current != desired:
+            target.write_text(desired, encoding="utf-8")
+            changed = True
+        managed_files.add(relative_name)
+        managed_hashes[relative_name] = _sha256(desired)
+    return changed
+
+
+def _read_file_text(path: Path) -> str:
+    return path.read_text(encoding="utf-8")
+
+
+def _sync_managed_tree(
+    *,
+    root_path: Path,
+    source_root: Path,
+    dest_prefix: Path,
+    managed_files: set[str],
+    managed_hashes: dict[str, str],
+    previous_managed: set[str],
+    previous_hashes: dict[str, str],
+    render: Callable[[str], str] | None = None,
+    force: bool = False,
+) -> bool:
+    changed = False
+    prefix = dest_prefix.as_posix().rstrip("/")
+    for relative in _iter_relative_files(source_root):
+        relative_name = f"{prefix}/{relative.as_posix()}"
+        raw = _read_file_text(source_root / relative)
+        desired = render(raw) if render else raw
+        if _sync_managed_text_file(
+            root_path=root_path,
+            relative_name=relative_name,
+            desired=desired,
+            managed_files=managed_files,
+            managed_hashes=managed_hashes,
+            previous_managed=previous_managed,
+            previous_hashes=previous_hashes,
+            force=force,
+        ):
+            changed = True
+    return changed
+
+
+def _file_digest(path: Path) -> str:
+    data = path.read_bytes()
+    try:
+        text = data.decode("utf-8")
+    except UnicodeDecodeError:
+        return hashlib.sha256(data).hexdigest()
+    return _sha256(text)
+
+
+def _register_managed_tree(
+    root_path: Path,
+    dest_prefix: Path,
+    managed_files: set[str],
+    managed_hashes: dict[str, str],
+) -> None:
+    prefix = dest_prefix.as_posix().rstrip("/")
+    source_root = root_path / dest_prefix
+    for relative in _iter_relative_files(source_root):
+        relative_name = f"{prefix}/{relative.as_posix()}"
+        content_path = source_root / relative
+        managed_files.add(relative_name)
+        managed_hashes[relative_name] = _file_digest(content_path)
+
+
+RETIRED_MANAGED_PREFIXES = (
+    "harness/Agents.md",
+    "harness/.package/Agents.md",
+    "harness/AGENTS.md",
+)
+
+
+def _prune_retired_managed_files(
+    root_path: Path,
+    managed_files: set[str],
+    managed_hashes: dict[str, str],
+) -> bool:
+    changed = False
+    for relative in list(managed_files):
+        if not any(relative.startswith(prefix) for prefix in RETIRED_MANAGED_PREFIXES):
+            continue
+        target = root_path / relative
+        if target.is_file():
+            target.unlink()
+            changed = True
+        managed_files.discard(relative)
+        managed_hashes.pop(relative, None)
+    for prefix in RETIRED_MANAGED_PREFIXES:
+        directory = root_path / prefix.rstrip("/")
+        if directory.is_dir():
+            for path in sorted(directory.rglob("*"), reverse=True):
+                if path.is_file():
+                    path.unlink(missing_ok=True)
+            try:
+                directory.rmdir()
+            except OSError:
+                pass
+    return changed
+
+
+def install(root: str | Path, *, script_file: Path | None = None) -> dict[str, Any]:
+    """Install the template without overwriting repository-owned files."""
+    script = script_file or SCRIPT_FILE
+    root_path = Path(root).resolve()
+    root_path.mkdir(parents=True, exist_ok=True)
+    package_root = _package_root(root_path)
+
+    changed = _refresh_package_mirror(root_path, script)
+    template_root = _template_root(root_path, script)
+    agents_mode = "managed"
+
+    marker_path = root_path / MARKER_RELATIVE
+    previous = _read_marker(marker_path)
+    previous_managed = {str(path) for path in previous.get("managed_files", [])}
+    previous_hashes = {
+        str(path): str(digest)
+        for path, digest in previous.get("managed_hashes", {}).items()
+        if isinstance(path, str) and isinstance(digest, str)
+    }
+    managed_files = set(previous_managed)
+    managed_hashes = dict(previous_hashes)
+
+    if _prune_retired_managed_files(root_path, managed_files, managed_hashes):
+        changed = True
+
+    if _plugin_root(script) is not None and package_root.is_dir():
+        for bundle in (*BUNDLE_NAMES, TEMPLATE_BUNDLE):
+            bundle_path = package_root / bundle
+            if bundle_path.is_dir():
+                _register_managed_tree(
+                    root_path,
+                    Path("harness") / PACKAGE_DIRNAME / bundle,
+                    managed_files,
+                    managed_hashes,
+                )
+
+    sync_from_plugin = _plugin_root(script) is not None
+
+    for bundle in BUNDLE_NAMES:
+        source = package_root / bundle
+        exposed = EXPOSED_BUNDLES[bundle]
+        if source.is_dir() and _sync_managed_tree(
+            root_path=root_path,
+            source_root=source,
+            dest_prefix=exposed,
+            managed_files=managed_files,
+            managed_hashes=managed_hashes,
+            previous_managed=previous_managed,
+            previous_hashes=previous_hashes,
+            force=sync_from_plugin,
+        ):
+            changed = True
+
+    playbook_source = _playbook_source(root_path, script)
+    if playbook_source is not None:
+        playbook_changed, agents_mode = _install_root_playbook(
+            root_path,
+            playbook_source,
+            managed_files=managed_files,
+            managed_hashes=managed_hashes,
+            previous_managed=previous_managed,
+            previous_hashes=previous_hashes,
+        )
+        if playbook_changed:
+            changed = True
+        desired_playbook = playbook_source.read_text(encoding="utf-8")
+        package_playbook = root_path / PACKAGE_PLAYBOOK
+        if _plugin_root(script) is not None:
+            package_playbook.parent.mkdir(parents=True, exist_ok=True)
+            if (
+                not package_playbook.exists()
+                or package_playbook.read_text(encoding="utf-8") != desired_playbook
+            ):
+                package_playbook.write_text(desired_playbook, encoding="utf-8")
+                changed = True
+            relative_name = PACKAGE_PLAYBOOK.as_posix()
+            managed_files.add(relative_name)
+            managed_hashes[relative_name] = _sha256(desired_playbook)
+
+    for relative in _template_files(template_root):
+        if relative == AGENTS_RELATIVE:
+            continue
+        relative_name = relative.as_posix()
+        desired = _render((template_root / relative).read_text(encoding="utf-8"))
+        if _sync_managed_text_file(
+            root_path=root_path,
+            relative_name=relative_name,
+            desired=desired,
+            managed_files=managed_files,
+            managed_hashes=managed_hashes,
+            previous_managed=previous_managed,
+            previous_hashes=previous_hashes,
+        ):
+            changed = True
+
+    if previous:
+        agents_mode = str(previous.get("agents_mode", agents_mode))
+    agents_path = root_path / AGENTS_RELATIVE
+    agents_hash = str(
+        previous.get(
+            "agents_hash",
+            _sha256(agents_path.read_text(encoding="utf-8")) if agents_path.is_file() else "",
+        )
+    )
+
+    payload = _marker_payload(
+        agents_mode=agents_mode,
+        agents_hash=agents_hash,
+        managed_files=sorted(managed_files),
+        managed_hashes=managed_hashes,
+    )
+    serialized = json.dumps(payload, ensure_ascii=False, indent=2) + "\n"
+    if not marker_path.exists() or marker_path.read_text(encoding="utf-8") != serialized:
+        marker_path.parent.mkdir(parents=True, exist_ok=True)
+        marker_path.write_text(serialized, encoding="utf-8")
+        changed = True
+
+    return {"changed": changed, "root": str(root_path), "managed_files": sorted(managed_files)}
+
+
+def _normalized_text_digest(path: Path) -> str:
+    """Hash file text with normalized newlines for cross-platform drift checks."""
+    text = path.read_text(encoding="utf-8")
+    return _sha256(text.replace("\r\n", "\n").replace("\r", "\n"))
+
+
+def _collect_package_drift(root_path: Path) -> list[str]:
+    """Compare exposed harness bundles with the .package snapshot."""
+    warnings: list[str] = []
+    package_root = _package_root(root_path)
+    if not package_root.is_dir():
+        return warnings
+
+    agents_path = root_path / AGENTS_RELATIVE
+    package_agents = package_root / PLAYBOOK_SOURCE
+    if agents_path.is_file() and package_agents.is_file():
+        if _normalized_text_digest(agents_path) != _normalized_text_digest(package_agents):
+            warnings.append(
+                "AGENTS.md 与 harness/.package/AGENTS.md 不一致；运行 "
+                "`python harness/scripts/mini_harness.py update --root .` 同步"
+            )
+
+    for bundle, exposed in EXPOSED_BUNDLES.items():
+        source = package_root / bundle
+        if not source.is_dir():
+            continue
+        for relative in _iter_relative_files(source):
+            relative_name = relative.as_posix()
+            package_file = source / relative
+            exposed_file = root_path / exposed / relative
+            exposed_name = f"{exposed.as_posix()}/{relative_name}"
+            if not exposed_file.is_file():
+                warnings.append(f"缺少 {exposed_name}（.package 快照中存在）；运行 update 同步")
+                continue
+            if _normalized_text_digest(package_file) != _normalized_text_digest(exposed_file):
+                warnings.append(
+                    f"{exposed_name} 与 harness/.package/{bundle}/{relative_name} 不一致；"
+                    "运行 update 同步"
+                )
+
+    return warnings
+
+
+def doctor(root: str | Path) -> dict[str, Any]:
+    """Check whether a repository has a coherent active installation."""
+    root_path = Path(root).resolve()
+    issues: list[str] = []
+    warnings: list[str] = []
+    marker_path = root_path / MARKER_RELATIVE
+
+    try:
+        marker = json.loads(marker_path.read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        marker = {}
+        issues.append("缺少 harness/.mini-harness.json")
+    except json.JSONDecodeError:
+        marker = {}
+        issues.append("harness/.mini-harness.json 格式无效")
+
+    if marker and marker.get("active") is not True:
+        issues.append("mini-harness 未激活")
+
+    marker_version = marker.get("template_version")
+    if isinstance(marker_version, str) and marker_version and marker_version != TEMPLATE_VERSION:
+        warnings.append(
+            f"harness/.mini-harness.json 的 template_version 为 {marker_version}，"
+            f"当前安装脚本为 {TEMPLATE_VERSION}；运行 update 同步"
+        )
+
+    agents_path = root_path / AGENTS_RELATIVE
+    if not agents_path.is_file():
+        issues.append("缺少 AGENTS.md")
+    elif PLAYBOOK_TITLE not in agents_path.read_text(encoding="utf-8"):
+        issues.append("AGENTS.md 不是 Agent Harness Playbook（或尚未复制 Playbook）")
+
+    for required in (
+        "harness/PROGRESS.md",
+        "harness/todo.md",
+        "harness/DECISIONS.md",
+        "harness/rules/index.md",
+        "harness/rules/python-coding-conventions.md",
+        "harness/acceptance/index.md",
+        "harness/skills/mini-harness/SKILL.md",
+        "harness/scripts/mini_harness.py",
+        "harness/.package/AGENTS.md",
+        "tests/README.md",
+    ):
+        if not (root_path / required).is_file():
+            issues.append(f"缺少 {required}")
+
+    if marker.get("active") is True and not issues:
+        warnings.extend(_collect_package_drift(root_path))
+
+    return {
+        "ok": not issues,
+        "issues": issues,
+        "warnings": warnings,
+        "root": str(root_path),
+    }
+
+
+def _remove_root_agents(path: Path, mode: str, original_hash: str) -> None:
+    if not path.exists() or mode == "preserved":
+        return
+    text = path.read_text(encoding="utf-8")
+    if mode == "created" and original_hash and _sha256(text) == original_hash:
+        path.unlink()
+        return
+    if mode == "managed" and original_hash and _sha256(text) == original_hash:
+        path.unlink()
+
+
+def uninstall(root: str | Path) -> dict[str, Any]:
+    """Remove only files recorded as managed by mini-harness."""
+    root_path = Path(root).resolve()
+    marker_path = root_path / MARKER_RELATIVE
+    if not marker_path.exists():
+        return {"changed": False, "root": str(root_path)}
+
+    try:
+        marker = json.loads(marker_path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        marker = {}
+
+    _remove_root_agents(
+        root_path / AGENTS_RELATIVE,
+        str(marker.get("agents_mode", "managed")),
+        str(marker.get("agents_hash", "")),
+    )
+    for relative in marker.get("managed_files", []):
+        relative_name = str(relative)
+        if relative_name == AGENTS_RELATIVE.as_posix():
+            continue
+        target = root_path / relative_name
+        if target.is_file() and target != marker_path:
+            target.unlink()
+
+    marker_path.unlink(missing_ok=True)
+    harness_root = root_path / "harness"
+    if harness_root.exists():
+        directories = sorted((path for path in harness_root.rglob("*") if path.is_dir()), reverse=True)
+        for directory in directories:
+            try:
+                directory.rmdir()
+            except OSError:
+                pass
+        try:
+            harness_root.rmdir()
+        except OSError:
+            pass
+
+    return {"changed": True, "root": str(root_path)}
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="管理通用 mini-harness 安装")
+    parser.add_argument("action", choices=("install", "update", "doctor", "uninstall"))
+    parser.add_argument("--root", default=".", help="仓库根目录，默认为当前目录")
+    args = parser.parse_args()
+
+    if args.action in {"install", "update"}:
+        result = install(args.root)
+    elif args.action == "doctor":
+        result = doctor(args.root)
+    else:
+        result = uninstall(args.root)
+
+    payload = json.dumps(result, ensure_ascii=False, indent=2) + "\n"
+    if hasattr(sys.stdout, "buffer"):
+        sys.stdout.buffer.write(payload.encode("utf-8"))
+    else:
+        sys.stdout.write(payload)
+    return 0 if result.get("ok", True) else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

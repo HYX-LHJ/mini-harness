@@ -9,23 +9,28 @@
 
 ## 一句话
 
-**轻量级 Agent Skill（中文 + 英文两个包）** — 一条命令，在任意仓库生成 mini 协作工程（`harness/`、`AGENTS.md`、门禁脚本）。支持 **Cursor · Codex · Claude Code · [Skills CLI](https://skills.sh/)**。
+**可移植的 Agent 工作流插件** — 一条命令在任意仓库激活 mini 协作工程（`harness/`、`AGENTS.md`、内置 Skills）。支持 **Cursor · Codex · Claude Code**。
 
 ---
 
-## 选择 Skill 包
+## 快速开始
 
-| 语言 | 包路径 | 安装 |
-|------|--------|------|
-| **中文** | [`mini-harness-zh/`](mini-harness-zh/) | `npx skills add HYX-LHJ/mini-harness --skill mini-harness-zh -g -y` |
-| **English** | [`mini-harness-en/`](mini-harness-en/) | `npx skills add HYX-LHJ/mini-harness --skill mini-harness-en -g -y` |
+**在目标仓库激活：**
 
-两个包流程相同；**模板与生成的 `AGENTS.md` 语言与所选包一致**。
+```bash
+python mini-harness/scripts/mini_harness.py install --root .
+python harness/scripts/mini_harness.py doctor --root .
+```
 
-**在目标项目中初始化：**
+**可选 — 安装宿主插件**（仅 Session 开场提醒；仓库仍须执行上面的 `install`）：
 
-> 用 mini-harness-zh 在当前仓库创建 harness  
-> （安装 `mini-harness-zh` 生成中文模板，或 `mini-harness-en` 生成英文模板）
+| 宿主 | 本地测试 |
+|------|----------|
+| Cursor | 将 `mini-harness/` 复制或符号链接到 `~/.cursor/plugins/local/mini-harness` |
+| Claude Code | `claude --plugin-dir /path/to/mini-harness` |
+| Codex | 从市场安装；信任钩子并新开会话 |
+
+第一次试用？见 [mini-harness/TRIAL.md](mini-harness/TRIAL.md)（约 5 分钟）。
 
 ---
 
@@ -34,7 +39,7 @@
 | 没有 harness | 有 harness |
 |-------------|-----------|
 | 每开新对话从零开始 | `PROGRESS.md` + `todo.md` **无缝接手** |
-| 改完就提交 | **lint + pytest 门禁** |
+| 改完就提交 | **pytest / ruff / mypy 门禁** + subagent 审查 |
 | Plan、审查只在聊天里 | **落盘到 git** |
 | 每人一套 Prompt | 统一 **`AGENTS.md` Playbook** |
 
@@ -44,12 +49,12 @@
 
 | 产物 | 作用 |
 |------|------|
-| `AGENTS.md` | 每回合 Playbook |
-| `harness/todo.md` | 周任务板 |
+| `AGENTS.md` | 每回合 Playbook（项目根目录） |
+| `harness/todo.md` | 当前任务与验收标准（AC） |
 | `harness/PROGRESS.md` | 进度快照 |
-| `harness/plans/` | 重大任务先方案后编码 |
-| `harness/code_review/` | 审查报告落盘 |
-| `harness/scripts/` | 门禁与维护脚本 |
+| `harness/skills/` | 内置 Skill（tdd、code-review、acceptance 等） |
+| `harness/scripts/` | `mini_harness.py`（install / update / doctor） |
+| `tests/` | 全部测试文件（仓库根目录） |
 
 <details>
 <summary>生成后的目录结构</summary>
@@ -57,10 +62,11 @@
 ```text
 your-repo/
 ├── AGENTS.md
-├── pytest.ini
+├── tests/
 └── harness/
     ├── todo.md、PROGRESS.md、DECISIONS.md
-    ├── plans/、code_review/、tests/、scripts/
+    ├── skills/、rules/、scripts/
+    ├── plans/、acceptance/、code_review/、backlog/
     └── ...
 ```
 
@@ -77,7 +83,8 @@ your-repo/
 | [安装指南](docs/zh-CN/installation.md) | [Installation](docs/en/installation.md) |
 | [架构说明](docs/zh-CN/architecture.md) | [Architecture](docs/en/architecture.md) |
 | [协作流程](docs/zh-CN/workflow.md) | [Workflow](docs/en/workflow.md) |
-| [Skills CLI](docs/zh-CN/skills-cli.md) | [Skills CLI](docs/en/skills-cli.md) |
+
+插件维护文档：[mini-harness/README.md](mini-harness/README.md) · [mini-harness/skills/mini-harness/SKILL.md](mini-harness/skills/mini-harness/SKILL.md)
 
 ---
 
@@ -85,20 +92,19 @@ your-repo/
 
 ```mermaid
 flowchart LR
-    A["用户输入"] --> B["门禁 lint + pytest"]
-    B --> C["读 harness 上下文"]
-    C --> D{"重大任务?"}
-    D -->|是| E["Plan, 用户确认"]
-    D -->|否| F["登记 todo"]
-    E --> F
-    F --> G{"改 src?"}
-    G -->|是| H["tdd, 实现"]
-    G -->|否| I["实现或文档"]
-    H --> J["code-review Subagent"]
-    I --> J
-    J --> K["门禁 + sync PROGRESS"]
+    A["用户输入"] --> B["读 harness 状态"]
+    B --> C{"重大任务?"}
+    C -->|是| D["Plan + 确认 AC"]
+    C -->|否| E["登记 todo + AC"]
+    D --> E
+    E --> F["AC 已确认?"]
+    F -->|否| G["等待用户"]
+    F -->|是| H["Subagent 写测试"]
+    H --> I["实现 + 本地门禁"]
+    I --> J["Subagent 验收 ∥ 审查"]
+    J --> K["归档 + PROGRESS"]
     K --> L{"用户要求提交?"}
-    L -->|是| M["simplify, review, Git"]
+    L -->|是| M["精炼 → 审查 → Git"]
     L -->|否| N["回合结束"]
     M --> N
 ```
@@ -109,6 +115,6 @@ flowchart LR
 
 ## 要求
 
-Python 3.10+ · 支持 `SKILL.md` 的 Agent 工具 · 可选：`ruff`、`pyright`、`pytest`
+Python 3.10+ · 支持 Skill / 插件的 Agent 工具 · 可选：`ruff`、`pytest`、`mypy`
 
 [CONTRIBUTING.md](CONTRIBUTING.md) · [SECURITY.md](SECURITY.md) · [CHANGELOG.md](CHANGELOG.md) · [MIT License](LICENSE)

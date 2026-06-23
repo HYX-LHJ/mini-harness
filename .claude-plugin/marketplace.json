@@ -1,13 +1,13 @@
 ﻿{
   "metadata": {
-    "pluginRoot": "."
+    "pluginRoot": "mini-harness"
   },
   "plugins": [
     {
       "name": "mini-harness",
-      "description": "Lightweight Agent Skills to scaffold mini collaboration harness (harness/, AGENTS.md) — Chinese and English packages.",
-      "source": ".",
-      "skills": ["./mini-harness-zh", "./mini-harness-en"]
+      "description": "Portable repo workflow harness: session handoff, scoped tasks, verification and review guidance.",
+      "source": "./mini-harness",
+      "skills": ["./skills"]
     }
   ]
 }

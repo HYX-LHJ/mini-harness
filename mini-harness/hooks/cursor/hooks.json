@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [
+      {
+        "type": "command",
+        "command": "py -3 hooks/cursor/session_start.py",
+        "timeout": 10,
+        "failClosed": false
+      }
+    ]
+  }
+}

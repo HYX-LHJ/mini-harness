@@ -1,108 +1,106 @@
 ﻿# 快速入门
 
-本文介绍如何安装 mini-harness，并在你的项目中启用 Agent 协作工程。
+本文介绍如何在项目中激活 mini-harness。
 
 ### 前置条件
 
 | 依赖 | 说明 |
 |------|------|
-| Agent 工具 | Cursor、Codex、Claude Code 或任何支持 SKILL.md 的环境 |
-| Python 3.10+ | 运行 `init_harness.py` 与维护脚本 |
+| Agent 工具 | Cursor、Codex 或 Claude Code |
+| Python 3.10+ | 运行 `mini_harness.py` 与 Session 钩子 |
 | Git 仓库 | 目标项目建议已 `git init` |
 
-目标项目跑通门禁：
+目标项目跑通门禁（经 `python-code-style` 配置后）：
 
 ```bash
 python -m venv .venv
-# Windows: .\.venv\Scripts\pip install ruff pyright pytest
-# Unix:    .venv/bin/pip install ruff pyright pytest
+# Windows: .\.venv\Scripts\pip install ruff pytest mypy
+# Unix:    .venv/bin/pip install ruff pytest mypy
 ```
 
-### 第一步 — 安装 Skill
+### 第一步 — 获取插件
 
-完整说明见 **[installation.md](installation.md)**。快速方式：
+克隆或将 `mini-harness/` 目录放入你的环境：
 
 ```bash
-# Skills CLI（通用）
-npx skills add HYX-LHJ/mini-harness@mini-harness-zh -g -y
-
-# 或克隆
 git clone https://github.com/HYX-LHJ/mini-harness.git
-# 将 mini-harness-zh/ 复制到 ~/.cursor/skills/、~/.claude/skills/、~/.codex/skills/ 或 ~/.agents/skills/
 ```
 
-| 工具 | 个人路径 |
+**可选 — 宿主插件**（仅 Session 开场提醒）：
+
+| 宿主 | 本地测试 |
 |------|----------|
-| Cursor | `~/.cursor/skills/mini-harness-zh/` |
-| Codex | `~/.codex/skills/mini-harness-zh/` |
-| Claude Code | `~/.claude/skills/mini-harness-zh/` |
-| 通用 | `~/.agents/skills/mini-harness-zh/` |
+| Cursor | 复制/符号链接 `mini-harness/` → `~/.cursor/plugins/local/mini-harness` |
+| Claude Code | `claude --plugin-dir /path/to/mini-harness` |
+| Codex | 从市场安装；信任钩子；新开会话 |
 
-安装后重启 Agent 工具（Codex 必须重启）。
+详见 [installation.md](installation.md)。
 
-### 第二步 — 初始化 harness
+### 第二步 — 在仓库中激活 harness
+
+```bash
+python mini-harness/scripts/mini_harness.py install --root .
+python harness/scripts/mini_harness.py doctor --root .
+```
 
 **通过 Agent（推荐）：**
 
-> 用 mini-harness-zh 在当前仓库创建 harness
+> 在当前仓库初始化 mini-harness — 执行 install 和 doctor。
 
-**手动执行：**
+安装器会创建 `AGENTS.md`、`harness/`、`tests/`，将内置 Skill 同步到 `harness/skills/`，并写入 `harness/scripts/mini_harness.py`。
 
-```bash
-python /path/to/mini-harness-zh/scripts/init_harness.py --root . --project-name my_api
+| 参数 | 说明 |
+|------|------|
+| `--root` | 目标仓库根目录（默认当前目录） |
 
-# Linux / macOS
-python /path/to/mini-harness-zh/scripts/init_harness.py \
-  --root . --project-name my_api \
-  --lint-cmd '.venv/bin/python harness/scripts/lint_src.py' \
-  --pytest-cmd '.venv/bin/python -m pytest'
-```
+若仓库已有 `AGENTS.md`，默认**不覆盖**。
 
-| 参数 | 默认值 | 说明 |
-|------|--------|------|
-| `--root` | 当前目录 | 目标仓库根 |
-| `--project-name` | 文件夹名 | 写入 `AGENTS.md` |
-| `--src-dir` | `src` | 业务代码目录 |
-| `--force` | — | 覆盖已有文件 |
-| `--dry-run` | — | 仅打印，不写文件 |
+### 第三步 — 内置 Skill（无需单独安装）
 
-### 第三步 — 配套 Skill（建议）
+激活后 Skill 位于 `harness/skills/`：
 
 | Skill | 时机 |
 |-------|------|
-| `tdd` | 改 `src/` 前 |
-| `code-review-expert` | 改过 `src/` 后 |
-| `code-simplifier` | 提交前（含 `src/` 变更） |
+| `tdd` + `python-testing-patterns` | 编写运行时代码前（subagent） |
+| `acceptance-verification` | 实现完成后（subagent） |
+| `code-review-expert` | 实现完成后（subagent） |
+| `code-simplifier` | 提交前（subagent） |
+| `brainstorming` | 做 Plan 时 |
+| `python-code-style` | 初始化时一次（Python 工具链） |
 
-安装到与 `mini-harness-zh` **相同的路径**。
+任务中写明仓库路径，例如 `harness/skills/tdd/SKILL.md`，**不要**用全局 `~/.agents/skills/`。
 
 ### 第四步 — 定制
 
 - 项目约束 → `harness/DECISIONS.md`
-- API / 部署文档 → `harness/docs/`
-- DDL → `harness/sql/`
+- 协作文档 → `harness/docs/`
+- 编码规范 → `harness/rules/` 或 `DECISIONS.md`
 
 ### 验证
 
-退出码为 0，且以下文件存在：
+`doctor` 返回 `ok: true` 且无 warnings，且存在：
 
 ```text
-AGENTS.md、pytest.ini、harness/index.md、harness/todo.md、
-harness/PROGRESS.md、harness/scripts/lint_src.py
+AGENTS.md
+harness/index.md、harness/todo.md、harness/PROGRESS.md
+harness/scripts/mini_harness.py
+harness/skills/mini-harness/SKILL.md
+tests/
 ```
 
-对 Agent 说：「读 harness/index.md，总结当前状态」。
+对 Agent 说：「读 AGENTS.md 和 harness/PROGRESS.md，总结当前状态」。
 
 ### 常见问题
 
-**已有 `harness/`？** 不加 `--force` 会跳过已有文件；备份后使用 `--force` 覆盖。
+**已有 `harness/`？** 安装器保留项目自有文件；受管模板幂等更新。运行 `doctor` 检查漂移。
 
-**没有 `src/`？** 门禁可能失败；对 `sync_progress.py` 使用 `--skip-gates` 或调整 `lint_src.py`。
+**非 Python 项目？** 可跳过 `python-code-style`；纯文档仓库也能用 harness。
 
-**Agent 未执行 init？** 手动运行脚本；确认 Skill 安装在对应工具的正确路径。
+**Agent 跳过 todo / AC？** 提醒按 `AGENTS.md` 硬约束 — 先登记 todo 并确认 AC 再实现。
 
 ### 下一步
 
 - [architecture.md](architecture.md) — 目录设计
 - [workflow.md](workflow.md) — 回合与提交
-- [installation.md](installation.md) — 多工具安装完整指南
+- [installation.md](installation.md) — 多宿主安装完整指南
+- [TRIAL.md](../../mini-harness/TRIAL.md) — 5 分钟试用

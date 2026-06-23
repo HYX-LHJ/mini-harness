@@ -1,44 +1,48 @@
 ﻿# Architecture
 
-mini-harness uses a **two-layer architecture**: the Skill package scaffolds once; the harness directory holds ongoing collaboration state.
+mini-harness uses a **two-layer architecture**: the plugin scaffolds once; the harness directory holds ongoing collaboration state.
 
 ### Two layers
 
 ```text
 mini-harness repo                    your project repo
 ┌─────────────────────┐              ┌─────────────────────┐
-│ mini-harness-en/      │  init script │ AGENTS.md           │
-│  SKILL.md           │ ──────────►  │ pytest.ini          │
-│  templates/         │              │ harness/            │
-│  bundled/scripts/   │              │  todo, PROGRESS, …  │
+│ mini-harness/         │  install     │ AGENTS.md           │
+│  AGENTS.md (source)   │ ──────────►  │ harness/            │
+│  skills/, scripts/    │              │  todo, PROGRESS, …  │
+│  assets/template/     │              │ tests/              │
 └─────────────────────┘              └─────────────────────┘
 ```
 
 **Principles:**
 
-1. **Skill vs harness** — Skill can be upgraded/reinstalled; harness lives in your repo
+1. **Plugin vs harness** — Plugin can be upgraded; harness lives in your repo
 2. **Files as state** — Agents read files each round, not chat history
 3. **Single source of truth** — Each information type has one canonical location
+4. **Authoritative source** — Edit `mini-harness/` only; `install` syncs to repos
 
 ### Standard harness tree
 
 ```text
-harness/
-├── index.md              # L0 entry
-├── todo.md               # Weekly tasks (only place to check boxes)
-├── PROGRESS.md           # Snapshot: branch, gates, in-progress tasks
-├── DECISIONS.md          # Active architecture constraints
-├── plans/                # Plan documents
-├── docs/                 # Collaboration docs (plan-mode.md)
-├── code_review/          # Review reports + open-findings
-├── code_simplifier/      # Simplify reports
-├── tests/                # Unit tests
-├── scripts/              # lint_src, sync_progress, archive_harness_todo
-├── backlog/              # Archived todos / decisions
-└── sql/                  # Optional DDL docs
+your-repo/
+├── AGENTS.md                 # Playbook (project root)
+├── tests/                    # All tests
+└── harness/
+    ├── index.md              # L0 entry
+    ├── todo.md               # Current task + AC (only place to check boxes)
+    ├── PROGRESS.md           # Snapshot: state, in-progress, completed
+    ├── DECISIONS.md          # Long-term constraints
+    ├── skills/               # Built-in skills (tdd, review, …)
+    ├── rules/                # Coding conventions
+    ├── scripts/              # mini_harness.py (install/update/doctor)
+    ├── plans/                # Plan documents
+    ├── acceptance/           # Acceptance reports
+    ├── docs/                 # Collaboration docs (plan-mode, weekly-review)
+    ├── code_review/          # Review reports + open-findings
+    ├── code_simplifier/      # Simplify reports
+    ├── backlog/              # Archived todos
+    └── .package/             # Version snapshot for drift detection
 ```
-
-Details: [mini-harness-en/references/directory-layout.md](../../mini-harness-en/references/directory-layout.md)
 
 ### Single source of truth
 
@@ -50,8 +54,9 @@ Details: [mini-harness-en/references/directory-layout.md](../../mini-harness-en/
 | Known tech debt? | `code_review/open-findings.md` |
 | Pre-implementation plan? | `harness/plans/` |
 | What should agent do each round? | Project root `AGENTS.md` |
+| Which skill to use? | `harness/skills/<name>/SKILL.md` |
 
-**Priority:** `AGENTS.md` > Skill `SKILL.md`.
+**Priority:** `AGENTS.md` > skill `SKILL.md` in `harness/skills/`.
 
 ### Naming conventions
 
@@ -59,35 +64,26 @@ Details: [mini-harness-en/references/directory-layout.md](../../mini-harness-en/
 |------|--------|---------|
 | Plan | `YYYY-MM-DD-topic.md` | `2026-06-11-user-auth.md` |
 | Code review | `YYYY-MM-DD_topic.md` | `2026-06-11_user-auth-review.md` |
-| Code simplifier | same as review | `2026-06-11_user-auth.md` |
+| Acceptance | `YYYY-MM-DD_topic.md` | `2026-06-11_user-auth-acceptance.md` |
+| Backlog archive | `YYYY-MM-DD-topic.md` | `2026-06-11-user-auth.md` |
 
-### Template placeholders
+### Installer commands
 
-`init_harness.py` substitutes in templates:
-
-| Placeholder | Default |
-|-------------|---------|
-| `{{PROJECT_NAME}}` | folder name |
-| `{{SRC_DIR}}` | `src` |
-| `{{DEV_BRANCH}}` / `{{TEST_BRANCH}}` | `dev` / `test` |
-| `{{LINT_CMD}}` / `{{PYTEST_CMD}}` | platform-specific venv commands |
-
-### Maintenance scripts
-
-Copied from `bundled/scripts/` to `harness/scripts/`:
-
-| Script | Role |
-|--------|------|
-| `lint_src.py` | ruff + pyright on `src/` |
-| `sync_progress.py` | Refresh PROGRESS mechanical sections |
-| `archive_harness_todo.py` | Archive completed weekly todos |
+| Command | Role |
+|---------|------|
+| `install` | Create/sync harness, skills, scripts, rules, AGENTS.md |
+| `update` | Refresh managed files from `.package` snapshot |
+| `doctor` | Health check + drift warnings |
+| `uninstall` | Remove managed harness (preserves project extensions) |
 
 ### Relationship to business code
 
 ```text
 your-repo/
-├── src/          # Business code (tdd + code-review required when changed)
-├── harness/      # Collaboration control plane (not runtime)
+├── src/ or agent/    # Business code (tdd + review required when changed)
+├── harness/          # Collaboration control plane (not runtime)
 ├── AGENTS.md
-└── pytest.ini
+└── tests/            # Tests at repo root (not harness/tests/)
 ```
+
+Gate commands (pytest, ruff, mypy) are project-specific — configured via `python-code-style` into `pyproject.toml` and summarized in `DECISIONS.md`.

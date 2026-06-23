@@ -2,14 +2,9 @@
   "$schema": "https://skills.sh/schemas/skills.json",
   "skills": [
     {
-      "name": "mini-harness-en",
+      "name": "mini-harness",
       "remote": "HYX-LHJ/mini-harness",
-      "skill": "mini-harness-en"
-    },
-    {
-      "name": "mini-harness-zh",
-      "remote": "HYX-LHJ/mini-harness",
-      "skill": "mini-harness-zh"
+      "skill": "mini-harness"
     }
   ]
 }

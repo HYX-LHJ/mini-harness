@@ -7,11 +7,10 @@ on:
     branches: [main, master]
 
 jobs:
-  init-harness:
+  plugin:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        skill: [mini-harness-zh, mini-harness-en]
         python-version: ["3.12"]
     steps:
       - uses: actions/checkout@v4
@@ -21,27 +20,28 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Dry run (${{ matrix.skill }})
+      - name: Install harness (plugin)
         run: |
           mkdir -p /tmp/harness-test
-          python ${{ matrix.skill }}/scripts/init_harness.py \
-            --root /tmp/harness-test \
-            --dry-run
-
-      - name: Scaffold harness (${{ matrix.skill }})
-        run: |
-          rm -rf /tmp/harness-test
-          mkdir -p /tmp/harness-test
-          python ${{ matrix.skill }}/scripts/init_harness.py \
-            --root /tmp/harness-test \
-            --project-name ci-test \
-            --lint-cmd '.venv/bin/python harness/scripts/lint_src.py' \
-            --pytest-cmd '.venv/bin/python -m pytest'
+          python mini-harness/scripts/mini_harness.py install --root /tmp/harness-test
 
       - name: Verify required files
         run: |
           test -f /tmp/harness-test/AGENTS.md
-          test -f /tmp/harness-test/pytest.ini
           test -f /tmp/harness-test/harness/index.md
-          test -f /tmp/harness-test/harness/scripts/lint_src.py
+          test -f /tmp/harness-test/harness/PROGRESS.md
+          test -f /tmp/harness-test/harness/todo.md
+          test -f /tmp/harness-test/harness/scripts/mini_harness.py
+          test -f /tmp/harness-test/harness/skills/mini-harness/SKILL.md
+          test -f /tmp/harness-test/harness/skills/tdd/SKILL.md
+          test -f /tmp/harness-test/harness/rules/python-coding-conventions.md
           test -f /tmp/harness-test/harness/docs/weekly-review.md
+          test -f /tmp/harness-test/tests/README.md
+          test -f /tmp/harness-test/harness/.mini-harness.json
+
+      - name: Doctor check
+        run: |
+          python /tmp/harness-test/harness/scripts/mini_harness.py doctor --root /tmp/harness-test
+
+      - name: Run plugin tests
+        run: python -m pytest mini-harness/tests

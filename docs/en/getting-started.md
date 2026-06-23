@@ -1,108 +1,106 @@
 ﻿# Getting Started
 
-This guide walks you through installing mini-harness and enabling agent collaboration in your project.
+This guide walks you through activating mini-harness in your project.
 
 ### Prerequisites
 
 | Requirement | Notes |
 |-------------|-------|
-| An agent tool | Cursor, Codex, Claude Code, or any SKILL.md loader |
-| Python 3.10+ | For `init_harness.py` and harness scripts |
+| An agent tool | Cursor, Codex, or Claude Code |
+| Python 3.10+ | For `mini_harness.py` and session hooks |
 | Git repo | Recommended for target project |
 
-For gates in the target repo:
+For Python gates in the target repo (after `python-code-style` setup):
 
 ```bash
 python -m venv .venv
-# Windows: .\.venv\Scripts\pip install ruff pyright pytest
-# Unix:    .venv/bin/pip install ruff pyright pytest
+# Windows: .\.venv\Scripts\pip install ruff pytest mypy
+# Unix:    .venv/bin/pip install ruff pytest mypy
 ```
 
-### Step 1 — Install the skill
+### Step 1 — Get the plugin
 
-See **[installation.md](installation.md)** for all tools. Quick options:
+Clone or vendor the `mini-harness/` directory into your environment:
 
 ```bash
-# Skills CLI (universal)
-npx skills add HYX-LHJ/mini-harness@mini-harness-en -g -y
-
-# Or clone
 git clone https://github.com/HYX-LHJ/mini-harness.git
-# Then copy mini-harness-en/ to ~/.cursor/skills/, ~/.claude/skills/, ~/.codex/skills/, or ~/.agents/skills/
 ```
 
-| Tool | Personal path |
-|------|---------------|
-| Cursor | `~/.cursor/skills/mini-harness-en/` |
-| Codex | `~/.codex/skills/mini-harness-en/` |
-| Claude Code | `~/.claude/skills/mini-harness-en/` |
-| Universal | `~/.agents/skills/mini-harness-en/` |
+**Optional — host plugin** (session-start reminders only):
 
-Restart your agent tool after install (required for Codex).
+| Host | Local test |
+|------|------------|
+| Cursor | Copy/symlink `mini-harness/` → `~/.cursor/plugins/local/mini-harness` |
+| Claude Code | `claude --plugin-dir /path/to/mini-harness` |
+| Codex | Install from marketplace; trust hooks; new session |
 
-### Step 2 — Initialize harness
+See [installation.md](installation.md) for details.
+
+### Step 2 — Activate harness in your repo
+
+```bash
+python mini-harness/scripts/mini_harness.py install --root .
+python harness/scripts/mini_harness.py doctor --root .
+```
 
 **Via agent (recommended):**
 
-> Use mini-harness-en to create harness in this repository
+> Initialize mini-harness in this repository — run install and doctor.
 
-**Manually:**
+The installer creates `AGENTS.md`, `harness/`, `tests/`, syncs built-in skills to `harness/skills/`, and writes `harness/scripts/mini_harness.py`.
 
-```bash
-python /path/to/mini-harness-en/scripts/init_harness.py --root . --project-name my_api
+| Flag | Description |
+|------|-------------|
+| `--root` | Target repo root (default: cwd) |
 
-# Linux / macOS
-python /path/to/mini-harness-en/scripts/init_harness.py \
-  --root . --project-name my_api \
-  --lint-cmd '.venv/bin/python harness/scripts/lint_src.py' \
-  --pytest-cmd '.venv/bin/python -m pytest'
-```
+Existing `AGENTS.md` is **not overwritten** unless the repo has none.
 
-| Flag | Default | Description |
-|------|---------|-------------|
-| `--root` | cwd | Target repo root |
-| `--project-name` | folder name | Written to `AGENTS.md` |
-| `--src-dir` | `src` | Business code directory |
-| `--force` | — | Overwrite existing files |
-| `--dry-run` | — | Print only, no writes |
+### Step 3 — Built-in skills (no separate install)
 
-### Step 3 — Companion skills (recommended)
+After activation, skills live in `harness/skills/`:
 
 | Skill | When |
 |-------|------|
-| `tdd` | Before changing `src/` |
-| `code-review-expert` | After `src/` changes |
-| `code-simplifier` | Before commit with `src/` changes |
+| `tdd` + `python-testing-patterns` | Before runtime code (subagent) |
+| `acceptance-verification` | After implementation (subagent) |
+| `code-review-expert` | After implementation (subagent) |
+| `code-simplifier` | Before commit (subagent) |
+| `brainstorming` | During Plan mode |
+| `python-code-style` | Once at init (Python toolchain) |
 
-Install to the **same skill path** as `mini-harness-en`.
+Always reference repo paths, e.g. `harness/skills/tdd/SKILL.md` — not global `~/.agents/skills/`.
 
 ### Step 4 — Customize
 
 - Project constraints → `harness/DECISIONS.md`
-- API / deployment docs → `harness/docs/`
-- DDL → `harness/sql/`
+- Collaboration docs → `harness/docs/`
+- Coding rules → `harness/rules/` or `DECISIONS.md`
 
 ### Verify
 
-Exit code 0 and these files exist:
+`doctor` returns `ok: true` with no warnings, and these exist:
 
 ```text
-AGENTS.md, pytest.ini, harness/index.md, harness/todo.md,
-harness/PROGRESS.md, harness/scripts/lint_src.py
+AGENTS.md
+harness/index.md, harness/todo.md, harness/PROGRESS.md
+harness/scripts/mini_harness.py
+harness/skills/mini-harness/SKILL.md
+tests/
 ```
 
-Ask your agent: *"Read harness/index.md and summarize current state."*
+Ask your agent: *"Read AGENTS.md and harness/PROGRESS.md, then summarize current state."*
 
 ### FAQ
 
-**Existing `harness/`?** Without `--force`, existing files are skipped. Backup then use `--force` to overwrite.
+**Existing `harness/`?** The installer preserves project-owned files; managed templates are updated idempotently. Run `doctor` to check drift.
 
-**No `src/`?** Gates may fail; use `--skip-gates` with `sync_progress.py` or adjust `lint_src.py`.
+**No Python project?** Skip `python-code-style`; harness still works for docs-only repos.
 
-**Agent didn't run init?** Run the script manually; ensure skill is in the correct path for your tool.
+**Agent skipped todo / AC?** Remind it to follow `AGENTS.md` hard constraints — register todo and confirm AC before implementation.
 
 ### Next steps
 
 - [architecture.md](architecture.md) — directory design
 - [workflow.md](workflow.md) — rounds and commits
-- [installation.md](installation.md) — full multi-tool guide
+- [installation.md](installation.md) — full multi-host guide
+- [TRIAL.md](../../mini-harness/TRIAL.md) — 5-minute trial
