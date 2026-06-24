@@ -28,8 +28,10 @@ jobs:
       - name: Verify required files
         run: |
           test -f /tmp/harness-test/harness/skills/using-harness/SKILL.md
+          test -f /tmp/harness-test/harness/skills/goal-md/SKILL.md
           ! test -f /tmp/harness-test/AGENTS.md
           test -f /tmp/harness-test/harness/index.md
+          test -f /tmp/harness-test/harness/goal/index.md
           test -f /tmp/harness-test/harness/PROGRESS.md
           test -f /tmp/harness-test/harness/todo.md
           test -f /tmp/harness-test/harness/scripts/mini_harness.py
@@ -42,6 +44,9 @@ jobs:
       - name: Doctor check
         run: |
           python /tmp/harness-test/harness/scripts/mini_harness.py doctor --root /tmp/harness-test
+
+      - name: Install test dependencies
+        run: python -m pip install pytest
 
       - name: Run plugin tests
         run: python -m pytest mini-harness/tests
