@@ -76,7 +76,7 @@ See [mini-harness/skills/using-harness/SKILL.md](mini-harness/skills/using-harne
 | Path | Notes |
 |------|-------|
 | `mini-harness/` | **Authoritative plugin** — `skills/using-harness/SKILL.md`, `skills/`, `scripts/`, `assets/harness-template/` |
-| `README.md` / `README.zh-CN.md` | External repo overview |
+| `README.md` / `README.en.md` | External repo overview |
 | `docs/en/` / `docs/zh-CN/` | External documentation |
 
 **Do not commit** `harness/` or `tests/` in this repo — they are `install` output (gitignored). Verify in a temp directory instead.
@@ -162,7 +162,7 @@ python mini-harness/evals/ab_test.py
 | 路径 | 说明 |
 |------|------|
 | `mini-harness/` | **权威插件** — `skills/using-harness/SKILL.md`、`skills/`、`scripts/`、`assets/harness-template/` |
-| `README.md` / `README.zh-CN.md` | 对外仓库概览 |
+| `README.md` / `README.en.md` | 对外仓库概览 |
 | `docs/zh-CN/` / `docs/en/` | 对外文档 |
 
 **勿提交**本仓库的 `harness/`、`tests/` — 它们是 `install` 产物（已 gitignore）。请在临时目录验证。

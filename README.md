@@ -2,86 +2,81 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![CI](https://github.com/HYX-LHJ/mini-harness/actions/workflows/validate-scaffold.yml/badge.svg)](https://github.com/HYX-LHJ/mini-harness/actions/workflows/validate-scaffold.yml)
+[![Release](https://img.shields.io/github/v/release/HYX-LHJ/mini-harness?label=release)](https://github.com/HYX-LHJ/mini-harness/releases)
 
-**[中文 README](README.zh-CN.md)**
+> 🧩 **让 AI 编码 Agent 像团队一样协作** — 有状态、有门禁、有验收，不再每开新对话就「失忆」。
 
----
-
-## In one sentence
-
-**A portable Agent workflow plugin** — install the plugin for the **using-harness skill** (superpowers-style playbook in `skills/using-harness/SKILL.md`); run `install` once per repo to scaffold `harness/` state. Works with **Cursor · Codex · Claude Code**.
+**[English README](README.en.md)** · [5 分钟试用](mini-harness/TRIAL.md) · [更新日志](CHANGELOG.md)
 
 ---
 
-## This repository
+## ✨ 一句话
 
-This is the **plugin source repo** — not a pre-activated harness project. Edit only `mini-harness/`; run `install` in your own project (or a temp directory) to get `harness/` and `tests/`. Do not commit those install outputs here.
-
-```text
-mini-harness/   # authoritative plugin (skills, installer, templates)
-docs/           # user documentation
-.github/        # CI
-```
+**可移植的 Agent 工作流插件** — 装插件即得 **using-harness skill**（每回合 Playbook）；在仓库跑一次 `install`，生成 `harness/` 状态目录。支持 **Cursor · Codex · Claude Code**。
 
 ---
 
-## Quick start
+## 🤔 为什么需要它？
 
-### 1. Install the plugin (one click)
+| 😵 没有 harness | ✅ 有 harness |
+|----------------|---------------|
+| 每开新对话从零开始 | `PROGRESS.md` + `todo.md` **无缝接手** |
+| 改完就提交，质量靠运气 | **pytest / ruff / mypy 门禁** + subagent 审查 |
+| Plan、审查只在聊天里 | **落盘到 git**，可追溯 |
+| 每人一套 Prompt | 统一 **using-harness skill** |
+| 项目规矩口口相传 | `profile/PROJECT.md` **随项目进化** |
 
-| Host | Command / action |
-|------|------------------|
+---
+
+## 🚀 快速开始
+
+### 1️⃣ 安装插件（一键）
+
+| 宿主 | 操作 |
+|------|------|
 | **Claude Code** | `/plugin marketplace add HYX-LHJ/mini-harness` → `/plugin install mini-harness@mini-harness` |
-| **Cursor** | Dashboard → Plugins → Import `https://github.com/HYX-LHJ/mini-harness` → install **mini-harness** |
+| **Cursor** | Dashboard → Plugins → 导入 `https://github.com/HYX-LHJ/mini-harness` → 安装 **mini-harness** |
 | **Codex** | `codex plugin marketplace add github.com/HYX-LHJ/mini-harness` → `codex plugin install mini-harness` |
 
-Details: [docs/en/installation.md](docs/en/installation.md)
+📖 详见 [安装指南](docs/zh-CN/installation.md)
 
-### 2. Activate harness in your project
+### 2️⃣ 在目标仓库激活 harness
 
 ```bash
 python mini-harness/scripts/mini_harness.py install --root .
 python harness/scripts/mini_harness.py doctor --root .
 ```
 
-**Optional — local plugin dev** (without marketplace import):
+看到 `ok: true` 就可以开 Agent 会话了 🎉
 
-First time? See [mini-harness/TRIAL.md](mini-harness/TRIAL.md) (5-minute walkthrough).
-
----
-
-## Why you need this
-
-| Without harness | With harness |
-|-----------------|--------------|
-| Every new chat starts from zero | `PROGRESS.md` + `todo.md` for **session handoff** |
-| Code ships without tests or review | **pytest / ruff / mypy gates** + subagent review |
-| Plans and reviews only in chat | **Committed to git** |
-| Everyone uses a different prompt | Shared **using-harness skill** (`SKILL.md`) |
+> 💡 **第一次试用？** 跟着 [TRIAL.md](mini-harness/TRIAL.md) 走一遍，约 5 分钟。
 
 ---
 
-## What you get
+## 📦 你会得到什么
 
-| Artifact | Purpose |
-|----------|---------|
-| `skills/using-harness/SKILL.md` | Per-round playbook (plugin; copied to `harness/skills/` on install) |
-| `harness/todo.md` | Current task + acceptance criteria (AC) |
-| `harness/PROGRESS.md` | Progress snapshot |
-| `harness/skills/` | Built-in skills (tdd, code-review, acceptance, …) |
-| `harness/scripts/` | `mini_harness.py` (install / update / doctor) |
-| `tests/` | All test files (repo root) |
+| 产物 | 作用 |
+|------|------|
+| `skills/using-harness/SKILL.md` | 📋 每回合 Playbook（插件内；`install` 后位于 `harness/skills/`） |
+| `harness/todo.md` | ✅ 当前任务与验收标准（AC） |
+| `harness/PROGRESS.md` | 📍 进度快照，新会话一眼接手 |
+| `harness/profile/PROJECT.md` | 🎯 项目画像 — Agent 每回合必读，可随协作进化 |
+| `harness/DECISIONS.md` | 🏛️ 按主题归档的重大决策（背景 / 结论 / 影响） |
+| `harness/skills/` | 🛠️ 内置 Skill（tdd、code-review、acceptance…） |
+| `harness/scripts/` | ⚙️ `mini_harness.py`（install / update / doctor） |
+| `tests/` | 🧪 全部测试文件（仓库根目录） |
 
 <details>
-<summary>Generated layout</summary>
+<summary>📂 生成后的目录结构</summary>
 
 ```text
 your-repo/
 ├── tests/
 └── harness/
-    ├── todo.md, PROGRESS.md, DECISIONS.md
-    ├── skills/, rules/, scripts/
-    ├── plans/, acceptance/, code_review/, backlog/
+    ├── todo.md、PROGRESS.md、DECISIONS.md
+    ├── profile/          # PROJECT.md、evolution.jsonl（项目自有，update 不覆盖）
+    ├── skills/、rules/、scripts/
+    ├── plans/、acceptance/、code_review/、backlog/
     └── ...
 ```
 
@@ -89,47 +84,62 @@ your-repo/
 
 ---
 
-## Documentation
-
-| English | 中文 |
-|---------|------|
-| [docs/en/](docs/en/) | [docs/zh-CN/](docs/zh-CN/) |
-| [Getting started](docs/en/getting-started.md) | [快速入门](docs/zh-CN/getting-started.md) |
-| [Installation](docs/en/installation.md) | [安装指南](docs/zh-CN/installation.md) |
-| [Architecture](docs/en/architecture.md) | [架构说明](docs/zh-CN/architecture.md) |
-| [Workflow](docs/en/workflow.md) | [协作流程](docs/zh-CN/workflow.md) |
-
-Plugin maintainer docs: [mini-harness/README.md](mini-harness/README.md) · [using-harness](mini-harness/skills/using-harness/SKILL.md)
-
----
-
-## Workflow overview
+## 🔄 协作流程一览
 
 ```mermaid
 flowchart LR
-    A["User input"] --> B["Read harness state"]
-    B --> C{"Major task?"}
-    C -->|Yes| D["Plan + confirm AC"]
-    C -->|No| E["Register todo + AC"]
+    A["💬 用户输入"] --> B["📖 读 harness 状态"]
+    B --> C{"重大任务?"}
+    C -->|是| D["📝 Plan + 确认 AC"]
+    C -->|否| E["📌 登记 todo + AC"]
     D --> E
-    E --> F["AC confirmed?"]
-    F -->|No| G["Wait for user"]
-    F -->|Yes| H["Subagent: write tests"]
-    H --> I["Implement + local gates"]
-    I --> J["Subagent: acceptance ∥ review"]
-    J --> K["Archive + PROGRESS"]
-    K --> L{"User asks commit?"}
-    L -->|Yes| M["simplify → review → Git"]
-    L -->|No| N["Round end"]
+    E --> F{"AC 已确认?"}
+    F -->|否| G["⏸️ 等待用户"]
+    F -->|是| H["🧪 Subagent 写测试"]
+    H --> I["⚡ 实现 + 本地门禁"]
+    I --> J["✅ 验收 ∥ 🔍 审查"]
+    J --> K["📁 归档 + PROGRESS"]
+    K --> L{"要求提交?"}
+    L -->|是| M["✨ 精炼 → 审查 → Git"]
+    L -->|否| N["🏁 回合结束"]
     M --> N
 ```
 
-Details: [docs/en/workflow.md](docs/en/workflow.md)
+详见 [协作流程](docs/zh-CN/workflow.md)
 
 ---
 
-## Requirements
+## 🏗️ 本仓库是什么
 
-Python 3.10+ · Agent tool with skill / plugin support · Optional: `ruff`, `pytest`, `mypy`
+这是 **插件源码仓库**，不是已激活 harness 的项目。
 
-[CONTRIBUTING.md](CONTRIBUTING.md) · [SECURITY.md](SECURITY.md) · [CHANGELOG.md](CHANGELOG.md) · [MIT License](LICENSE)
+```text
+mini-harness/   # 🔧 权威插件源码（skills、安装器、模板）
+docs/           # 📚 用户文档
+.github/        # 🤖 CI / Release
+```
+
+只改 `mini-harness/`；在你自己的项目执行 `install` 才会生成 `harness/`、`tests/`。**不要**把 install 产物提交回本仓库。
+
+---
+
+## 📚 文档
+
+| 中文 | English |
+|------|---------|
+| [快速入门](docs/zh-CN/getting-started.md) | [Getting started](docs/en/getting-started.md) |
+| [安装指南](docs/zh-CN/installation.md) | [Installation](docs/en/installation.md) |
+| [架构说明](docs/zh-CN/architecture.md) | [Architecture](docs/en/architecture.md) |
+| [协作流程](docs/zh-CN/workflow.md) | [Workflow](docs/en/workflow.md) |
+
+插件维护：[mini-harness/README.md](mini-harness/README.md) · [using-harness](mini-harness/skills/using-harness/SKILL.md)
+
+---
+
+## ⚙️ 要求
+
+Python 3.10+ · 支持 Skill / 插件的 Agent 工具 · 可选：`ruff`、`pytest`、`mypy`
+
+---
+
+[🤝 参与贡献](CONTRIBUTING.md) · [🔒 安全](SECURITY.md) · [📋 更新日志](CHANGELOG.md) · [MIT License](LICENSE)

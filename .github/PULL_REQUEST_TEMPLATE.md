@@ -9,7 +9,7 @@
 - [ ] `mini-harness/assets/harness-template/`
 - [ ] `mini-harness/skills/` or `mini-harness/hooks/`
 - [ ] `docs/en/` / `docs/zh-CN/`
-- [ ] `README.md` / `README.zh-CN.md`
+- [ ] `README.md` / `README.en.md`
 
 ## Test plan / 验证方式
 
