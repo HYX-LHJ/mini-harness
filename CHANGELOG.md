@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.5.2] - 2026-06-24
+
+### Added
+
+- **`evals/skill-triggers/`** — per-skill should/should-not query sets (8 skills)
+- **`evals/validate_skill_triggers.py`** — static description signal checks (no LLM)
+- `test_skill_trigger_static.py` in local test suite
+
+### Changed
+
+- Session hook reminds agents to read `profile/PROJECT.md` and `skill-index.md`
+
 ## [2.5.1] - 2026-06-24
 
 ### Changed

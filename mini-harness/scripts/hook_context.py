@@ -12,10 +12,10 @@ CONTEXT_ACTIVE = """本仓库已启用 mini-harness。
 
 开始任何用户任务前，必须先调用 using-harness skill：
 1. 阅读 `harness/skills/using-harness/SKILL.md`（工作流入口）
-2. 需要逐步操作时阅读 `harness/skills/using-harness/references/workflow.md`
-3. 并行阅读 `harness/PROGRESS.md` 与 `harness/todo.md`
+2. 细则见 `harness/skills/using-harness/references/workflow.md`；选 Skill 见 `references/skill-index.md`
+3. 并行阅读 `harness/PROGRESS.md`、`harness/todo.md`、`harness/profile/PROJECT.md`
 
-若 todo 含运行时代码任务且「AC 已确认」未勾选，须先与用户核对 AC，不得启动 TDD 或编写实现。
+若 todo 含运行时代码且「AC 已确认」未勾选，须先与用户核对 AC，不得 TDD 或写实现。
 不要仅因本提醒被注入就修改文件。
 """
 
