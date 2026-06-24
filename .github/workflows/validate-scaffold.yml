@@ -38,7 +38,7 @@ jobs:
           test -f /tmp/harness-test/harness/todo.md
           test -f /tmp/harness-test/harness/scripts/mini_harness.py
           test -f /tmp/harness-test/harness/skills/tdd/SKILL.md
-          test -f /tmp/harness-test/harness/rules/python-coding-conventions.md
+          ! test -d /tmp/harness-test/harness/rules
           test -f /tmp/harness-test/harness/docs/weekly-review.md
           test -f /tmp/harness-test/tests/README.md
           test -f /tmp/harness-test/harness/.mini-harness.json

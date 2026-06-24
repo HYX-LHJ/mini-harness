@@ -14,18 +14,17 @@ from typing import Any
 
 SCRIPT_FILE = Path(__file__)
 PLUGIN_ROOT = SCRIPT_FILE.resolve().parents[1]
-TEMPLATE_VERSION = "0.5.0"
+TEMPLATE_VERSION = "0.6.0"
 MARKER_RELATIVE = Path("harness/.mini-harness.json")
 PROJECT_OWNED_PREFIXES = ("harness/profile/",)
 LEGACY_AGENTS_RELATIVE = Path("AGENTS.md")
 LEGACY_PACKAGE_PLAYBOOK = Path("harness/.package/AGENTS.md")
 LEGACY_SKILL_DIR = Path("harness/skills/mini-harness")
-BUNDLE_NAMES = ("skills", "scripts", "rules")
+BUNDLE_NAMES = ("skills", "scripts")
 TEMPLATE_BUNDLE = "template"
 EXPOSED_BUNDLES = {
     "skills": Path("harness/skills"),
     "scripts": Path("harness/scripts"),
-    "rules": Path("harness/rules"),
 }
 
 
@@ -142,7 +141,6 @@ def _refresh_package_mirror(repo_root: Path, script_file: Path) -> bool:
     mappings = [
         (plugin / "skills", package / "skills"),
         (plugin / "scripts", package / "scripts"),
-        (plugin / "rules", package / "rules"),
         (plugin / "assets" / "harness-template", package / TEMPLATE_BUNDLE),
     ]
     changed = False
@@ -284,6 +282,8 @@ RETIRED_MANAGED_PREFIXES = (
     "harness/AGENTS.md",
     "harness/.package/AGENTS.md",
     "harness/skills/mini-harness/",
+    "harness/rules/",
+    "harness/.package/rules/",
 )
 
 
@@ -535,8 +535,6 @@ def doctor(root: str | Path) -> dict[str, Any]:
         "harness/PROGRESS.md",
         "harness/todo.md",
         "harness/DECISIONS.md",
-        "harness/rules/index.md",
-        "harness/rules/python-coding-conventions.md",
         "harness/acceptance/index.md",
         "harness/scripts/mini_harness.py",
         "tests/README.md",

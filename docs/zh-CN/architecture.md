@@ -1,103 +1,112 @@
-﻿# 架构说明
+﻿# 🏗️ 架构说明
 
-mini-harness 采用「**插件 + 目标仓库 harness 工程**」两层架构：插件负责**一次性脚手架**，harness 目录负责**持续协作状态**。
+mini-harness = **插件**（一次性脚手架）+ **harness/**（持续协作状态）。
 
-### 两层架构
+---
+
+## 两层架构
 
 ```text
 mini-harness 仓库                     你的项目仓库
 ┌─────────────────────┐              ┌─────────────────────┐
 │ mini-harness/         │  install     │ harness/            │
-│  skills/using-harness/ │ ──────────►  │  skills/、todo、     │
-│  skills/、scripts/    │              │  PROGRESS…          │
+│  skills/using-harness/│ ──────────►  │  skills/、todo、     │
+│  skills/、scripts/    │              │  PROGRESS、profile…  │
 │  assets/template/     │              │ tests/              │
 └─────────────────────┘              └─────────────────────┘
          ▲
-         │ 插件安装（Skills + 钩子）— 立即可用
+         │ 插件安装 — Skills + 钩子，立即可用
 ```
 
-**设计原则：**
+### 设计原则
 
-1. **插件与 harness 分离** — 插件提供 using-harness skill；`install` 在项目中脚手架 harness 状态
-2. **文件即状态** — Agent 每回合读文件，不依赖聊天历史
+1. **插件 ≠ harness** — 插件给 Skill；`install` 脚手架状态
+2. **文件即状态** — 新会话读文件，不赌聊天记忆
 3. **单一真相源** — 每类信息有固定落点
-4. **权威源** — 只改 `mini-harness/`；`install` 同步到各仓库
+4. **权威在插件** — 只改 `mini-harness/`；`install` 同步到各仓
 
-### harness 标准目录树
+---
+
+## 📂 harness 目录树
 
 ```text
 your-repo/
-├── tests/                    # 全部测试
+├── tests/                    # 🧪 全部测试（仓库根）
 └── harness/
-    ├── index.md              # L0 总索引
-    ├── todo.md               # 当前任务 + AC（唯一可勾选处）
-    ├── PROGRESS.md           # 快照：状态、进行中、已完成
-    ├── DECISIONS.md          # 按主题的重大决策（迭代取舍）
-    ├── skills/               # 内置 Skill（mini-harness、tdd、review 等）
-    ├── rules/                # 编码规范
-    ├── scripts/              # mini_harness.py（install/update/doctor）
-    ├── plans/                # 方案文档
+    ├── index.md              # 总索引
+    ├── todo.md               # 当前任务 + AC（唯一勾选处）
+    ├── PROGRESS.md           # 状态快照
+    ├── DECISIONS.md          # 🏛️ 按主题的重大决策
+    ├── profile/              # 🎯 PROJECT.md、evolution.jsonl（项目自有）
+    ├── skills/               # 内置 Skill 副本
+    ├── scripts/              # mini_harness.py
+    ├── plans/                # 方案
     ├── acceptance/           # 验收报告
-    ├── docs/                 # 协作细则（plan-mode、weekly-review）
-    ├── code_review/          # 审查报告 + open-findings
-    ├── code_simplifier/      # 精炼报告
-    ├── backlog/              # 历史 todo 归档
-    ├── profile/              # 项目画像（PROJECT.md、evolution.jsonl）；项目自有
+    ├── code_review/          # 审查报告
+    ├── code_simplifier/      # 精炼记录
+    ├── backlog/              # 归档
+    ├── docs/                 # plan-mode、weekly-review
     └── .package/             # 版本快照（漂移检测）
 ```
 
-### 单一真相源
+---
 
-| 你想知道… | 优先看 |
-|-----------|--------|
-| 还有什么 task | `harness/todo.md` 未勾选项 |
-| 新会话如何接手 | `PROGRESS.md`「当前状态」+「进行中」 |
-| 为什么不能那样改 | `harness/DECISIONS.md`（按主题） |
-| Agent 每回合遵守什么 | `harness/profile/PROJECT.md` |
-| 门禁命令在哪 | 仓库根 `pyproject.toml`；`harness/.mini-harness.json` → `commands.gate` |
-| 已知技术债 | `code_review/open-findings.md` |
-| 实施前方案 | `harness/plans/` |
-| Agent 每回合做什么 | `harness/skills/using-harness/SKILL.md` |
-| 用哪个 Skill | `harness/skills/<name>/SKILL.md` |
+## 🗺️ 单一真相源
 
-**入口**：每回合先调用 using-harness skill；其它 Skill 按需从 `harness/skills/` 读取。
+| 你想知道… | 去看 |
+|-----------|------|
+| 还有什么 task | `todo.md` 未勾选项 |
+| 新会话怎么接手 | `PROGRESS.md` |
+| 为什么不能那样改 | `DECISIONS.md`（按主题） |
+| Agent 每回合遵守啥 | `profile/PROJECT.md` |
+| 门禁命令 | `pyproject.toml` · `commands.gate` |
+| 技术债 | `code_review/open-findings.md` |
+| 实施前方案 | `plans/` |
+| 工作流入口 | `skills/using-harness/SKILL.md` |
+| 用哪个 Skill | `skills/<name>/SKILL.md` |
 
-### 项目画像与自进化
+---
 
-| 层级 | 路径 | 谁维护 |
-|------|------|--------|
-| 平台层 | `harness/skills/`、`rules/`、模板 | mini-harness 插件（`update` 同步） |
-| 项目层 | `harness/profile/PROJECT.md`、`evolution.jsonl` | 项目团队（`update` **不覆盖**） |
+## 🌱 项目画像与进化
 
-协作中沉淀：**重大取舍** → `DECISIONS.md` 对应主题；**可执行规则** → `PROJECT.md`；经用户确认后追加 `evolution.jsonl`。
+| 层级 | 路径 | 维护 |
+|------|------|------|
+| 平台 | `skills/`、模板 | 插件 `update` |
+| 项目 | `profile/`、`DECISIONS` | 团队；`update` **不覆盖** profile |
 
-### 命名约定
+沉淀：**重大取舍** → `DECISIONS` 对应主题；**可执行规则** → `PROJECT.md`；确认后追加 `evolution.jsonl`。
+
+---
+
+## 📝 命名约定
 
 | 类型 | 格式 | 示例 |
 |------|------|------|
 | Plan | `YYYY-MM-DD-主题.md` | `2026-06-11-user-auth.md` |
-| Code review | `YYYY-MM-DD_主题.md` | `2026-06-11_user-auth-review.md` |
+| Review | `YYYY-MM-DD_主题.md` | `2026-06-11_user-auth-review.md` |
 | Acceptance | `YYYY-MM-DD_主题.md` | `2026-06-11_user-auth-acceptance.md` |
-| Backlog 归档 | `YYYY-MM-DD-主题.md` | `2026-06-11-user-auth.md` |
+| Backlog | `YYYY-MM-DD-主题.md` | `2026-06-11-user-auth.md` |
 
-### 安装器命令
+---
 
-| 命令 | 职责 |
+## ⚙️ 安装器
+
+| 命令 | 作用 |
 |------|------|
-| `install` | 创建/同步 harness、skills、scripts、rules |
-| `update` | 从 `.package` 快照刷新受管文件 |
-| `doctor` | 健康检查 + 漂移 warnings |
-| `uninstall` | 移除受管 harness（保留项目扩展） |
+| `install` | 创建/同步 harness、skills、scripts |
+| `update` | 从 `.package` 刷新受管文件 |
+| `doctor` | 健康检查 + 漂移告警 |
+| `uninstall` | 移除受管 harness |
 
-### 与业务代码的关系
+---
+
+## 与业务代码
 
 ```text
 your-repo/
-├── harness/
-│   ├── todo.md、PROGRESS.md、…
-│   └── …
-├── src/ 或 agent/       # 业务代码（常规改动须 tdd + review）
-└── tests/               # 测试在仓库根（非 harness/tests/）
+├── harness/          # 协作状态
+├── src/ 或 agent/    # 业务代码（改代码走 tdd + review）
+└── tests/            # 测试在仓库根
 ```
 
-门禁命令（pytest、ruff、mypy）由项目自定 — 通过 `python-code-style` 写入 `pyproject.toml`，并在 `commands.gate` 登记；可选在 `profile/PROJECT.md` 引用。
+门禁：经 `python-code-style` 写入 `pyproject.toml` + `commands.gate`；可选在 `PROJECT.md` 引用。

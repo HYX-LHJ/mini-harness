@@ -1,100 +1,117 @@
-﻿# Workflow
+﻿# 🔄 Workflow
 
-Workflow rules live in `harness/skills/using-harness/SKILL.md` (plugin: `skills/using-harness/SKILL.md`). This page summarizes the collaboration model.
+Authoritative rules: **`harness/skills/using-harness/SKILL.md`** (plugin: `skills/using-harness/SKILL.md`). This page is a visual overview.
 
-### Concepts
+---
 
-| Concept | Description |
-|---------|-------------|
-| **Round** | One full workflow per user message |
-| **AC** | Acceptance criteria in `todo.md`; user confirmation required before implementation |
-| **Regular round** | Read state → todo → AC confirmed → TDD subagent → implement → acceptance ∥ review → archive → PROGRESS |
-| **Commit round** | Regular wrap-up + simplify + 2nd review + Git |
-| **Plan mode** | Write plan, sync AC to todo, wait for user confirmation |
-| **Subagent** | Separate agent for tests, acceptance, review, simplify (via Task tool) |
+## Concepts
 
-> Subagent dispatch differs between Cursor (Task), Claude Code, Codex, etc. Harness **file layout and using-harness skill rules are tool-agnostic**.
+| Concept | Meaning |
+|---------|---------|
+| **Round** | One full flow per user message |
+| **AC** | Acceptance criteria in `todo.md`; implement only after **AC confirmed** |
+| **Regular round** | Read state → todo → TDD → implement → accept ∥ review → archive |
+| **Commit round** | Regular + simplify + 2nd review + Git |
+| **Plan** | Write plan, sync AC to todo, wait for user |
+| **Subagent** | Tests / acceptance / review / simplify (Task tool) |
 
-### Regular round
+> Dispatch differs by host; **harness layout and skills are tool-agnostic**.
 
-```
-read state → [Plan] → register todo + AC → AC confirmed → subagent(tests) → implement → local gates
-  → subagent(acceptance) ∥ subagent(review) → fix blockers → archive todo → PROGRESS
-```
+---
 
-1. **Read context** — `PROGRESS.md`, `todo.md`, `profile/PROJECT.md` (parallel); add relevant `DECISIONS.md` topics for Plan / architecture
-2. **Plan** (major tasks) — write `plans/`, sync AC to `todo.md`, wait for confirmation
-3. **Register todo** — any change → `todo.md` first, with AC table
-4. **AC confirmation** — user confirms AC intent; **blocked until checkbox**
-5. **TDD subagent** — failing tests in `tests/` (main agent may pre-read code in parallel)
-6. **Implement** — main agent writes runtime code (green / refactor)
-7. **Local gates** — pytest, ruff, mypy (before subagent reports)
-8. **Acceptance ∥ review** — parallel subagents; merge reports, fix blockers
-9. **Archive + PROGRESS** — move todo to `backlog/`, update `PROGRESS.md`
+## Regular round
 
-### Commit round
-
-Triggered by "commit", "push", etc. After regular wrap-up:
-
-```
-…regular… → subagent(code-simplifier) → subagent(code-review) → Git → PROGRESS
+```text
+📖 Read state → [📝 Plan] → todo + AC → ✅ AC confirmed
+  → 🧪 subagent(tests) → ⚡ implement → 🚦 gates
+  → ✅ accept ∥ 🔍 review → fix → 📁 archive → PROGRESS
 ```
 
-Simplify and 2nd review are **serial** (simplify may change code).
+| Step | Action |
+|------|--------|
+| 1 | Parallel read `PROGRESS`, `todo`, `PROJECT`; add `DECISIONS` for Plan |
+| 2 | Major work → `plans/`, AC in todo |
+| 3 | Any change → `todo` + AC table |
+| 4 | User confirms AC; **no code until checked** |
+| 5 | Subagent writes failing tests |
+| 6 | Main agent implements |
+| 7 | Local gates |
+| 8 | Parallel acceptance + review |
+| 9 | Archive to `backlog/`, update `PROGRESS` |
 
-### Skill triggers
+---
 
-| Skill | When | Executor | Skip if |
-|-------|------|----------|---------|
-| `brainstorming` | Plan mode | Main agent | Minor fix |
-| `tdd` + `python-testing-patterns` | Before runtime code | Subagent | Docs only |
-| `acceptance-verification` | After implementation | Subagent | Docs only |
-| `code-review-expert` | After implementation; before commit | Subagent | Docs only |
-| `code-simplifier` | Before commit | Subagent | No code changes |
+## Commit round
 
-Always use `harness/skills/<name>/SKILL.md` — not global skill paths.
+User says “commit” / “push”:
 
-### Plan mode triggers
+```text
+…regular… → ✨ simplify → 🔍 review → Git → PROGRESS
+```
 
-Enter Plan when **any** applies:
+Simplify and review are **serial**.
 
-- New feature / API / cross-module change
+---
+
+## Skill triggers
+
+| Skill | When | Who | Skip |
+|-------|------|-----|------|
+| `brainstorming` | Plan | Main | Small fixes |
+| `tdd` + `python-testing-patterns` | Before code | Subagent | Docs only |
+| `acceptance-verification` | After implement | Subagent | Docs only |
+| `code-review-expert` | After / before commit | Subagent | Docs only |
+| `code-simplifier` | Before commit | Subagent | No code change |
+
+Path: `harness/skills/<name>/SKILL.md`
+
+---
+
+## When to Plan?
+
+Any of:
+
+- New feature / API / cross-module
 - Architecture or data model change
-- Ambiguous requirements or multiple approaches
-- User asks to discuss plan first
-- Estimated > 1 day of work
+- Ambiguous requirements or multiple options
+- User wants discussion first
+- Estimate > 1 day
 
 Details: `harness/docs/plan-mode.md`
 
-### Weekly review
+---
 
-On the first Monday session (or first session of a new week), follow `harness/docs/weekly-review.md` to archive inactive content.
+## 📅 Weekly review
 
-### Flow diagram
+First session of the week → `harness/docs/weekly-review.md`
+
+---
+
+## Diagram
 
 ```mermaid
 flowchart TD
-    Start(["User input"]) --> Read["Read PROGRESS and todo"]
+    Start(["💬 User input"]) --> Read["📖 Read PROGRESS + todo + PROJECT"]
     Read --> PlanCheck{"Major task?"}
-    PlanCheck -->|yes| Plan["Write plans, sync AC"]
+    PlanCheck -->|Yes| Plan["📝 plans + AC"]
     Plan --> UserOK{"Confirmed?"}
-    UserOK -->|no| Wait(["Wait"])
-    UserOK -->|yes| Todo
-    PlanCheck -->|no| Todo["Register todo + AC"]
+    UserOK -->|No| Wait(["⏸️ Wait"])
+    UserOK -->|Yes| Todo
+    PlanCheck -->|No| Todo["📌 todo + AC"]
     Todo --> ACCheck{"AC confirmed?"}
-    ACCheck -->|no| WaitAC(["Wait for user"])
-    ACCheck -->|yes| TDD["Subagent: write tests"]
-    TDD --> Impl["Implement + local gates"]
-    Impl --> Parallel["Subagent: acceptance ∥ review"]
-    Parallel --> Fix["Fix blockers"]
-    Fix --> Archive["Archive todo + PROGRESS"]
-    Archive --> CommitCheck{"User commits?"}
-    CommitCheck -->|no| End(["Round end"])
-    CommitCheck -->|yes| Simplify["Subagent: simplify"]
-    Simplify --> Review2["Subagent: review"]
-    Review2 --> Git["Git commit/push"]
-    Git --> Sync["Refresh PROGRESS"]
+    ACCheck -->|No| WaitAC(["⏸️ Wait"])
+    ACCheck -->|Yes| TDD["🧪 Subagent tests"]
+    TDD --> Impl["⚡ Implement + gates"]
+    Impl --> Parallel["✅ Accept ∥ 🔍 review"]
+    Parallel --> Fix["🔧 Fix"]
+    Fix --> Archive["📁 Archive + PROGRESS"]
+    Archive --> CommitCheck{"Commit?"}
+    CommitCheck -->|No| End(["🏁 Done"])
+    CommitCheck -->|Yes| Simplify["✨ Simplify"]
+    Simplify --> Review2["🔍 Review"]
+    Review2 --> Git["📤 Git"]
+    Git --> Sync["📍 PROGRESS"]
     Sync --> End
 ```
 
-Full rules: `harness/skills/using-harness/SKILL.md` and [mini-harness/skills/using-harness/SKILL.md](../../mini-harness/skills/using-harness/SKILL.md).
+Full rules → [using-harness SKILL](../../mini-harness/skills/using-harness/SKILL.md)

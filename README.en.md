@@ -75,7 +75,7 @@ your-repo/
 └── harness/
     ├── todo.md, PROGRESS.md, DECISIONS.md
     ├── profile/          # PROJECT.md, evolution.jsonl (project-owned; update never overwrites)
-    ├── skills/, rules/, scripts/
+    ├── skills/, scripts/
     ├── plans/, acceptance/, code_review/, backlog/
     └── ...
 ```

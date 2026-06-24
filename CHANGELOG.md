@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.5.1] - 2026-06-24
+
+### Changed
+
+- **All built-in Skills** — rewritten per skill-creator (leaner bodies, pushier descriptions, progressive references)
+- **using-harness** — added `references/skill-index.md`; emoji docs refresh
+- **Docs** — zh-CN / en guides, TRIAL, plugin README, harness template docs (plan-mode, skills, weekly-review)
+- Maintainer trigger eval: `mini-harness/evals/skill-trigger-eval.json` (local, gitignored)
+
+## [2.5.0] - 2026-06-24
+
+### Removed
+
+- **`harness/rules/`** bundle — generic Python coding conventions removed as too specialized; projects maintain their own style (pyproject, Cursor rules, etc.)
+- Install/update prunes legacy `harness/rules/` from pre-0.6.0 installs
+
+### Changed
+
+- Template version `0.6.0`
+- **using-harness** / **workflow** no longer reference `harness/rules/`
+
 ## [2.4.0] - 2026-06-24
 
 ### Added

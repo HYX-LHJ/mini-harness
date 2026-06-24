@@ -1,16 +1,18 @@
-﻿# Getting Started
+﻿# 🚀 Getting Started
 
-This guide walks you through activating mini-harness in your project.
+Activate mini-harness in your project in a few minutes.
 
-### Prerequisites
+---
 
-| Requirement | Notes |
-|-------------|-------|
-| An agent tool | Cursor, Codex, or Claude Code |
-| Python 3.10+ | For `mini_harness.py` and session hooks |
-| Git repo | Recommended for target project |
+## Prerequisites
 
-For Python gates in the target repo (after `python-code-style` setup):
+| Dependency | Notes |
+|------------|-------|
+| 🤖 Agent tool | Cursor · Codex · Claude Code |
+| 🐍 Python 3.10+ | For `mini_harness.py` and hooks |
+| 📦 Git repo | Target project should be `git init` |
+
+Python gates (after init via `python-code-style`):
 
 ```bash
 python -m venv .venv
@@ -18,89 +20,102 @@ python -m venv .venv
 # Unix:    .venv/bin/pip install ruff pytest mypy
 ```
 
-### Step 1 — Get the plugin
+---
 
-Install via marketplace (recommended) or clone the repo. **Plugin install loads `skills/using-harness/SKILL.md` immediately** — the collaboration workflow is usable before repo activation.
+## 1️⃣ Get the plugin
+
+Install from marketplace or clone. **Plugin alone gives you `using-harness`** — no repo `install` required yet.
 
 ```bash
 git clone https://github.com/HYX-LHJ/mini-harness.git
 ```
 
-**Host plugin** (skills + optional session-start reminders):
-
-| Host | Local test |
-|------|------------|
-| Cursor | Copy/symlink `mini-harness/` → `~/.cursor/plugins/local/mini-harness` |
+| Host | Local dev |
+|------|-----------|
+| Cursor | `mini-harness/` → `~/.cursor/plugins/local/mini-harness` |
 | Claude Code | `claude --plugin-dir /path/to/mini-harness` |
-| Codex | Install from marketplace; trust hooks; new session |
+| Codex | Marketplace → trust hooks → new session |
 
-See [installation.md](installation.md) for details.
+See [installation.md](installation.md).
 
-### Step 2 — Activate harness in your repo
+---
+
+## 2️⃣ Activate harness in your repo
 
 ```bash
 python mini-harness/scripts/mini_harness.py install --root .
 python harness/scripts/mini_harness.py doctor --root .
 ```
 
-**Via agent (recommended):**
+**Or tell the agent:**
 
-> Initialize mini-harness in this repository — run install and doctor.
+> Initialize mini-harness in this repo — run install and doctor.
 
-The installer creates `harness/`, `tests/`, syncs built-in skills to `harness/skills/`, and writes `harness/scripts/mini_harness.py`. It does **not** create or overwrite a project-root `AGENTS.md` — the workflow lives in `harness/skills/using-harness/SKILL.md` (available from the plugin immediately after install).
+You get `harness/`, `tests/`, `harness/skills/`. **No** root `AGENTS.md` — workflow lives in `harness/skills/using-harness/SKILL.md`.
 
-| Flag | Description |
-|------|-------------|
-| `--root` | Target repo root (default: cwd) |
+| Flag | Meaning |
+|------|---------|
+| `--root` | Target repo root (default `.`) |
 
-If your repo already has a user-owned `AGENTS.md` at the root, `install` leaves it unchanged.
+User-owned root `AGENTS.md` is preserved.
 
-### Step 3 — Built-in skills (no separate install)
+---
 
-After activation, skills live in `harness/skills/`:
+## 3️⃣ Built-in skills (bundled)
+
+After activate, skills live in `harness/skills/`:
 
 | Skill | When |
 |-------|------|
 | `tdd` + `python-testing-patterns` | Before runtime code (subagent) |
-| `acceptance-verification` | After implementation (subagent) |
-| `code-review-expert` | After implementation (subagent) |
+| `acceptance-verification` | After implement (subagent) |
+| `code-review-expert` | After implement / before commit (subagent) |
 | `code-simplifier` | Before commit (subagent) |
-| `brainstorming` | During Plan mode |
+| `brainstorming` | Plan mode |
 | `python-code-style` | Once at init (Python toolchain) |
 
-Always reference repo paths, e.g. `harness/skills/tdd/SKILL.md` — not global `~/.agents/skills/`.
+Always reference **`harness/skills/tdd/SKILL.md`** — not `~/.agents/skills/`.
 
-### Step 4 — Customize
+---
 
-- Actionable rules → `harness/profile/PROJECT.md`
-- Major decisions → `harness/DECISIONS.md` (by topic)
-- Collaboration docs → `harness/docs/`
-- Coding rules → `harness/rules/`
+## 4️⃣ Customize
 
-### Verify
+| What | Where |
+|------|-------|
+| Rules agent obeys each round | `harness/profile/PROJECT.md` |
+| Major decisions | `harness/DECISIONS.md` (by topic) |
+| Collab docs | `harness/docs/` |
 
-`doctor` returns `ok: true` with no warnings, and these exist:
+---
+
+## ✅ Verify
+
+`doctor` → `ok: true`, no warnings; plus:
 
 ```text
-harness/index.md, harness/todo.md, harness/PROGRESS.md
-harness/scripts/mini_harness.py
+harness/index.md, todo.md, PROGRESS.md
 harness/skills/using-harness/SKILL.md
+harness/scripts/mini_harness.py
 tests/
 ```
 
-Ask your agent: *"Read harness/skills/using-harness/SKILL.md and harness/PROGRESS.md, then summarize current state."*
+Ask agent: “Read `harness/skills/using-harness/SKILL.md` and `PROGRESS.md`, summarize state.”
 
-### FAQ
+---
 
-**Existing `harness/`?** The installer preserves project-owned files; managed templates are updated idempotently. Run `doctor` to check drift.
+## ❓ FAQ
 
-**No Python project?** Skip `python-code-style`; harness still works for docs-only repos.
+**Already have `harness/`?** Installer keeps project-owned files; run `doctor` for drift.
 
-**Agent skipped todo / AC?** Remind it to follow the using-harness skill hard constraints — register todo and confirm AC before implementation.
+**Not Python?** Skip `python-code-style`; docs-only repos work fine.
 
-### Next steps
+**Agent skips todo / AC?** Remind: using-harness **hard constraints** — todo first, **AC confirmed** before code.
 
-- [architecture.md](architecture.md) — directory design
-- [workflow.md](workflow.md) — rounds and commits
-- [installation.md](installation.md) — full multi-host guide
-- [TRIAL.md](../../mini-harness/TRIAL.md) — 5-minute trial
+---
+
+## Next
+
+- [architecture.md](architecture.md) — 🏗️ layout
+- [workflow.md](workflow.md) — 🔄 rounds & commit
+- [installation.md](installation.md) — 🔌 multi-host install
+- [TRIAL.md](../../mini-harness/TRIAL.md) — ⏱️ 5-min trial
