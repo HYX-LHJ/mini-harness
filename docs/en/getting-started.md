@@ -66,6 +66,7 @@ After activation, skills live in `harness/skills/`:
 | `code-review-expert` | After implementation (subagent) |
 | `code-simplifier` | Before commit (subagent) |
 | `brainstorming` | During Plan mode |
+| `goal-md` | Complex multi-round optimization (`harness/goal/` + scoring script) |
 | `python-code-style` | Once at init (Python toolchain) |
 
 Always reference repo paths, e.g. `harness/skills/tdd/SKILL.md` — not global `~/.agents/skills/`.

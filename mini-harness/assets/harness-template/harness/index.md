@@ -15,5 +15,6 @@
 | [code_review/](code_review/) | 评审报告与未关闭发现 |
 | [code_simplifier/](code_simplifier/) | 可选的简化记录 |
 | [backlog/](backlog/) | 已归档的任务与决策历史 |
+| [goal/](goal/) | GOAL 模式：目标规格、评分脚本与迭代日志（[goal-md](skills/goal-md/SKILL.md)） |
 
 仓库专属文档与自动化可扩展本目录；此类扩展由项目自行维护，不由 mini-harness 管理。

@@ -41,6 +41,11 @@
   → 主 Agent 实现 → 本地门禁
   → subagent(验收) ∥ subagent(审查) → 修复 → 归档 → PROGRESS
 
+GOAL（复杂可度量多轮）：
+ 读状态 → [goal-md] → todo 元任务（无 per-iteration AC）→ `harness/goal/` 改进循环
+  → 分数只来自 harness/goal/score.py；迭代追加 harness/goal/iterations.jsonl
+  → 收敛后可选 subagent(验收 ∥ 审查) → PROGRESS
+
 交付（串行）：
   subagent(精炼) → subagent(审查) → 提交 / 推送 → PROGRESS
 ```
@@ -51,9 +56,11 @@
 
 ### 2. Plan
 
-需求含糊、多方案、影响契约或跨模块时，先读 [brainstorming](../../brainstorming/SKILL.md) 做 Plan。方案写入 `harness/plans/`，**AC 同步到 todo**，用户确认后再实现。小修复可跳过 Plan，**不可跳过 AC**。
+需求含糊、多方案、影响契约或跨模块时，先读 [brainstorming](../../brainstorming/SKILL.md) 做 Plan。方案写入 `harness/plans/`，**AC 同步到 todo**，用户确认后再实现。小修复可跳过 Plan。
 
-### 3. AC 核对（人工门禁）
+**常规任务不可跳过 AC**；**GOAL 任务**走 [goal-md](../../goal-md/SKILL.md)，用元任务 + `harness/goal/iterations.jsonl` 替代 per-iteration AC（见上文 GOAL 流程）。
+
+### 3. AC 核对（人工门禁 — 仅常规任务）
 
 自动化与 `acceptance-verification` 只能验证「实现是否符合 AC」，无法证明「AC 是否符合用户意图」。
 
@@ -105,6 +112,7 @@ subagent 交付后，主 Agent 编写运行时代码并跑通本地门禁。
 | [acceptance-verification](../../acceptance-verification/SKILL.md) | 实现后 | Subagent |
 | [code-review-expert](../../code-review-expert/SKILL.md) | 实现后 / 提交前 | Subagent |
 | [code-simplifier](../../code-simplifier/SKILL.md) | 提交前 | Subagent |
+| [goal-md](../../goal-md/SKILL.md) | 复杂多轮优化任务（GOAL.md） | 主 Agent |
 
 修改 Python 代码前阅读 [python-coding-conventions.md](../../../rules/python-coding-conventions.md)。测试放在仓库根 `tests/`。
 
@@ -120,3 +128,4 @@ subagent 交付后，主 Agent 编写运行时代码并跑通本地门禁。
 | `harness/rules/` | 编码规范 |
 | `harness/acceptance/`、`code_review/`、`code_simplifier/` | 报告 |
 | `harness/backlog/` | 归档 |
+| `harness/goal/` | GOAL 模式：`index.md`、`GOAL.md`、`score.py`、`iterations.jsonl` |

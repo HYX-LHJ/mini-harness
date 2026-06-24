@@ -42,6 +42,7 @@ your-repo/
     ├── code_review/          # Review reports + open-findings
     ├── code_simplifier/      # Simplify reports
     ├── backlog/              # Archived todos
+    ├── goal/                 # GOAL mode (goal-md): index, GOAL.md, score.py, iterations.jsonl
     └── .package/             # Version snapshot for drift detection
 ```
 
@@ -81,9 +82,23 @@ your-repo/
 
 ```text
 your-repo/
-├── src/ or agent/    # Business code (tdd + review required when changed)
-├── harness/          # Collaboration control plane (not runtime)
-└── tests/            # Tests at repo root (not harness/tests/)
+├── harness/
+│   ├── goal/            # Optional: GOAL mode (goal-md)
+│   │   ├── index.md
+│   │   ├── GOAL.md
+│   │   ├── iterations.jsonl
+│   │   └── score.py
+│   ├── todo.md, PROGRESS.md, …
+│   └── …
+├── src/ or agent/       # Business code (regular changes need tdd + review)
+└── tests/               # Tests at repo root (not harness/tests/)
 ```
+
+**Two collaboration paths** (see `harness/skills/goal-md/SKILL.md`):
+
+| Path | Done when | State files |
+|------|-----------|-------------|
+| **Regular** | todo AC checked | `todo.md`, `PROGRESS.md` |
+| **GOAL** | `harness/goal/score.py` score + stop conditions | `harness/goal/*`, optional `PROGRESS.md` |
 
 Gate commands (pytest, ruff, mypy) are project-specific — configured via `python-code-style` into `pyproject.toml` and summarized in `DECISIONS.md`.

@@ -7,13 +7,28 @@
 | 概念 | 说明 |
 |------|------|
 | **回合** | 每条用户消息对应一轮完整流程 |
-| **AC** | `todo.md` 中的验收标准；须用户确认后才可实现 |
-| **常规回合** | 读状态 → todo → TDD subagent → 实现 → 验收 ∥ 审查 → 归档 → PROGRESS |
+| **AC** | `todo.md` 中的验收标准；**常规任务**须用户确认后才可实现 |
+| **GOAL 回合** | [goal-md](../../mini-harness/skills/goal-md/SKILL.md)：`harness/goal/` 管多轮迭代，todo 仅元任务，不经 per-iteration AC |
+| **常规回合** | 读状态 → todo → AC 已确认 → TDD subagent → 实现 → 验收 ∥ 审查 → 归档 → PROGRESS |
 | **交付回合** | 常规收尾 + 精炼 + 二次审查 + Git |
 | **Plan 模式** | 写方案、AC 同步到 todo、等待用户确认 |
 | **Subagent** | 独立 Agent 负责测试、验收、审查、精炼（通过 Task 工具） |
 
 > Subagent 调度因 Cursor（Task）、Claude Code、Codex 等而异；harness **目录布局与 using-harness skill 规则与工具无关**。
+
+### GOAL 回合（多轮可度量优化）
+
+满足 **任一** 即走 [goal-md](../../mini-harness/skills/goal-md/SKILL.md) 而非常规 AC 链：
+
+- 成功标准需构造适应度函数（`harness/goal/score.py`）
+- 预估 **>3 轮** 迭代才能收敛
+- 用户要求「跑到 XX 分」或 overnight 自主改进
+
+```
+读状态 → todo 元任务 → `harness/goal/` 改进循环 → 收敛后 PROGRESS
+```
+
+迭代细节写入 `harness/goal/iterations.jsonl`，**不要**每轮重写 todo AC。收敛后若需交付，再走验收 ∥ 审查 subagent。
 
 ### 常规回合
 
@@ -25,7 +40,7 @@
 1. **读上下文** — `PROGRESS.md`、`todo.md`、`DECISIONS.md`（并行）
 2. **Plan**（重大任务）— 写 `plans/`，AC 同步到 `todo.md`，等待确认
 3. **登记 todo** — 有变更先写 `todo.md`，含 AC 表
-4. **AC 核对** — 用户确认 AC 意图；**未勾选前不得实现**
+4. **AC 核对** — 用户确认 AC 意图；**常规任务未勾选前不得实现**（GOAL 回合除外，见上）
 5. **TDD subagent** — 在 `tests/` 写 failing 测试（主 Agent 可并行预读代码）
 6. **实现** — 主 Agent 编写运行时代码（green / refactor）
 7. **本地门禁** — pytest、ruff、mypy（subagent 报告前）
@@ -51,6 +66,7 @@
 | `acceptance-verification` | 实现完成后 | Subagent | 仅文档 |
 | `code-review-expert` | 实现后；提交前 | Subagent | 仅文档 |
 | `code-simplifier` | 提交前 | Subagent | 无代码变更 |
+| `goal-md` | 复杂多轮可度量优化（GOAL.md） | 主 Agent | 单次明确交付 |
 
 始终使用 `harness/skills/<name>/SKILL.md`，**不要**用全局 skill 路径。
 

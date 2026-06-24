@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2026-06-24
+
+### Added
+
+- **`goal-md` skill** — multi-round measurable optimization (`GOAL.md` + fitness script + `iterations.jsonl`)
+- **`harness/goal/`** directory with `index.md` (indexed from `harness/index.md` like other harness areas)
+- `init_goal.py` scaffold (requires repo `install` first)
+- `test_goal_md_coherence.py` — docs, paths, and package contract checks for goal-md integration
+
+### Changed
+
+- **using-harness** documents dual paths: regular (todo + AC) vs GOAL (meta-task + `harness/goal/`)
+- User docs (`docs/`, README) and harness template updated for `harness/goal/` layout
+
 ## [2.1.0] - 2026-06-23
 
 ### Added

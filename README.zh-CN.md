@@ -42,6 +42,9 @@ docs/           # 用户文档
 ```bash
 python mini-harness/scripts/mini_harness.py install --root .
 python harness/scripts/mini_harness.py doctor --root .
+
+# 可选 — GOAL 多轮模式（须先 install）
+python harness/skills/goal-md/scripts/init_goal.py --name "覆盖率提升到 90%"
 ```
 
 **可选 — 本地插件开发**（不经市场导入）：
@@ -58,6 +61,7 @@ python harness/scripts/mini_harness.py doctor --root .
 | 改完就提交 | **pytest / ruff / mypy 门禁** + subagent 审查 |
 | Plan、审查只在聊天里 | **落盘到 git** |
 | 每人一套 Prompt | 统一 **using-harness skill**（`SKILL.md`） |
+| 只能做单次交付 | 可选 **goal-md**：`harness/goal/` 多轮可度量自主改进 |
 
 ---
 
@@ -68,7 +72,8 @@ python harness/scripts/mini_harness.py doctor --root .
 | `skills/using-harness/SKILL.md` | 每回合 Playbook（插件内；`install` 后位于 `harness/skills/`） |
 | `harness/todo.md` | 当前任务与验收标准（AC） |
 | `harness/PROGRESS.md` | 进度快照 |
-| `harness/skills/` | 内置 Skill（tdd、code-review、acceptance 等） |
+| `harness/skills/` | 内置 Skill（tdd、code-review、acceptance、**goal-md** 等） |
+| `harness/goal/`（可选） | 多轮可度量优化（[goal-md](mini-harness/skills/goal-md/SKILL.md)；须先 `install`） |
 | `harness/scripts/` | `mini_harness.py`（install / update / doctor） |
 | `tests/` | 全部测试文件（仓库根目录） |
 
@@ -82,10 +87,13 @@ your-repo/
     ├── todo.md、PROGRESS.md、DECISIONS.md
     ├── skills/、rules/、scripts/
     ├── plans/、acceptance/、code_review/、backlog/
+    ├── goal/              # 可选：GOAL.md、score.py、iterations.jsonl
     └── ...
 ```
 
 </details>
+
+**两种协作路径：** 常规任务走 `todo.md` + AC；多轮可度量优化走 [goal-md](mini-harness/skills/goal-md/SKILL.md) 与 `harness/goal/`（见[协作流程](docs/zh-CN/workflow.md)）。
 
 ---
 
@@ -99,7 +107,7 @@ your-repo/
 | [架构说明](docs/zh-CN/architecture.md) | [Architecture](docs/en/architecture.md) |
 | [协作流程](docs/zh-CN/workflow.md) | [Workflow](docs/en/workflow.md) |
 
-插件维护文档：[mini-harness/README.md](mini-harness/README.md) · [mini-harness/skills/using-harness/SKILL.md](mini-harness/skills/using-harness/SKILL.md)
+插件维护文档：[mini-harness/README.md](mini-harness/README.md) · [using-harness](mini-harness/skills/using-harness/SKILL.md) · [goal-md](mini-harness/skills/goal-md/SKILL.md)
 
 ---
 

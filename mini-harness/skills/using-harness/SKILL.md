@@ -16,7 +16,9 @@ mini-harness 是 **Skill 集合包**。本 Skill 是**工作流入口**——告
 
 1. **确认路径**（下表）
 2. **读状态**：已 `install` 则并行读 `harness/PROGRESS.md`、`harness/todo.md`（按需 `DECISIONS.md`）；未 `install` 则只读任务，有持久化需求先 `install` 或征得用户同意
-3. **跟流程**：按 [workflow.md](references/workflow.md) 执行；有变更先 todo；运行时代码须 **AC 核对** 后再 TDD / 实现
+3. **跟流程**：按 [workflow.md](references/workflow.md) 执行
+   - **常规任务**：有变更先 todo；运行时代码须 **AC 核对** 后再 TDD / 实现
+   - **GOAL 任务**（[goal-md](../goal-md/SKILL.md)）：在 todo 登记**元任务**；迭代细节用 `harness/goal/iterations.jsonl`，**不要求**每轮 AC 核对
 
 勿跳过本 Skill；勿用 `~/.agents/skills/` 替代插件或 `harness/skills/` 下的内置 Skill。
 
@@ -34,17 +36,19 @@ mini-harness 是 **Skill 集合包**。本 Skill 是**工作流入口**——告
 ## 硬约束
 
 1. **有文件变更** → 先登记 `harness/todo.md`（只读任务除外）
-2. **改运行时代码** → todo 含 AC，并在 `tests/` 有对应测试
-3. **AC 已确认** → 与用户核对意图并勾选前，不得 TDD 或写实现
-4. **范围** → 不覆盖用户无关改动
-5. **Subagent** → 测试（`tdd` + `python-testing-patterns`）、验收、审查、提交前精炼须走 subagent；主 Agent 不代劳（细则见 workflow）
-6. **并行** → 无依赖冲突时同消息启动可并行 subagent（见 workflow）
+2. **常规：改运行时代码** → todo 含 AC，并在 `tests/` 有对应测试
+3. **常规：AC 已确认** → 与用户核对意图并勾选前，不得 TDD 或写实现
+4. **GOAL 模式** → 读 [goal-md](../goal-md/SKILL.md)；todo 仅元任务；分数与迭代见 `harness/goal/`（不经 per-iteration AC）
+5. **范围** → 不覆盖用户无关改动
+6. **Subagent** → 测试（`tdd` + `python-testing-patterns`）、验收、审查、提交前精炼须走 subagent；主 Agent 不代劳（GOAL 循环内按需调用，细则见 workflow）
+7. **并行** → 无依赖冲突时同消息启动可并行 subagent（见 workflow）
 
 ## 流程一览
 
 ```text
 读状态 → [Plan + brainstorming] → todo + AC 核对 → subagent(测试) → 实现 → 门禁
   → subagent(验收 ∥ 审查) → 归档 → PROGRESS
+GOAL（复杂可度量多轮）→ [goal-md] → todo 元任务 → `harness/goal/` 循环 → 收敛后 PROGRESS
 提交：subagent(精炼) → subagent(审查) → git
 ```
 
@@ -58,3 +62,4 @@ mini-harness 是 **Skill 集合包**。本 Skill 是**工作流入口**——告
 | [lifecycle.md](references/lifecycle.md) | install / update / doctor |
 | [host-support.md](references/host-support.md) | 各宿主插件与钩子 |
 | [portability.md](references/portability.md) | 可移植性边界 |
+| [goal-md](../goal-md/SKILL.md) | GOAL.md 多轮自主改进 |

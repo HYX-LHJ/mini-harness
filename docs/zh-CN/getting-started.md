@@ -66,6 +66,7 @@ python harness/scripts/mini_harness.py doctor --root .
 | `code-review-expert` | 实现完成后（subagent） |
 | `code-simplifier` | 提交前（subagent） |
 | `brainstorming` | 做 Plan 时 |
+| `goal-md` | 复杂多轮可度量优化（`harness/goal/` + 评分脚本） |
 | `python-code-style` | 初始化时一次（Python 工具链） |
 
 任务中写明仓库路径，例如 `harness/skills/tdd/SKILL.md`，**不要**用全局 `~/.agents/skills/`。
