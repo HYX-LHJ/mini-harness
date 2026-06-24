@@ -23,6 +23,7 @@ python harness/scripts/mini_harness.py install --root .
 安装器会：
 
 - 创建 `harness/` 及 `PROGRESS.md`、`todo.md`、`DECISIONS.md` 等模板文件；
+- **不会**创建或覆盖仓库根 `AGENTS.md`（v2.1+ 工作流在 `harness/skills/using-harness/SKILL.md`）；
 - 创建仓库根目录 `tests/`；
 - 将内置 Skills 同步到 `harness/skills/`（含本 Skill 正文）；
 - 将管理脚本同步到 `harness/scripts/`；

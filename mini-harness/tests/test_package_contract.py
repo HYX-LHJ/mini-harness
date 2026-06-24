@@ -29,7 +29,7 @@ def test_three_host_manifests_share_identity_and_components() -> None:
     parsed = [json.loads(path.read_text(encoding="utf-8")) for path in manifests]
 
     assert {manifest["name"] for manifest in parsed} == {"mini-harness"}
-    assert {manifest["version"] for manifest in parsed} == {"2.2.0"}
+    assert {manifest["version"] for manifest in parsed} == {"2.2.1"}
     assert all(manifest.get("description") for manifest in parsed)
 
 

@@ -5,14 +5,14 @@
   },
   "metadata": {
     "description": "Portable Agent workflow harness for Cursor, Codex, and Claude Code.",
-    "version": "2.2.0"
+    "version": "2.2.1"
   },
   "plugins": [
     {
       "name": "mini-harness",
       "source": "./mini-harness",
       "description": "Session handoff, scoped tasks, AC workflow, built-in skills, and harness installer.",
-      "version": "2.2.0",
+      "version": "2.2.1",
       "license": "MIT",
       "repository": "https://github.com/HYX-LHJ/mini-harness",
       "keywords": ["harness", "workflow", "agent", "tdd", "skills"],

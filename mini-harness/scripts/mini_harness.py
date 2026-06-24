@@ -32,6 +32,34 @@ def _render(text: str) -> str:
     return text.replace("{{TODAY}}", date.today().isoformat())
 
 
+LEGACY_PLAYBOOK_MARKERS = (
+    "# Agent Harness Playbook",
+    "harness/skills/mini-harness/",
+)
+
+
+def _running_from_repo_harness_scripts(script_file: Path) -> bool:
+    resolved = script_file.resolve()
+    parent = resolved.parent
+    return parent.name == "scripts" and parent.parent.name == "harness"
+
+
+def _should_force_sync_bundles(script_file: Path) -> bool:
+    """Force-sync managed bundles from .package when run from plugin or repo harness/scripts."""
+    return _plugin_root(script_file) is not None or _running_from_repo_harness_scripts(script_file)
+
+
+def _looks_like_harness_playbook_agents(text: str) -> bool:
+    return any(marker in text for marker in LEGACY_PLAYBOOK_MARKERS)
+
+
+def _repo_root_from_script(script_file: Path) -> Path | None:
+    """Resolve repository root when invoked via harness/scripts/mini_harness.py."""
+    if not _running_from_repo_harness_scripts(script_file):
+        return None
+    return script_file.resolve().parents[2]
+
+
 def _plugin_root(script_file: Path) -> Path | None:
     resolved = script_file.resolve()
     parent = resolved.parent
@@ -279,15 +307,23 @@ def _prune_legacy_playbook_artifacts(
         or agents_mode in {"created", "managed"}
     )
 
-    package_playbook = root_path / LEGACY_PACKAGE_PLAYBOOK
-    if package_playbook.is_file():
-        package_playbook.unlink()
-        changed = True
+    for legacy_path in (
+        root_path / LEGACY_PACKAGE_PLAYBOOK,
+        root_path / "harness" / "AGENTS.md",
+        root_path / "harness" / "Agents.md",
+        root_path / "harness" / ".package" / "AGENTS.md",
+        root_path / "harness" / ".package" / "Agents.md",
+    ):
+        if legacy_path.is_file():
+            legacy_path.unlink()
+            changed = True
 
     agents_path = root_path / LEGACY_AGENTS_RELATIVE
-    if harness_owned_agents and agents_path.is_file():
-        agents_path.unlink()
-        changed = True
+    if agents_path.is_file():
+        agents_text = agents_path.read_text(encoding="utf-8")
+        if harness_owned_agents or _looks_like_harness_playbook_agents(agents_text):
+            agents_path.unlink()
+            changed = True
 
     for rel in (LEGACY_AGENTS_RELATIVE.as_posix(), LEGACY_PACKAGE_PLAYBOOK.as_posix()):
         managed_files.discard(rel)
@@ -354,6 +390,7 @@ def install(root: str | Path, *, script_file: Path | None = None) -> dict[str, A
                 )
 
     sync_from_plugin = _plugin_root(script) is not None
+    force_sync_bundles = _should_force_sync_bundles(script)
 
     for bundle in BUNDLE_NAMES:
         source = package_root / bundle
@@ -366,7 +403,7 @@ def install(root: str | Path, *, script_file: Path | None = None) -> dict[str, A
             managed_hashes=managed_hashes,
             previous_managed=previous_managed,
             previous_hashes=previous_hashes,
-            force=sync_from_plugin,
+            force=force_sync_bundles,
         ):
             changed = True
 
@@ -481,6 +518,32 @@ def doctor(root: str | Path) -> dict[str, Any]:
         warnings.append(
             "发现过时的 harness/.package/AGENTS.md；运行 "
             "`python harness/scripts/mini_harness.py update --root .` 清理"
+        )
+
+    root_agents = root_path / LEGACY_AGENTS_RELATIVE
+    if root_agents.is_file():
+        agents_text = root_agents.read_text(encoding="utf-8")
+        if _looks_like_harness_playbook_agents(agents_text):
+            warnings.append(
+                "发现仓库根 AGENTS.md（v2.1 前 harness 旧 Playbook）；运行 update 清理。"
+                "工作流现位于 harness/skills/using-harness/SKILL.md"
+            )
+        else:
+            warnings.append(
+                "仓库根存在 AGENTS.md（非 harness 管理）；v2.1+ 工作流在 "
+                "harness/skills/using-harness/SKILL.md"
+            )
+
+    pkg_installer = root_path / "harness" / ".package" / "scripts" / "mini_harness.py"
+    live_installer = root_path / "harness" / "scripts" / "mini_harness.py"
+    if (
+        pkg_installer.is_file()
+        and live_installer.is_file()
+        and _normalized_text_digest(pkg_installer) != _normalized_text_digest(live_installer)
+    ):
+        warnings.append(
+            "harness/scripts/mini_harness.py 与 harness/.package 不一致（可能为旧版安装器）；"
+            "运行 `python harness/scripts/mini_harness.py update --root .` 同步"
         )
 
     if marker.get("active") is True and not issues:

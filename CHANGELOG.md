@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.1] - 2026-06-24
+
+### Fixed
+
+- **Installer no longer recreates `AGENTS.md`** when `update` is run from a stale `harness/scripts/mini_harness.py` (v2.0 copy)
+- `harness/scripts/mini_harness.py` now force-syncs from `harness/.package` on repo-local `install`/`update`
+- Legacy harness-owned `AGENTS.md` (and `harness/**/AGENTS.md`) removed on install/update when fingerprint matches
+- `doctor` warns on root `AGENTS.md` and installer drift vs `.package`
+
 ## [2.2.0] - 2026-06-24
 
 ### Added

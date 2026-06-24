@@ -209,3 +209,33 @@ def test_install_migrates_legacy_harness_agents(installer, tmp_path: Path) -> No
     assert not agents.exists()
     assert not package_agents.exists()
     assert (tmp_path / "harness" / "skills" / "using-harness" / "SKILL.md").is_file()
+
+
+def test_install_removes_legacy_playbook_agents_by_fingerprint(installer, tmp_path: Path) -> None:
+    installer.install(tmp_path)
+    agents = tmp_path / "AGENTS.md"
+    agents.write_text("# Agent Harness Playbook\n\nOld content.\n", encoding="utf-8")
+
+    installer.install(tmp_path)
+
+    assert not agents.exists()
+
+
+def test_repo_installer_force_syncs_scripts_from_package(installer, tmp_path: Path) -> None:
+    installer.install(tmp_path)
+    repo_script = tmp_path / "harness" / "scripts" / "mini_harness.py"
+    canonical = repo_script.read_text(encoding="utf-8")
+    repo_script.write_text("# stale\ndef _install_root_playbook():\n    pass\n", encoding="utf-8")
+
+    installer.install(tmp_path, script_file=repo_script)
+
+    assert repo_script.read_text(encoding="utf-8") == canonical
+
+
+def test_doctor_warns_on_legacy_root_agents(installer, tmp_path: Path) -> None:
+    installer.install(tmp_path)
+    (tmp_path / "AGENTS.md").write_text("# Agent Harness Playbook\n", encoding="utf-8")
+
+    report = installer.doctor(tmp_path)
+
+    assert any("AGENTS.md" in warning for warning in report["warnings"])
