@@ -54,7 +54,7 @@ python harness/scripts/mini_harness.py doctor --root .
 
 3. 确认生成了 `harness/`、`tests/`。
 4. 新开 Agent 会话，同场景 A 第 2 步。
-5. **（Python 项目，可选）** 让 Agent 按 `harness/skills/python-code-style/SKILL.md` 初始化 `pyproject.toml` 与 `harness/DECISIONS.md` 中的验证命令。
+5. **（Python 项目，可选）** 让 Agent 按 `harness/skills/python-code-style/SKILL.md` 初始化 `pyproject.toml`，并在 `commands.gate` 登记验证命令。
 
 ---
 

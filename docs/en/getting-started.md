@@ -72,9 +72,10 @@ Always reference repo paths, e.g. `harness/skills/tdd/SKILL.md` — not global `
 
 ### Step 4 — Customize
 
-- Project constraints → `harness/DECISIONS.md`
+- Actionable rules → `harness/profile/PROJECT.md`
+- Major decisions → `harness/DECISIONS.md` (by topic)
 - Collaboration docs → `harness/docs/`
-- Coding rules → `harness/rules/` or `DECISIONS.md`
+- Coding rules → `harness/rules/`
 
 ### Verify
 

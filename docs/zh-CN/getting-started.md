@@ -72,9 +72,10 @@ python harness/scripts/mini_harness.py doctor --root .
 
 ### 第四步 — 定制
 
-- 项目约束 → `harness/DECISIONS.md`
+- 可执行规则 → `harness/profile/PROJECT.md`
+- 重大决策 → `harness/DECISIONS.md`（按主题）
 - 协作文档 → `harness/docs/`
-- 编码规范 → `harness/rules/` 或 `DECISIONS.md`
+- 编码规范 → `harness/rules/`
 
 ### 验证
 

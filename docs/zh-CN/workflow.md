@@ -22,7 +22,7 @@
   → subagent(验收) ∥ subagent(审查) → 修复阻塞项 → 归档 todo → PROGRESS
 ```
 
-1. **读上下文** — 并行读 `PROGRESS.md`、`todo.md`、`DECISIONS.md`
+1. **读上下文** — 并行读 `PROGRESS.md`、`todo.md`、`profile/PROJECT.md`；Plan / 架构时加读 `DECISIONS.md` 相关主题
 2. **Plan**（重大任务）— 写 `plans/`，AC 同步到 `todo.md`，等待确认
 3. **登记 todo** — 有变更先写 `todo.md`，含 AC 表
 4. **AC 核对** — 用户确认 AC 意图；**未勾选前不得实现**

@@ -14,8 +14,9 @@ from typing import Any
 
 SCRIPT_FILE = Path(__file__)
 PLUGIN_ROOT = SCRIPT_FILE.resolve().parents[1]
-TEMPLATE_VERSION = "0.4.0"
+TEMPLATE_VERSION = "0.5.0"
 MARKER_RELATIVE = Path("harness/.mini-harness.json")
+PROJECT_OWNED_PREFIXES = ("harness/profile/",)
 LEGACY_AGENTS_RELATIVE = Path("AGENTS.md")
 LEGACY_PACKAGE_PLAYBOOK = Path("harness/.package/AGENTS.md")
 LEGACY_SKILL_DIR = Path("harness/skills/mini-harness")
@@ -26,6 +27,28 @@ EXPOSED_BUNDLES = {
     "scripts": Path("harness/scripts"),
     "rules": Path("harness/rules"),
 }
+
+
+def _is_project_owned_path(relative_name: str) -> bool:
+    normalized = relative_name.replace("\\", "/")
+    return any(normalized.startswith(prefix) for prefix in PROJECT_OWNED_PREFIXES)
+
+
+def _scaffold_project_owned_file(
+    *,
+    root_path: Path,
+    relative_name: str,
+    desired: str,
+) -> bool:
+    """Create project-owned template files on first install only; never register as managed."""
+    if not _is_project_owned_path(relative_name):
+        return False
+    target = root_path / relative_name
+    if target.exists():
+        return False
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(desired, encoding="utf-8")
+    return True
 
 
 def _render(text: str) -> str:
@@ -410,6 +433,14 @@ def install(root: str | Path, *, script_file: Path | None = None) -> dict[str, A
     for relative in _template_files(template_root):
         relative_name = relative.as_posix()
         desired = _render((template_root / relative).read_text(encoding="utf-8"))
+        if _is_project_owned_path(relative_name):
+            if _scaffold_project_owned_file(
+                root_path=root_path,
+                relative_name=relative_name,
+                desired=desired,
+            ):
+                changed = True
+            continue
         if _sync_managed_text_file(
             root_path=root_path,
             relative_name=relative_name,
@@ -548,6 +579,12 @@ def doctor(root: str | Path) -> dict[str, Any]:
 
     if marker.get("active") is True and not issues:
         warnings.extend(_collect_package_drift(root_path))
+
+    profile_project = root_path / "harness" / "profile" / "PROJECT.md"
+    if marker.get("active") is True and not profile_project.is_file():
+        warnings.append(
+            "缺少 harness/profile/PROJECT.md；运行 install 脚手架项目画像，或手动创建 profile/ 目录"
+        )
 
     return {
         "ok": not issues,

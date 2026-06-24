@@ -24,6 +24,10 @@ Thumbs.db
 /harness/
 /tests/
 
+# Maintainer-only verification (not published to GitHub)
+/mini-harness/tests/
+/mini-harness/evals/
+
 # Legacy v1 skill packages and scripts (removed in v2)
 /mini-harness-en/
 /mini-harness-zh/

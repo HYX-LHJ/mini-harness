@@ -1,6 +1,6 @@
 ---
 name: python-code-style
-description: 仅在仓库初始化 mini-harness 时使用。配置 Python 工具链（pyproject.toml、Ruff、pytest、mypy 等），并将工具链与验证命令摘要写入 harness/DECISIONS.md。不含编码规范；编码规范由独立技能负责。日常开发不要读取本技能。
+description: 仅在仓库初始化 mini-harness 时使用。配置 Python 工具链（pyproject.toml、Ruff、pytest、mypy 等），并在 harness/.mini-harness.json 的 commands.gate 登记验证命令；可选在 profile/PROJECT.md 写一键门禁引用。不含编码规范。日常开发不要读取本技能。
 ---
 
 # Python 工具链初始化（仅 harness 初始化时）
@@ -13,7 +13,7 @@ description: 仅在仓库初始化 mini-harness 时使用。配置 Python 工具
 - **不要读**：日常改代码、写测试、Code Review、提交前精炼。
 - **不负责**：命名、导入风格、docstring、类型注解写法等**编码规范**（由仓库另行提供的编码规范 Skill 负责；若尚未添加，初始化阶段也不要在本 Skill 中代写）。
 
-初始化完成后，工具链的权威来源为 **`pyproject.toml`（及同类配置文件）** 与 **`harness/DECISIONS.md` 中的工具链摘要**。
+初始化完成后，工具链的权威来源为 **仓库根 `pyproject.toml`（及同类配置文件）** 与 **`harness/.mini-harness.json` → `commands.gate`**。`harness/DECISIONS.md` 记录重大架构取舍，**不**重复工具链摘要。
 
 ## 初始化目标
 
@@ -21,8 +21,8 @@ description: 仅在仓库初始化 mini-harness 时使用。配置 Python 工具
 
 1. 发现仓库现状（Python 版本、已有配置、目录布局、依赖方式）；
 2. 创建或补齐 `pyproject.toml`（Ruff、pytest、mypy 等 dev 工具配置）；
-3. 将**工具链与验证命令**摘要写入 `harness/DECISIONS.md`；
-4. 可选：在 `harness/.mini-harness.json` 的 `commands.gate` 中登记验证命令；
+3. 在 `harness/.mini-harness.json` 的 `commands.gate` 登记验证命令；
+4. 可选：在 `harness/profile/PROJECT.md` 的「本地门禁」节写与 `commands.gate` 一致的一键命令列表（便于 Agent 每回合查阅）；
 5. 运行一次完整验证，确认通过或记录已知遗留项。
 
 未经授权不要安装工具或依赖；不要对无关文件做大规模自动修复。
@@ -38,7 +38,7 @@ description: 仅在仓库初始化 mini-harness 时使用。配置 Python 工具
 - 运行时代码目录与测试目录（例如 `agent/`、`tests/`）；
 - 包管理方式（setuptools、hatch、poetry 等）。
 
-当 mini-harness 已激活时，验证命令以 `harness/.mini-harness.json` 的 `commands.gate` 或 `harness/DECISIONS.md` 为准；二者皆空则在本 Skill 执行过程中提议最小门禁并写入 `DECISIONS.md`。
+当 mini-harness 已激活时，验证命令以 `harness/.mini-harness.json` → `commands.gate` 为准；若为空则在本 Skill 执行过程中提议最小门禁并写入 `commands.gate`。
 
 ### 2. 配置工具
 
@@ -55,7 +55,7 @@ description: 仅在仓库初始化 mini-harness 时使用。配置 Python 工具
 
 #### mypy（默认类型检查器）
 
-初始化时应配置静态类型检查，与 Ruff、pytest 同级纳入门禁。优先 **mypy**；若仓库已使用 pyright / basedpyright，沿用并在 `DECISIONS.md` 中说明，勿重复引入。
+初始化时应配置静态类型检查，与 Ruff、pytest 同级纳入门禁。优先 **mypy**；若仓库已使用 pyright / basedpyright，沿用并在 `PROGRESS.md` 或 `profile/PROJECT.md` 中注明，勿重复引入。
 
 **dev 依赖**（示例）：
 
@@ -88,20 +88,28 @@ ignore_missing_imports = true
 - 缺 stub 的第三方库用 `[[tool.mypy.overrides]]`，勿全局关闭类型检查。
 - 若 mypy 报错：修复明显问题；其余记入 `harness/PROGRESS.md`「已知问题」。
 
-### 3. 将工具链摘要写入 DECISIONS.md
+### 3. 登记门禁命令
 
-**仅写入工具链相关信息**，例如：
+在 `harness/.mini-harness.json` 的 `commands.gate` 写入可复制执行的验证命令列表，例如：
 
-- Python 版本；
-- 运行时代码与测试目录；
-- 各工具及配置所在文件；
-- 可复制粘贴的验证命令（须含 lint、format、类型检查、测试）。
+```json
+{
+  "commands": {
+    "gate": [
+      "ruff check src tests",
+      "ruff format --check src tests",
+      "mypy src",
+      "pytest -q"
+    ]
+  }
+}
+```
 
-**不要**在本步写入命名、docstring、注释风格等编码规范；留待编码规范 Skill 或用户后续补充。
+可选：在 `harness/profile/PROJECT.md`「本地门禁」节引用相同命令，便于 Agent 每回合阅读。**不要**将工具链摘要写入 `DECISIONS.md`。
 
 ### 4. 初始化验证
 
-建议顺序：
+按 `commands.gate` 顺序执行（或等价的：
 
 ```bash
 ruff check <src> <tests>
@@ -124,8 +132,9 @@ pytest
 |-------|------|
 | `using-harness` | 先完成 install；本 Skill 是其初始化清单第 3 步 |
 | `harness/rules/` | 编码规范常驻规则（`python-coding-conventions.md`） |
+| `profile/PROJECT.md` | 可执行规则与门禁引用（非 DECISIONS） |
 | `tdd` / `python-testing-patterns` | 日常改运行时代码前使用 |
 | `code-review-expert` | 日常编码完成后审查 |
 | `code-simplifier` | 提交前精炼 |
 
-本 Skill **只负责工具链初始化**；编码规范与日常代码质量由编码规范 Skill、`DECISIONS.md`、工具门禁与其余 Skill 分担。
+本 Skill **只负责工具链初始化**；编码规范与日常代码质量由编码规范 Skill、`pyproject.toml` / `commands.gate` 与其余 Skill 分担。

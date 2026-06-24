@@ -4,7 +4,7 @@
 
 ## 原则
 
-- harness 保持与具体业务无关；项目规则写在 `harness/DECISIONS.md` 或项目文档。
+- harness 保持与具体业务无关；可执行规则写在 `harness/profile/PROJECT.md`；重大取舍写在 `harness/DECISIONS.md`（按主题）。
 - 不猜测构建、测试、lint、分支、发布或部署命令。
 - 插件安装与仓库激活是两步：先有插件，再在目标仓库执行 `install`。
 
@@ -37,7 +37,7 @@ python harness/scripts/mini_harness.py doctor --root .
 
 ### 2. Python 工具链（仅一次）
 
-若仓库含 Python 代码，读取 `harness/skills/python-code-style/SKILL.md`，配置工具链并将摘要写入 `harness/DECISIONS.md`。
+若仓库含 Python 代码，读取 `harness/skills/python-code-style/SKILL.md`，配置 `pyproject.toml` 并在 `harness/.mini-harness.json` → `commands.gate` 登记验证命令。
 
 ## 维护者与权威源
 
@@ -47,7 +47,7 @@ python harness/scripts/mini_harness.py doctor --root .
 
 1. **只改** `mini-harness/` 下对应文件（尤其是 `skills/using-harness/SKILL.md`）；
 2. 在目标仓库执行 `install`；
-3. 运行 `doctor` 与 `pytest mini-harness/tests`。
+3. 运行 `doctor`；维护者另在本地运行 `pytest mini-harness/tests`（不上传 GitHub）。
 
 ## 日常维护命令
 

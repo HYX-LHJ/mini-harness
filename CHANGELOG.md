@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.0] - 2026-06-24
+
+### Added
+
+- **`harness/profile/`** project-owned layer: `PROJECT.md` (project portrait), `evolution.jsonl` (audit log)
+- Profile scaffold on `install`; never managed or overwritten by `update`
+- Evolution ritual in workflow: propose → user confirm → append `evolution.jsonl`
+- Profile A/B eval tooling for maintainers (`mini-harness/evals/`, gitignored — local only)
+
+### Changed
+
+- **using-harness** reads `profile/PROJECT.md` each round; project gates/forbidden rules take precedence
+- **`DECISIONS.md`** — topic-based major decisions (background / conclusion / impact); no longer duplicates toolchain summary
+- **`python-code-style`** writes `pyproject.toml` + `commands.gate` only; optional gate reference in `PROJECT.md`
+- `doctor` warns when `profile/PROJECT.md` is missing
+- Template version `0.5.0`
+- CI validates `install` + `doctor` only; plugin tests/evals not published on GitHub
+
 ## [2.3.0] - 2026-06-24
 
 ### Removed

@@ -43,8 +43,9 @@ tests/              # 全部测试文件
 ```text
 python mini-harness/scripts/mini_harness.py install --root /path/to/repository
 python harness/scripts/mini_harness.py doctor --root /path/to/repository
-python -m pytest mini-harness/tests
 ```
+
+（维护者本地验证：`pytest mini-harness/tests` 与 `evals/ab_test.py` 已 gitignore，不上传 GitHub。）
 
 勿只改已激活仓库内的 `harness/skills/` 而忘记回写插件——`doctor` 会检测 `.package` 漂移，新仓库 `install` 也会分发过时内容。详见 `skills/using-harness/SKILL.md` 的「维护者与权威源」。
 
@@ -95,6 +96,7 @@ claude --plugin-dir /path/to/mini-harness
 ## 验证
 
 ```text
-python -m pytest mini-harness/tests
-python scripts/mini_harness.py doctor --root /path/to/repository
+python harness/scripts/mini_harness.py doctor --root /path/to/repository
 ```
+
+维护者本地（不上传 GitHub）：`python -m pytest mini-harness/tests`、`python mini-harness/evals/ab_test.py`

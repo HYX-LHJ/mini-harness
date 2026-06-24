@@ -42,10 +42,12 @@ python /path/to/mini-harness/mini-harness/scripts/mini_harness.py install --root
 python harness/scripts/mini_harness.py doctor --root .
 ```
 
-**Run plugin tests:**
+Plugin unit tests and profile A/B evals live under `mini-harness/tests/` and `mini-harness/evals/` **locally only** (gitignored; not on GitHub). Maintainers run them before pushing:
 
 ```bash
+python -m pip install pytest
 python -m pytest mini-harness/tests
+python mini-harness/evals/ab_test.py
 ```
 
 ### Maintainer workflow
@@ -54,7 +56,7 @@ python -m pytest mini-harness/tests
 
 1. Change files under `mini-harness/` only
 2. Re-run `install` on target repos
-3. Run `doctor` and `pytest mini-harness/tests`
+3. Run `doctor` and local `pytest` / profile A/B eval (see above)
 
 See [mini-harness/skills/using-harness/SKILL.md](mini-harness/skills/using-harness/SKILL.md) — section「维护者与权威源」.
 
@@ -74,7 +76,6 @@ See [mini-harness/skills/using-harness/SKILL.md](mini-harness/skills/using-harne
 | Path | Notes |
 |------|-------|
 | `mini-harness/` | **Authoritative plugin** — `skills/using-harness/SKILL.md`, `skills/`, `scripts/`, `assets/harness-template/` |
-| `mini-harness/tests/` | Plugin installer and hook tests |
 | `README.md` / `README.zh-CN.md` | External repo overview |
 | `docs/en/` / `docs/zh-CN/` | External documentation |
 
@@ -131,15 +132,17 @@ python /path/to/mini-harness/mini-harness/scripts/mini_harness.py install --root
 python harness/scripts/mini_harness.py doctor --root .
 ```
 
-**运行插件测试：**
+插件测试与 profile A/B 评测位于 `mini-harness/tests/`、`mini-harness/evals/`，**仅本地维护**（已 gitignore，不上传 GitHub）。推送前在本地执行：
 
 ```bash
+python -m pip install pytest
 python -m pytest mini-harness/tests
+python mini-harness/evals/ab_test.py
 ```
 
 ### 维护者流程
 
-**只改** `mini-harness/` 下的权威源文件，然后在目标仓库重新 `install`，并运行 `doctor` 与 `pytest mini-harness/tests`。
+**只改** `mini-harness/` 下的权威源文件，然后在目标仓库重新 `install`，并运行 `doctor` 与本地 `pytest` / A/B eval（见上）。
 
 详见 [mini-harness/skills/using-harness/SKILL.md](mini-harness/skills/using-harness/SKILL.md)「维护者与权威源」。
 
@@ -159,7 +162,6 @@ python -m pytest mini-harness/tests
 | 路径 | 说明 |
 |------|------|
 | `mini-harness/` | **权威插件** — `skills/using-harness/SKILL.md`、`skills/`、`scripts/`、`assets/harness-template/` |
-| `mini-harness/tests/` | 安装器与钩子测试 |
 | `README.md` / `README.zh-CN.md` | 对外仓库概览 |
 | `docs/zh-CN/` / `docs/en/` | 对外文档 |
 

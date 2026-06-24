@@ -32,7 +32,7 @@ your-repo/
     ├── index.md              # L0 entry
     ├── todo.md               # Current task + AC (only place to check boxes)
     ├── PROGRESS.md           # Snapshot: state, in-progress, completed
-    ├── DECISIONS.md          # Long-term constraints
+    ├── DECISIONS.md          # Major decisions by topic
     ├── skills/               # Built-in skills (mini-harness, tdd, review, …)
     ├── rules/                # Coding conventions
     ├── scripts/              # mini_harness.py (install/update/doctor)
@@ -42,6 +42,7 @@ your-repo/
     ├── code_review/          # Review reports + open-findings
     ├── code_simplifier/      # Simplify reports
     ├── backlog/              # Archived todos
+    ├── profile/              # Project portrait (PROJECT.md, evolution.jsonl); project-owned
     └── .package/             # Version snapshot for drift detection
 ```
 
@@ -51,13 +52,24 @@ your-repo/
 |----------|------|
 | What tasks remain? | `harness/todo.md` unchecked items |
 | How to onboard a new session? | `PROGRESS.md` "current state" + "in progress" |
-| Why can't we change X? | `harness/DECISIONS.md` |
+| Why can't we change X? | `harness/DECISIONS.md` (by topic) |
+| What agent obeys each round | `harness/profile/PROJECT.md` |
+| Where are gate commands | repo-root `pyproject.toml`; `harness/.mini-harness.json` → `commands.gate` |
 | Known tech debt? | `code_review/open-findings.md` |
 | Pre-implementation plan? | `harness/plans/` |
 | What should agent do each round? | `harness/skills/using-harness/SKILL.md` |
 | Which skill to use? | `harness/skills/<name>/SKILL.md` |
 
 **Entry:** Invoke the using-harness skill each round; other skills are loaded on demand from `harness/skills/`.
+
+### Project profile & evolution
+
+| Layer | Path | Owner |
+|-------|------|-------|
+| Platform | `harness/skills/`, `rules/`, templates | mini-harness plugin (`update` syncs) |
+| Project | `harness/profile/PROJECT.md`, `evolution.jsonl` | Your team (`update` **never** overwrites) |
+
+**Major tradeoffs** → `DECISIONS.md` under the right topic; **actionable rules** → `PROJECT.md`; append `evolution.jsonl` after user confirmation.
 
 ### Naming conventions
 
@@ -88,4 +100,4 @@ your-repo/
 └── tests/               # Tests at repo root (not harness/tests/)
 ```
 
-Gate commands (pytest, ruff, mypy) are project-specific — configured via `python-code-style` into `pyproject.toml` and summarized in `DECISIONS.md`.
+Gate commands (pytest, ruff, mypy) are project-specific — configured via `python-code-style` into `pyproject.toml` and registered in `commands.gate`; optionally referenced in `profile/PROJECT.md`.

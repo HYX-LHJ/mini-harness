@@ -8,12 +8,12 @@
 
 | 阶段 | 可并行 | 必须串行 |
 |------|--------|----------|
-| 读状态 | `PROGRESS.md`、`todo.md`、`DECISIONS.md` 同时读取 | — |
-| TDD 等待期 | subagent 写测试 ∥ 主 Agent 预读 AC、`DECISIONS`、编码规范、待改模块（**不得**提前写运行时代码） | subagent 交付测试 → 主 Agent 实现 |
+| 读状态 | `PROGRESS.md`、`todo.md`、`profile/PROJECT.md` 同时读取；Plan / 架构时加读 `DECISIONS.md` 相关主题 | — |
+| TDD 等待期 | subagent 写测试 ∥ 主 Agent 预读 AC、`profile/PROJECT.md`、相关 `DECISIONS` 主题、编码规范、待改模块（**不得**提前写运行时代码） | subagent 交付测试 → 主 Agent 实现 |
 | 实现后质检 | `acceptance-verification` ∥ `code-review-expert`（同一条消息启动两个 subagent） | 实现完成 → 验收/审查；精炼 → 提交前审查 |
 | 修复后复检 | 小范围修复后可再次并行验收 + 审查 | `code-simplifier` 改代码后须串行审查 |
 
-**本地门禁**（实现完成后、启动验收/审查 subagent 之前）：按 `harness/DECISIONS.md` 或项目约定执行（常见为 `pytest`、ruff、mypy）。将结果附在 subagent 任务说明中。
+**本地门禁**（实现完成后、启动验收/审查 subagent 之前）：按仓库根 `pyproject.toml`、`harness/.mini-harness.json` → `commands.gate`，或 `profile/PROJECT.md` 中的一键门禁列表执行。将结果附在 subagent 任务说明中。
 
 **合并报告后**：验收 MUST 级 AC 未通过或 **AC-CONTRACT** 未确认仍阻塞交付；审查 P0/P1 须修复。主 Agent 统一排期修复。
 
@@ -36,10 +36,10 @@
 只读：读状态 → 回答 / 诊断（不登记 todo）
 
 常规：
- 读状态 → [Plan] → todo（含 AC）→ AC 核对（人工）
+ 读状态（含 profile）→ [Plan + brainstorming + DECISIONS?] → todo（含 AC）→ AC 核对（人工）
   → subagent(测试) ∥ 主 Agent 预读
   → 主 Agent 实现 → 本地门禁
-  → subagent(验收) ∥ subagent(审查) → 修复 → 归档 → PROGRESS
+  → subagent(验收) ∥ subagent(审查) → 修复 → [进化提案?] → 归档 → PROGRESS
 
 交付（串行）：
   subagent(精炼) → subagent(审查) → 提交 / 推送 → PROGRESS
@@ -47,7 +47,7 @@
 
 ### 1. 读状态
 
-并行读取 `harness/PROGRESS.md`、`harness/todo.md`；需要长期约束时加读 `harness/DECISIONS.md`。其它从 `harness/index.md` 下钻。
+并行读取 `harness/PROGRESS.md`、`harness/todo.md`、`harness/profile/PROJECT.md`。Plan、跨模块或质疑历史取舍时，加读 `harness/DECISIONS.md` 中相关主题。其它从 `harness/index.md` 下钻。
 
 ### 2. Plan
 
@@ -71,7 +71,7 @@
 
 先启动 subagent 执行 `tdd` 与 `python-testing-patterns`，对照 AC 在 `tests/` 写 **failing 测试**。
 
-TDD subagent 运行期间，主 Agent 可并行阅读 todo AC、`DECISIONS`、编码规范（`harness/rules/`）、待改模块——**不得**提前写运行时代码。
+TDD subagent 运行期间，主 Agent 可并行阅读 todo AC、`profile/PROJECT.md`、相关 `DECISIONS` 主题、编码规范（`harness/rules/`）、待改模块——**不得**提前写运行时代码。
 
 subagent 交付后，主 Agent 编写运行时代码并跑通本地门禁。
 
@@ -79,12 +79,16 @@ subagent 交付后，主 Agent 编写运行时代码并跑通本地门禁。
 
 1. 本地门禁通过后，**同一条消息并行**启动 `acceptance-verification` 与 `code-review-expert`
 2. 合并报告，修复阻塞项（MUST 级 AC、P0/P1）
-3. 勾完 todo（含全部 AC）
-4. **任务归档**：
+3. **进化提案（可选）**：若本任务暴露出可复用的约束或流程改进：
+   - **重大取舍**（背景、备选、结论）→ 提案写入 `harness/DECISIONS.md` **对应主题**
+   - **可执行规则**（Agent 每回合应遵守）→ 提案写入 `harness/profile/PROJECT.md`
+   - 用户确认后追加 `harness/profile/evolution.jsonl` 一行（`status`: `applied` | `rejected`）
+4. 勾完 todo（含全部 AC）
+5. **任务归档**：
    - 复制 todo 任务块到 `harness/backlog/YYYY-MM-DD-<简述>.md`
    - 在 `harness/backlog/index.md` 追加索引
    - 将 `harness/todo.md` 重置为空闲模板
-5. 更新 `harness/PROGRESS.md`
+6. 更新 `harness/PROGRESS.md`
 
 ### 7. Git 提交
 
@@ -114,7 +118,9 @@ subagent 交付后，主 Agent 编写运行时代码并跑通本地门禁。
 |------|------|
 | `harness/todo.md` | 当前任务与 AC |
 | `harness/PROGRESS.md` | 状态快照 |
-| `harness/DECISIONS.md` | 长期约束 |
+| `harness/DECISIONS.md` | 按主题的重大决策（背景 / 结论 / 影响） |
+| `harness/profile/PROJECT.md` | 项目画像（每回合必读） |
+| `harness/profile/evolution.jsonl` | 进化审计（只追加） |
 | `harness/plans/` | 待确认方案 |
 | `harness/skills/` | 内置 Skill 副本 |
 | `harness/rules/` | 编码规范 |

@@ -32,7 +32,7 @@ your-repo/
     ├── index.md              # L0 总索引
     ├── todo.md               # 当前任务 + AC（唯一可勾选处）
     ├── PROGRESS.md           # 快照：状态、进行中、已完成
-    ├── DECISIONS.md          # 长期约束
+    ├── DECISIONS.md          # 按主题的重大决策（迭代取舍）
     ├── skills/               # 内置 Skill（mini-harness、tdd、review 等）
     ├── rules/                # 编码规范
     ├── scripts/              # mini_harness.py（install/update/doctor）
@@ -42,6 +42,7 @@ your-repo/
     ├── code_review/          # 审查报告 + open-findings
     ├── code_simplifier/      # 精炼报告
     ├── backlog/              # 历史 todo 归档
+    ├── profile/              # 项目画像（PROJECT.md、evolution.jsonl）；项目自有
     └── .package/             # 版本快照（漂移检测）
 ```
 
@@ -51,13 +52,24 @@ your-repo/
 |-----------|--------|
 | 还有什么 task | `harness/todo.md` 未勾选项 |
 | 新会话如何接手 | `PROGRESS.md`「当前状态」+「进行中」 |
-| 为什么不能那样改 | `harness/DECISIONS.md` |
+| 为什么不能那样改 | `harness/DECISIONS.md`（按主题） |
+| Agent 每回合遵守什么 | `harness/profile/PROJECT.md` |
+| 门禁命令在哪 | 仓库根 `pyproject.toml`；`harness/.mini-harness.json` → `commands.gate` |
 | 已知技术债 | `code_review/open-findings.md` |
 | 实施前方案 | `harness/plans/` |
 | Agent 每回合做什么 | `harness/skills/using-harness/SKILL.md` |
 | 用哪个 Skill | `harness/skills/<name>/SKILL.md` |
 
 **入口**：每回合先调用 using-harness skill；其它 Skill 按需从 `harness/skills/` 读取。
+
+### 项目画像与自进化
+
+| 层级 | 路径 | 谁维护 |
+|------|------|--------|
+| 平台层 | `harness/skills/`、`rules/`、模板 | mini-harness 插件（`update` 同步） |
+| 项目层 | `harness/profile/PROJECT.md`、`evolution.jsonl` | 项目团队（`update` **不覆盖**） |
+
+协作中沉淀：**重大取舍** → `DECISIONS.md` 对应主题；**可执行规则** → `PROJECT.md`；经用户确认后追加 `evolution.jsonl`。
 
 ### 命名约定
 
@@ -88,4 +100,4 @@ your-repo/
 └── tests/               # 测试在仓库根（非 harness/tests/）
 ```
 
-门禁命令（pytest、ruff、mypy）由项目自定 — 通过 `python-code-style` 写入 `pyproject.toml`，摘要记入 `DECISIONS.md`。
+门禁命令（pytest、ruff、mypy）由项目自定 — 通过 `python-code-style` 写入 `pyproject.toml`，并在 `commands.gate` 登记；可选在 `profile/PROJECT.md` 引用。

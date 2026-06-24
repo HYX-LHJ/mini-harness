@@ -22,7 +22,7 @@ read state → [Plan] → register todo + AC → AC confirmed → subagent(tests
   → subagent(acceptance) ∥ subagent(review) → fix blockers → archive todo → PROGRESS
 ```
 
-1. **Read context** — `PROGRESS.md`, `todo.md`, `DECISIONS.md` (parallel)
+1. **Read context** — `PROGRESS.md`, `todo.md`, `profile/PROJECT.md` (parallel); add relevant `DECISIONS.md` topics for Plan / architecture
 2. **Plan** (major tasks) — write `plans/`, sync AC to `todo.md`, wait for confirmation
 3. **Register todo** — any change → `todo.md` first, with AC table
 4. **AC confirmation** — user confirms AC intent; **blocked until checkbox**
