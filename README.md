@@ -42,9 +42,6 @@ Details: [docs/en/installation.md](docs/en/installation.md)
 ```bash
 python mini-harness/scripts/mini_harness.py install --root .
 python harness/scripts/mini_harness.py doctor --root .
-
-# Optional — multi-round GOAL mode (after install)
-python harness/skills/goal-md/scripts/init_goal.py --name "Raise coverage to 90%"
 ```
 
 **Optional — local plugin dev** (without marketplace import):
@@ -61,7 +58,6 @@ First time? See [mini-harness/TRIAL.md](mini-harness/TRIAL.md) (5-minute walkthr
 | Code ships without tests or review | **pytest / ruff / mypy gates** + subagent review |
 | Plans and reviews only in chat | **Committed to git** |
 | Everyone uses a different prompt | Shared **using-harness skill** (`SKILL.md`) |
-| One-shot tasks only | Optional **goal-md** for scored multi-round improvement in `harness/goal/` |
 
 ---
 
@@ -72,8 +68,7 @@ First time? See [mini-harness/TRIAL.md](mini-harness/TRIAL.md) (5-minute walkthr
 | `skills/using-harness/SKILL.md` | Per-round playbook (plugin; copied to `harness/skills/` on install) |
 | `harness/todo.md` | Current task + acceptance criteria (AC) |
 | `harness/PROGRESS.md` | Progress snapshot |
-| `harness/skills/` | Built-in skills (tdd, code-review, acceptance, **goal-md**, …) |
-| `harness/goal/` (optional) | Multi-round optimization ([goal-md](mini-harness/skills/goal-md/SKILL.md); requires `install`) |
+| `harness/skills/` | Built-in skills (tdd, code-review, acceptance, …) |
 | `harness/scripts/` | `mini_harness.py` (install / update / doctor) |
 | `tests/` | All test files (repo root) |
 
@@ -87,13 +82,10 @@ your-repo/
     ├── todo.md, PROGRESS.md, DECISIONS.md
     ├── skills/, rules/, scripts/
     ├── plans/, acceptance/, code_review/, backlog/
-    ├── goal/              # optional: GOAL.md, score.py, iterations.jsonl
     └── ...
 ```
 
 </details>
-
-**Two collaboration paths:** regular tasks use `todo.md` + AC; multi-round measurable work uses [goal-md](mini-harness/skills/goal-md/SKILL.md) and `harness/goal/` (see [workflow](docs/en/workflow.md)).
 
 ---
 
@@ -107,7 +99,7 @@ your-repo/
 | [Architecture](docs/en/architecture.md) | [架构说明](docs/zh-CN/architecture.md) |
 | [Workflow](docs/en/workflow.md) | [协作流程](docs/zh-CN/workflow.md) |
 
-Plugin maintainer docs: [mini-harness/README.md](mini-harness/README.md) · [using-harness](mini-harness/skills/using-harness/SKILL.md) · [goal-md](mini-harness/skills/goal-md/SKILL.md)
+Plugin maintainer docs: [mini-harness/README.md](mini-harness/README.md) · [using-harness](mini-harness/skills/using-harness/SKILL.md)
 
 ---
 

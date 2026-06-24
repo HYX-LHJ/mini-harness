@@ -7,8 +7,7 @@
 | 概念 | 说明 |
 |------|------|
 | **回合** | 每条用户消息对应一轮完整流程 |
-| **AC** | `todo.md` 中的验收标准；**常规任务**须用户确认后才可实现 |
-| **GOAL 回合** | [goal-md](../../mini-harness/skills/goal-md/SKILL.md)：`harness/goal/` 管多轮迭代，todo 仅元任务，不经 per-iteration AC |
+| **AC** | `todo.md` 中的验收标准；须用户确认后才可实现 |
 | **常规回合** | 读状态 → todo → AC 已确认 → TDD subagent → 实现 → 验收 ∥ 审查 → 归档 → PROGRESS |
 | **交付回合** | 常规收尾 + 精炼 + 二次审查 + Git |
 | **Plan 模式** | 写方案、AC 同步到 todo、等待用户确认 |
@@ -16,40 +15,26 @@
 
 > Subagent 调度因 Cursor（Task）、Claude Code、Codex 等而异；harness **目录布局与 using-harness skill 规则与工具无关**。
 
-### GOAL 回合（多轮可度量优化）
-
-满足 **任一** 即走 [goal-md](../../mini-harness/skills/goal-md/SKILL.md) 而非常规 AC 链：
-
-- 成功标准需构造适应度函数（`harness/goal/score.py`）
-- 预估 **>3 轮** 迭代才能收敛
-- 用户要求「跑到 XX 分」或 overnight 自主改进
-
-```
-读状态 → todo 元任务 → `harness/goal/` 改进循环 → 收敛后 PROGRESS
-```
-
-迭代细节写入 `harness/goal/iterations.jsonl`，**不要**每轮重写 todo AC。收敛后若需交付，再走验收 ∥ 审查 subagent。
-
 ### 常规回合
 
 ```
-读状态 → [Plan] → 登记 todo + AC → AC 已确认 → subagent(写测试) → 实现 → 本地门禁
+读状态 → [Plan] → 登记 todo + AC → AC 已确认 → subagent(测试) → 实现 → 本地门禁
   → subagent(验收) ∥ subagent(审查) → 修复阻塞项 → 归档 todo → PROGRESS
 ```
 
-1. **读上下文** — `PROGRESS.md`、`todo.md`、`DECISIONS.md`（并行）
+1. **读上下文** — 并行读 `PROGRESS.md`、`todo.md`、`DECISIONS.md`
 2. **Plan**（重大任务）— 写 `plans/`，AC 同步到 `todo.md`，等待确认
 3. **登记 todo** — 有变更先写 `todo.md`，含 AC 表
-4. **AC 核对** — 用户确认 AC 意图；**常规任务未勾选前不得实现**（GOAL 回合除外，见上）
+4. **AC 核对** — 用户确认 AC 意图；**未勾选前不得实现**
 5. **TDD subagent** — 在 `tests/` 写 failing 测试（主 Agent 可并行预读代码）
-6. **实现** — 主 Agent 编写运行时代码（green / refactor）
+6. **实现** — 主 Agent 写运行时代码（green / refactor）
 7. **本地门禁** — pytest、ruff、mypy（subagent 报告前）
 8. **验收 ∥ 审查** — 并行 subagent；合并报告、修复阻塞项
-9. **归档 + PROGRESS** — todo 迁入 `backlog/`，更新 `PROGRESS.md`
+9. **归档 + PROGRESS** — todo 移入 `backlog/`，更新 `PROGRESS.md`
 
 ### 交付回合
 
-用户说「提交」「推送」等时，在常规收尾后：
+用户说「提交」「推送」等时，在常规收尾之后：
 
 ```
 …常规… → subagent(code-simplifier) → subagent(code-review) → Git → PROGRESS
@@ -59,20 +44,19 @@
 
 ### Skill 触发
 
-| Skill | 时机 | 执行方 | 跳过条件 |
-|-------|------|--------|----------|
+| Skill | 时机 | 执行方 | 可跳过 |
+|-------|------|--------|--------|
 | `brainstorming` | Plan 模式 | 主 Agent | 小修复 |
-| `tdd` + `python-testing-patterns` | 运行时代码前 | Subagent | 仅文档 |
-| `acceptance-verification` | 实现完成后 | Subagent | 仅文档 |
+| `tdd` + `python-testing-patterns` | 写运行时代码前 | Subagent | 仅文档 |
+| `acceptance-verification` | 实现后 | Subagent | 仅文档 |
 | `code-review-expert` | 实现后；提交前 | Subagent | 仅文档 |
 | `code-simplifier` | 提交前 | Subagent | 无代码变更 |
-| `goal-md` | 复杂多轮可度量优化（GOAL.md） | 主 Agent | 单次明确交付 |
 
-始终使用 `harness/skills/<name>/SKILL.md`，**不要**用全局 skill 路径。
+始终使用 `harness/skills/<name>/SKILL.md`，不要用全局 skill 路径。
 
 ### Plan 模式触发
 
-满足**任一**即进入 Plan：
+满足 **任一** 即进入 Plan：
 
 - 新功能 / API / 跨模块变更
 - 架构或数据模型变更
@@ -84,7 +68,7 @@
 
 ### 周回顾
 
-每周一首个会话（或新自然周首个会话）按 `harness/docs/weekly-review.md` 归档不活跃内容。
+每周一首次会话（或新一周首次会话）按 `harness/docs/weekly-review.md` 归档闲置内容。
 
 ### 流程图
 

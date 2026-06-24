@@ -42,7 +42,6 @@ your-repo/
     ├── code_review/          # 审查报告 + open-findings
     ├── code_simplifier/      # 精炼报告
     ├── backlog/              # 历史 todo 归档
-    ├── goal/                 # GOAL 模式（goal-md）：index、GOAL.md、score.py、iterations.jsonl
     └── .package/             # 版本快照（漂移检测）
 ```
 
@@ -83,22 +82,10 @@ your-repo/
 ```text
 your-repo/
 ├── harness/
-│   ├── goal/            # 可选：GOAL 模式（goal-md）
-│   │   ├── index.md
-│   │   ├── GOAL.md
-│   │   ├── iterations.jsonl
-│   │   └── score.py
 │   ├── todo.md、PROGRESS.md、…
 │   └── …
 ├── src/ 或 agent/       # 业务代码（常规改动须 tdd + review）
 └── tests/               # 测试在仓库根（非 harness/tests/）
 ```
-
-**两种协作路径**（详见 `harness/skills/goal-md/SKILL.md`）：
-
-| 路径 | 完成标准 | 状态落点 |
-|------|----------|----------|
-| **常规** | todo AC 勾选 | `todo.md`、`PROGRESS.md` |
-| **GOAL** | `harness/goal/score.py` 分数 + 停止条件 | `harness/goal/*`、可选同步 `PROGRESS.md` |
 
 门禁命令（pytest、ruff、mypy）由项目自定 — 通过 `python-code-style` 写入 `pyproject.toml`，摘要记入 `DECISIONS.md`。

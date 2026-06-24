@@ -1,6 +1,6 @@
 {
   "name": "mini-harness",
-  "version": "2.2.1",
+  "version": "2.3.0",
   "description": "可移植的仓库工作流 harness：状态恢复、范围化任务跟踪、验收标准（AC）、验证与评审指引。",
   "author": {
     "name": "mini-harness contributors"

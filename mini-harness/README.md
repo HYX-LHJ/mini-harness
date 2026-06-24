@@ -24,16 +24,15 @@ python scripts/mini_harness.py doctor --root /path/to/repository
 
 ```text
 harness/
-  skills/           # 内置 Agent Skills（using-harness、goal-md、tdd、review 等）
+  skills/           # 内置 Agent Skills（using-harness、tdd、review 等）
   scripts/          # install / update / doctor
-  goal/             # 可选：goal-md 产物（GOAL.md、score.py、iterations.jsonl）
   PROGRESS.md
   todo.md
   ...
 tests/              # 全部测试文件
 ```
 
-工作流入口：`skills/using-harness/SKILL.md`。多轮可度量优化：`skills/goal-md/SKILL.md` → 脚手架到 `harness/goal/`（须先 `install`）。
+工作流入口：`skills/using-harness/SKILL.md`。
 
 目标项目执行 `install` 后，团队成员即可使用 `harness/skills/` 与 `harness/scripts/`，无需每人单独配置插件路径。
 

@@ -7,28 +7,13 @@ Workflow rules live in `harness/skills/using-harness/SKILL.md` (plugin: `skills/
 | Concept | Description |
 |---------|-------------|
 | **Round** | One full workflow per user message |
-| **AC** | Acceptance criteria in `todo.md`; **regular tasks** need user confirmation before implementation |
-| **GOAL round** | [goal-md](../../mini-harness/skills/goal-md/SKILL.md): `harness/goal/` for multi-round work; todo meta-task only; no per-iteration AC |
+| **AC** | Acceptance criteria in `todo.md`; user confirmation required before implementation |
 | **Regular round** | Read state → todo → AC confirmed → TDD subagent → implement → acceptance ∥ review → archive → PROGRESS |
 | **Commit round** | Regular wrap-up + simplify + 2nd review + Git |
 | **Plan mode** | Write plan, sync AC to todo, wait for user confirmation |
 | **Subagent** | Separate agent for tests, acceptance, review, simplify (via Task tool) |
 
 > Subagent dispatch differs between Cursor (Task), Claude Code, Codex, etc. Harness **file layout and using-harness skill rules are tool-agnostic**.
-
-### GOAL round (multi-round measurable optimization)
-
-Use [goal-md](../../mini-harness/skills/goal-md/SKILL.md) instead of the regular AC chain when **any** applies:
-
-- Success needs a fitness function (`harness/goal/score.py`)
-- **>3** iterations expected to converge
-- User asks to “run until score XX” or overnight self-improvement
-
-```
-Read state → todo meta-task → `harness/goal/` loop → PROGRESS on convergence
-```
-
-Append each iteration to `harness/goal/iterations.jsonl`; **do not** rewrite todo AC every round. After convergence, run acceptance ∥ review subagents if delivering.
 
 ### Regular round
 
@@ -40,7 +25,7 @@ read state → [Plan] → register todo + AC → AC confirmed → subagent(tests
 1. **Read context** — `PROGRESS.md`, `todo.md`, `DECISIONS.md` (parallel)
 2. **Plan** (major tasks) — write `plans/`, sync AC to `todo.md`, wait for confirmation
 3. **Register todo** — any change → `todo.md` first, with AC table
-4. **AC confirmation** — user confirms AC intent; **regular tasks** blocked until checkbox (**GOAL rounds exempt**; see above)
+4. **AC confirmation** — user confirms AC intent; **blocked until checkbox**
 5. **TDD subagent** — failing tests in `tests/` (main agent may pre-read code in parallel)
 6. **Implement** — main agent writes runtime code (green / refactor)
 7. **Local gates** — pytest, ruff, mypy (before subagent reports)
@@ -66,7 +51,6 @@ Simplify and 2nd review are **serial** (simplify may change code).
 | `acceptance-verification` | After implementation | Subagent | Docs only |
 | `code-review-expert` | After implementation; before commit | Subagent | Docs only |
 | `code-simplifier` | Before commit | Subagent | No code changes |
-| `goal-md` | Complex multi-round measurable optimization (GOAL.md) | Main agent | Single clear delivery |
 
 Always use `harness/skills/<name>/SKILL.md` — not global skill paths.
 

@@ -28,10 +28,10 @@ jobs:
       - name: Verify required files
         run: |
           test -f /tmp/harness-test/harness/skills/using-harness/SKILL.md
-          test -f /tmp/harness-test/harness/skills/goal-md/SKILL.md
+          ! test -f /tmp/harness-test/harness/skills/goal-md/SKILL.md
           ! test -f /tmp/harness-test/AGENTS.md
           test -f /tmp/harness-test/harness/index.md
-          test -f /tmp/harness-test/harness/goal/index.md
+          ! test -d /tmp/harness-test/harness/goal
           test -f /tmp/harness-test/harness/PROGRESS.md
           test -f /tmp/harness-test/harness/todo.md
           test -f /tmp/harness-test/harness/scripts/mini_harness.py
